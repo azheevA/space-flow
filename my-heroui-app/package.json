@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --fix",
-    "api:download": "wget httl://localhost:3000/api-yaml -O ./server/api-orval/schema.yaml"
-  },2:55:45
+    "api:download": "curl http://localhost:3000/api-yaml -o ./server/api-orval/schema.yaml",
+    "api:generate": "orval"
+  },
   "dependencies": {
     "@2gis/mapgl": "^1.67.0",
     "@heroui/accordion": "2.2.26",
@@ -54,6 +55,7 @@
     "@heroui/user": "2.2.24",
     "@react-aria/ssr": "3.9.10",
     "@react-aria/visually-hidden": "3.8.29",
+    "@tanstack/react-query": "^5.90.16",
     "axios": "^1.13.2",
     "clsx": "2.1.1",
     "framer-motion": "11.18.2",

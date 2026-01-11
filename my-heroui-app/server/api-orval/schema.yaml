@@ -1,0 +1,446 @@
+openapi: 3.0.0
+paths:
+  /users:
+    get:
+      operationId: UserController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: Получить всех пользователей
+      tags:
+        - Users
+  /users/{id}:
+    get:
+      operationId: UserController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Получить одного пользователя
+      tags:
+        - Users
+    patch:
+      operationId: UserController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDto'
+      responses:
+        '200':
+          description: ''
+      summary: Обновить пользователя
+      tags:
+        - Users
+    delete:
+      operationId: UserController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Удалить пользователя
+      tags:
+        - Users
+  /account:
+    get:
+      operationId: AccountController_getAccount
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDto'
+      tags:
+        - Account
+    patch:
+      operationId: AccountController_patchAccount
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchAccountDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchAccountDto'
+      tags:
+        - Account
+  /block-list:
+    get:
+      operationId: BlockListController_getList
+      parameters:
+        - name: q
+          required: false
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockListDto'
+      tags:
+        - BlockList
+  /block-list/item:
+    post:
+      operationId: BlockListController_addBlockItem
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddBlockItemDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockItemDto'
+      tags:
+        - BlockList
+  /block-list/item/{id}:
+    delete:
+      operationId: BlockListController_removeBlockItem
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockItemDto'
+      tags:
+        - BlockList
+  /Items:
+    post:
+      operationId: ItemController_createItem
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateItemDto'
+      responses:
+        '201':
+          description: ''
+      summary: Создать все новые айтемы
+      tags:
+        - Item
+    get:
+      operationId: ItemController_findAllItems
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: Получить все айтемы
+      tags:
+        - Item
+  /Items/{id}:
+    get:
+      operationId: ItemController_findOneItem
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Получить один айтем
+      tags:
+        - Item
+    patch:
+      operationId: ItemController_updateItem
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateItemDto'
+      responses:
+        '200':
+          description: ''
+      summary: Обновить один айтем
+      tags:
+        - Item
+    delete:
+      operationId: ItemController_removeItem
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Удалить айтем
+      tags:
+        - Item
+  /auth/sign-up:
+    post:
+      operationId: AuthController_signUp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpBodyDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+        - Auth
+  /auth/sign-in:
+    post:
+      operationId: AuthController_signIn
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInBodyDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Auth
+  /auth/sign-out:
+    post:
+      operationId: AuthController_signOut
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Auth
+  /auth/session:
+    get:
+      operationId: AuthController_getSessionInfo
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSessionInfoDto'
+      tags:
+        - Auth
+info:
+  title: My Backend by Ghost Raven
+  description: >-
+    This API works with two entities: Users and Items. Each User can have
+    multiple Items.
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    UpdateUserDto:
+      type: object
+      properties: {}
+    AccountDto:
+      type: object
+      properties:
+        id:
+          type: number
+        ownerId:
+          type: number
+        isBlockingEnabled:
+          type: boolean
+      required:
+        - id
+        - ownerId
+        - isBlockingEnabled
+    PatchAccountDto:
+      type: object
+      properties:
+        isBlockingEnabled:
+          type: boolean
+    BlockItemDto:
+      type: object
+      properties:
+        id:
+          type: number
+        blockListid:
+          type: number
+        type:
+          type: string
+          enum:
+            - KeyWord
+            - Website
+        data:
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - blockListid
+        - type
+        - data
+        - createdAt
+    BlockListDto:
+      type: object
+      properties:
+        id:
+          type: number
+        ownerId:
+          type: number
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockItemDto'
+      required:
+        - id
+        - ownerId
+        - items
+    AddBlockItemDto:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - KeyWord
+            - Website
+        data:
+          type: string
+      required:
+        - type
+        - data
+    CreateItemDto:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        title:
+          type: string
+          example: Заголовок
+          description: Заголовок статьи
+        content:
+          type: string
+          example: Содержание статьи
+          description: Содержание статьи
+        published:
+          type: boolean
+          example: true
+          description: Опубликована ли статья
+        authorId:
+          type: number
+          example: 1
+          description: ID автора статьи
+      required:
+        - id
+        - title
+        - content
+        - published
+        - authorId
+    UpdateItemDto:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        title:
+          type: string
+          example: Заголовок
+          description: Заголовок статьи
+        content:
+          type: string
+          example: Содержание статьи
+          description: Содержание статьи
+        published:
+          type: boolean
+          example: true
+          description: Опубликована ли статья
+        authorId:
+          type: number
+          example: 1
+          description: ID автора статьи
+    SignUpBodyDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@test.com
+        password:
+          type: string
+          example: '1234'
+      required:
+        - email
+        - password
+    SignInBodyDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@test.com
+        password:
+          type: string
+          example: '1234'
+      required:
+        - email
+        - password
+    GetSessionInfoDto:
+      type: object
+      properties:
+        id:
+          type: number
+        email:
+          type: string
+        iat:
+          type: number
+        exp:
+          type: number
+      required:
+        - id
+        - email
+        - iat
+        - exp

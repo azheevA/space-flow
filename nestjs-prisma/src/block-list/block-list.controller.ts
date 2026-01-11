@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { BlockListService } from './block-list.service';
-import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiParam } from '@nestjs/swagger';
 import {
   AddBlockItemDto,
   BlockItemDto,
@@ -46,6 +46,7 @@ export class BlockListController {
   @ApiOkResponse({
     type: BlockItemDto,
   })
+  @ApiParam({ name: 'id', type: Number })
   removeBlockItem(
     @Param(ParseIntPipe) id: number,
     @sessionInfo() session: GetSessionInfoDto,

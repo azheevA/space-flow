@@ -11,7 +11,7 @@ import {
 import { ItemService } from './item.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiBody, ApiOperation } from '@nestjs/swagger';
 
 @Controller('Items')
 export class ItemController {
@@ -35,7 +35,8 @@ export class ItemController {
   }
   @Patch(':id')
   @ApiOperation({ summary: 'Обновить один айтем' })
-  updateItem(@Param() updateItemDto: UpdateItemDto) {
+  @ApiBody({ type: UpdateItemDto })
+  updateItem(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
     return this.itemService.updateItem({
       where: { id: updateItemDto.id },
       data: updateItemDto,
