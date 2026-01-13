@@ -8,6 +8,7 @@ import { authControllerGetSessionInfo } from "@/server/generate/generate";
 import { useQuery } from "@tanstack/react-query";
 import { SignUpPage } from "@/components/registration/auth/sign-up";
 import SignUpForm from "@/components/registration/auth/UI/signUpForm";
+import { NeonGlassCard } from "@/shared/ui/neon-card";
 
 export default function Home() {
   const { data } = useQuery({
@@ -33,6 +34,9 @@ export default function Home() {
       <ModalComponent title="Регистрация">
         <SignUpForm />
       </ModalComponent>
+      <NeonGlassCard color="purple" intensity="high" className="p-6 w-96">
+        <h2 className="text-xl font-semibold text-white">Glass Neon Card</h2>
+      </NeonGlassCard>
     </section>
   );
 }

@@ -1,8 +1,8 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
-import { Link } from "@heroui/link";
-import clsx from "clsx";
 
+import clsx from "clsx";
+import "./globals.css";
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
@@ -10,6 +10,8 @@ import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
 import { AppProvider } from "./app-provider";
+import NeonCursor from "@/shared/ui/neon-cursor";
+import CustomCursor from "@/shared/ui/custom-cursor";
 
 export const metadata: Metadata = {
   title: {
@@ -45,6 +47,8 @@ export default function RootLayout({
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative flex flex-col h-screen">
+            <CustomCursor />
+            <NeonCursor />
             <Navbar />
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow ">
               <AppProvider>{children}</AppProvider>
