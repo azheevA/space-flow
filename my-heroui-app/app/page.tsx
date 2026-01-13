@@ -6,6 +6,8 @@ import ModalComponent from "@/components/UI/modal/modal";
 import RegistrationComponent from "@/components/registration/registrationComponent";
 import { authControllerGetSessionInfo } from "@/server/generate/generate";
 import { useQuery } from "@tanstack/react-query";
+import { SignUpPage } from "@/components/registration/auth/sign-up";
+import SignUpForm from "@/components/registration/auth/UI/signUpForm";
 
 export default function Home() {
   const { data } = useQuery({
@@ -29,9 +31,8 @@ export default function Home() {
         {siteConfig.description}
       </p>
       <ModalComponent title="Регистрация">
-        <RegistrationComponent />
+        <SignUpForm />
       </ModalComponent>
-      <h2>{data?.email}</h2>
     </section>
   );
 }

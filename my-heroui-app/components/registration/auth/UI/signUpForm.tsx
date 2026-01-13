@@ -1,9 +1,15 @@
+"use client";
+
+import { uniqueText } from "@/components/primitives";
 import {
   authControllerSignUp,
   SignUpBodyDto,
 } from "@/server/generate/generate";
+import { ROUTES } from "@/shared/constants/routing";
+import { Button } from "@/shared/ui/button";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/router";
+import clsx from "clsx";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 interface IForm {
@@ -16,18 +22,35 @@ export default function SignUpForm() {
   const { register, handleSubmit } = useForm<IForm>();
   const signUpMutation = useMutation({
     mutationFn: (data: SignUpBodyDto) => authControllerSignUp(data),
+    onSuccess() {
+      router.push(ROUTES.HOME);
+    },
   });
   return (
     <form
-      className="flex flex-col gap-2"
+      className="flex flex-col gap-2 p-6  "
       onSubmit={handleSubmit((data) => {
         signUpMutation.mutate(data);
       })}
     >
+      <h1 className="text-2xl">
+        Введите{" "}
+        <span className={clsx(uniqueText({ color: "violet", size: "sm" }))}>
+          email
+        </span>
+      </h1>
       <input
-        className="p-2 bg-amber-950 border border-black rounded-2xl"
+        className="
+                  px-5 py-2 rounded-full 
+                bg-black text-white text-lg tracking-[0.2em]
+                border-2 border-cyan-500/80
+                shadow-[0_0_15px_rgba(6,182,212,0.4)]
+                outline-none focus:border-cyan-400 
+                focus:shadow-[0_0_25px_rgba(34,211,238,0.6)]
+                transition-all duration-300
+                "
         type="email"
-        placeholder="заполните поле email"
+        placeholder="test@test.com"
         {...register("email", {
           required: "This field is required",
           pattern: {
@@ -36,10 +59,24 @@ export default function SignUpForm() {
           },
         })}
       />
+      <h1 className="text-2xl">
+        Введите{" "}
+        <span className={clsx(uniqueText({ color: "violet", size: "sm" }))}>
+          пароль
+        </span>
+      </h1>
       <input
-        className="p-2 bg-amber-950 border border-black rounded-2xl"
+        className="
+                 px-5 py-2 rounded-full 
+                bg-black text-white text-lg tracking-[0.2em]
+                border-2 border-cyan-500/80
+                shadow-[0_0_15px_rgba(6,182,212,0.4)]
+                outline-none focus:border-cyan-400 
+                focus:shadow-[0_0_25px_rgba(34,211,238,0.6)]
+                transition-all duration-300
+                "
         type="text"
-        placeholder="заполните поле password"
+        placeholder="qwerty"
         {...register("password", {
           required: "This field is required",
           pattern: {
@@ -48,12 +85,11 @@ export default function SignUpForm() {
           },
         })}
       />
-      <button
-        className="bg-blue-900 rounded-2xl border border-b-cyan-500"
-        disabled={signUpMutation.isPending}
-      >
-        Sign Up
-      </button>
+      <div className="mt-20 w-full flex justify-center">
+        <Button size="lg" disabled={signUpMutation.isPending}>
+          Sign Up
+        </Button>
+      </div>
     </form>
   );
 }
