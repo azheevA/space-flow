@@ -25,7 +25,7 @@ const INTENSITY = {
 
 export function NeonGlassCard({
   children,
-  color = "cyan",
+  color = "purple",
   intensity = "medium",
   className,
 }: Props) {
@@ -34,15 +34,22 @@ export function NeonGlassCard({
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = ref.current;
     if (!el) return;
+
     const r = el.getBoundingClientRect();
     el.style.setProperty("--x", `${e.clientX - r.left}px`);
     el.style.setProperty("--y", `${e.clientY - r.top}px`);
+    el.classList.add("is-active");
+  };
+
+  const onLeave = () => {
+    ref.current?.classList.remove("is-active");
   };
 
   return (
     <div
       ref={ref}
       onMouseMove={onMove}
+      onMouseLeave={onLeave}
       style={{
         ["--rgb" as any]: COLORS[color],
         ["--glow" as any]: INTENSITY[intensity],

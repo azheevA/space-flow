@@ -2,34 +2,28 @@
 
 import { useEffect, useRef } from "react";
 
-export default function CustomCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const pos = useRef({ x: 0, y: 0 });
-  const target = useRef({ x: 0, y: 0 });
+export default function FastCursor() {
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
-      target.current.x = e.clientX;
-      target.current.y = e.clientY;
+      if (!ref.current) return;
+      ref.current.style.transform = `
+        translate(${e.clientX}px, ${e.clientY}px)
+      `;
+      ref.current.classList.remove("hidden");
     };
+
+    const leave = () => ref.current?.classList.add("hidden");
 
     window.addEventListener("mousemove", move);
+    window.addEventListener("mouseleave", leave);
 
-    const follow = () => {
-      pos.current.x += (target.current.x - pos.current.x) * 0.15;
-      pos.current.y += (target.current.y - pos.current.y) * 0.15;
-
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `
-          translate(${pos.current.x}px, ${pos.current.y}px)
-        `;
-      }
-      requestAnimationFrame(follow);
+    return () => {
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("mouseleave", leave);
     };
-
-    follow();
-    return () => window.removeEventListener("mousemove", move);
   }, []);
 
-  return <div ref={cursorRef} className="custom-cursor" />;
+  return <div className="cursor-fast hidden" ref={ref} />;
 }

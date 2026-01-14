@@ -12,6 +12,7 @@ import Footer from "@/components/footer";
 import { AppProvider } from "./app-provider";
 import NeonCursor from "@/shared/ui/neon-cursor";
 import CustomCursor from "@/shared/ui/custom-cursor";
+import CursorGlow from "@/shared/ui/cursor-glow";
 
 export const metadata: Metadata = {
   title: {

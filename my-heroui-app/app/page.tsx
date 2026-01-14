@@ -18,10 +18,12 @@ export default function Home() {
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <h1 className={title()}>
-        Welcome to{" "}
-        <span className={title({ color: "violet" })}>{siteConfig.name}</span>
-      </h1>
+      <NeonGlassCard color="purple" intensity="high" className="p-6 ">
+        <h1 className={title()}>
+          Welcome to{" "}
+          <span className={title({ color: "violet" })}>{siteConfig.name}</span>
+        </h1>
+      </NeonGlassCard>
 
       <p
         className={clsx(
@@ -34,9 +36,6 @@ export default function Home() {
       <ModalComponent title="Регистрация">
         <SignUpForm />
       </ModalComponent>
-      <NeonGlassCard color="purple" intensity="high" className="p-6 w-96">
-        <h2 className="text-xl font-semibold text-white">Glass Neon Card</h2>
-      </NeonGlassCard>
     </section>
   );
 }

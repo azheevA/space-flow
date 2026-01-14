@@ -13,7 +13,8 @@ body {
   inset: 0;
   padding: 1.5px;
   border-radius: inherit;
-
+  opacity: 0;
+  transition: opacity 2.3s ease;
   background: radial-gradient(
     160px circle at var(--x) var(--y),
     rgba(var(--rgb), calc(var(--glow) + 0.2)),
@@ -28,7 +29,26 @@ body {
 
   pointer-events: none;
 }
+.neon-border.is-active::before {
+  opacity: 1;
+}
 
+.cursor-fast {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+
+  background: rgba(168, 85, 247, 1);
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.9);
+
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10000;
+}
 @keyframes cursor-breath {
   0%,
   100% {
@@ -47,8 +67,8 @@ body {
 body::before {
   content: "";
   position: fixed;
-  width: 420px;
-  height: 420px;
+  width: 150px;
+  height: 150px;
 
   left: var(--cx);
   top: var(--cy);
@@ -57,33 +77,12 @@ body::before {
   pointer-events: none;
   z-index: 0;
 
-  background: radial-gradient(circle, rgba(153, 0, 255, 0.35), transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(206, 32, 171, 0.35),
+    transparent 90%
+  );
 
   filter: blur(32px);
   animation: cursor-breath 5s ease-in-out infinite;
-}
-
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 18px;
-  height: 18px;
-
-  border-radius: 9999px;
-  background: rgba(225, 0, 255, 0.8);
-
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 9999;
-
-  mix-blend-mode: screen;
-  transition:
-    width 0.2s ease,
-    height 0.2s ease;
-}
-a:hover ~ .custom-cursor,
-button:hover ~ .custom-cursor {
-  width: 32px;
-  height: 32px;
 }
