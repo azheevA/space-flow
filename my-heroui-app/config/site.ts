@@ -18,10 +18,6 @@ export const siteConfig = {
       href: "/map",
     },
     {
-      label: "Blog",
-      href: "/blog",
-    },
-    {
       label: "Регистрация",
       href: "/sign-up",
     },

@@ -15,7 +15,7 @@ import { Input } from "@heroui/input";
 import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
-
+import { Image } from "@heroui/image";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
@@ -24,11 +24,11 @@ import {
   DiscordIcon,
   HeartFilledIcon,
   SearchIcon,
-  Logo,
 } from "@/components/icons";
 import { useQuery } from "@tanstack/react-query";
 import { authControllerGetSessionInfo } from "@/server/generate/generate";
 import SignOutButton from "./registration/auth/UI/signOutButton";
+import { SpaceFlowLogo } from "./logo";
 
 export const Navbar = () => {
   const searchInput = (
@@ -57,30 +57,33 @@ export const Navbar = () => {
   });
 
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky" className="relative w-screen">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+    <HeroUINavbar maxWidth="2xl" position="sticky" className="w-screen">
+      <NavbarContent justify="start">
+        <NavbarBrand>
+          <NextLink href="/" className="flex items-center gap-2">
+            <img
+              src="/1_.svg"
+              alt="space-flow logo"
+              width={50}
+              height={50}
+              className="rounded-xl bg-white transition-transform duration-500 ease-out hover:scale-115"
+            />
           </NextLink>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))}
-        </ul>
+
+        {siteConfig.navItems.map((item) => (
+          <NavbarItem key={item.href}>
+            <NextLink
+              className={clsx(
+                linkStyles({ color: "foreground" }),
+                "transition-transform duration-500 ease-out hover:scale-105",
+              )}
+              href={item.href}
+            >
+              {item.label}
+            </NextLink>
+          </NavbarItem>
+        ))}
       </NavbarContent>
 
       <NavbarContent

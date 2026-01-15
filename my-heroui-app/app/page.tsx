@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { SignUpPage } from "@/components/registration/auth/sign-up";
 import { SignUpForm } from "@/components/registration/auth/UI/signUpForm";
 import { NeonGlassCard } from "@/shared/ui/neon-card";
-
+import { Image } from "@heroui/image";
 export default function Home() {
   const { data } = useQuery({
     queryKey: ["session"],
@@ -41,6 +41,13 @@ export default function Home() {
       <ModalComponent title="Регистрация">
         <SignUpForm />
       </ModalComponent>
+      <Image
+        src="/logo.svg"
+        alt="space-flow logo"
+        width={400}
+        height={400}
+        className="rounded-xl mt-10"
+      />
     </section>
   );
 }
