@@ -1,5 +1,5 @@
+import { SignInForm } from "./UI/signInForm";
 import clsx from "clsx";
-import { SignInForm } from "./UI/SignInForm";
 
 type SignUpPageProps = {
   className?: string;

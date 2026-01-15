@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -25,6 +26,9 @@ import {
   SearchIcon,
   Logo,
 } from "@/components/icons";
+import { useQuery } from "@tanstack/react-query";
+import { authControllerGetSessionInfo } from "@/server/generate/generate";
+import SignOutButton from "./registration/auth/UI/signOutButton";
 
 export const Navbar = () => {
   const searchInput = (
@@ -47,9 +51,13 @@ export const Navbar = () => {
       type="search"
     />
   );
+  const { data } = useQuery({
+    queryKey: ["session"],
+    queryFn: () => authControllerGetSessionInfo(),
+  });
 
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky">
+    <HeroUINavbar maxWidth="xl" position="sticky" className="relative w-screen">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
@@ -63,7 +71,7 @@ export const Navbar = () => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium"
+                  "data-[active=true]:text-primary data-[active=true]:font-medium",
                 )}
                 color="foreground"
                 href={item.href}
@@ -136,6 +144,8 @@ export const Navbar = () => {
           ))}
         </div>
       </NavbarMenu>
+      <div className="">{data?.email}</div>
+      <SignOutButton />
     </HeroUINavbar>
   );
 };

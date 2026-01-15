@@ -36,7 +36,7 @@ export class AuthService {
     const hash = this.passwordServiсe.getHash(password, user.salt);
 
     if (hash !== user.hash) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid credentials');
     }
     const accessToken = await this.JwtService.signAsync({
       id: user.id,

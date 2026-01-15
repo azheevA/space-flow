@@ -18,11 +18,16 @@ export default function Home() {
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <NeonGlassCard color="purple" intensity="high" className="p-6 ">
+      <NeonGlassCard
+        color="purple"
+        intensity="high"
+        className="p-6 flex flex-cols justify-center items-center"
+      >
         <h1 className={title()}>
           Welcome to{" "}
           <span className={title({ color: "violet" })}>{siteConfig.name}</span>
         </h1>
+        <div className="">{data?.email}</div>
       </NeonGlassCard>
 
       <p

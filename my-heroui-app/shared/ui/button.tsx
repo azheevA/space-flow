@@ -3,7 +3,7 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import clsx from "clsx";
 
-type ButtonVariant = "primary" | "secondary" | "outline" | "danger";
+type ButtonVariant = "primary" | "secondary" | "outline" | "danger" | "classic";
 type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonProps
@@ -26,6 +26,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   outline:
     "border border-gray-300 text-gray-900 hover:bg-gray-100 focus:ring-gray-400",
   danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
+  classic: "bg-black text-white focus:ring-white border border-white",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
