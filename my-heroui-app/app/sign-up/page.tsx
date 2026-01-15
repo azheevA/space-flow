@@ -4,7 +4,7 @@ import React from "react";
 export default function page() {
   return (
     <div>
-      <SignUpPage />
+      <SignUpPage className="max-w-[900px] mx-auto" />
     </div>
   );
 }

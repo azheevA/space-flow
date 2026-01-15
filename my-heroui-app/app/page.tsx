@@ -7,7 +7,7 @@ import RegistrationComponent from "@/components/registration/registrationCompone
 import { authControllerGetSessionInfo } from "@/server/generate/generate";
 import { useQuery } from "@tanstack/react-query";
 import { SignUpPage } from "@/components/registration/auth/sign-up";
-import SignUpForm from "@/components/registration/auth/UI/signUpForm";
+import { SignUpForm } from "@/components/registration/auth/UI/signUpForm";
 import { NeonGlassCard } from "@/shared/ui/neon-card";
 
 export default function Home() {

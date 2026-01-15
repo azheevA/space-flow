@@ -25,6 +25,10 @@ export const siteConfig = {
       label: "Регистрация",
       href: "/sign-up",
     },
+    {
+      label: "Авторизация",
+      href: "/sign-in",
+    },
   ],
   navMenuItems: [
     {

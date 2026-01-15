@@ -4,10 +4,10 @@ import { ROUTES } from "@/shared/constants/routing";
 import { Button } from "@/shared/ui/button";
 import clsx from "clsx";
 import Link from "next/link";
-import { useSignUp } from "../model/use-sign-up";
+import { useSignIn } from "../model/use-sign-in";
 
-export function SignUpForm() {
-  const { register, errorMessage, handleSubmit, isLoading } = useSignUp();
+export function SignInForm() {
+  const { register, errorMessage, handleSubmit, isLoading } = useSignIn();
   return (
     <form className="flex flex-col gap-2 p-6 w-full" onSubmit={handleSubmit}>
       <h1 className="text-2xl">
@@ -62,12 +62,9 @@ export function SignUpForm() {
           },
         })}
       />
-      <div className="mt-20 w-full flex justify-center gap-5">
+      <div className="mt-20 w-full flex justify-center">
         <Button size="lg" disabled={isLoading}>
-          Sign Up
-        </Button>
-        <Button size="lg">
-          <Link href={ROUTES.SIGN_IN}>Sign In</Link>
+          Sign In
         </Button>
       </div>
       {errorMessage ? (
