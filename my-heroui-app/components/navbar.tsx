@@ -50,7 +50,7 @@ export const Navbar = () => {
   );
 
   return (
-    <HeroUINavbar maxWidth="2xl" position="sticky" className="w-screen">
+    <HeroUINavbar maxWidth="2xl" position="sticky" className="w-full">
       <NavbarContent justify="start">
         <NavbarBrand>
           <NextLink href="/" className="flex items-center gap-2">

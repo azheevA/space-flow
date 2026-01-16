@@ -1,12 +1,7 @@
-import { authControllerGetSessionInfo } from "@/server/generate/generate";
-import { useQuery } from "@tanstack/react-query";
+import { useSessionQuery } from "./entities";
 
 export const UserEmail = () => {
-  const { data } = useQuery({
-    queryKey: ["session"],
-    queryFn: authControllerGetSessionInfo,
-    staleTime: 5 * 60 * 1000,
-  });
+  const { data } = useSessionQuery();
 
   if (!data?.email) return null;
 

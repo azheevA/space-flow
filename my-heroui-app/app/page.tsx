@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { SignUpForm } from "@/components/registration/auth/UI/signUpForm";
 import { NeonGlassCard } from "@/shared/ui/neon-card";
 import { Image } from "@heroui/image";
+import { ToggleBlockingButton } from "@/components/registration/toggle-blocking/ui/toggle-blocking-button";
 export default function Home() {
   const { data } = useQuery({
     queryKey: ["session"],
@@ -46,6 +47,7 @@ export default function Home() {
         height={400}
         className="rounded-xl mt-10"
       />
+      <ToggleBlockingButton />
     </section>
   );
 }

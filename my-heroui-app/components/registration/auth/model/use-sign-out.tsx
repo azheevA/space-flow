@@ -1,15 +1,16 @@
 import { authControllerSignOut } from "@/server/generate/generate";
 import { ROUTES } from "@/shared/constants/routing";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useResetSession } from "../../entities";
 
 export function useSignOut() {
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const resetSession = useResetSession();
   const signOutMutation = useMutation({
     mutationFn: authControllerSignOut,
     async onSuccess() {
-      queryClient.setQueryData(["session"], null);
+      resetSession;
       router.push(ROUTES.SIGN_IN);
     },
   });

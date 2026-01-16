@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="w-full flex items-center justify-center py-3 absolute bottom-0">
+    <footer className="w-full max-w-full flex items-center justify-center py-3 fixed bottom-0 left-0 overflow-x-hidden">
       <Link
         isExternal
         className="flex items-center gap-1 text-current"
