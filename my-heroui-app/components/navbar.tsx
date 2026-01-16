@@ -15,7 +15,6 @@ import { Input } from "@heroui/input";
 import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
-import { Image } from "@heroui/image";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
@@ -25,10 +24,8 @@ import {
   HeartFilledIcon,
   SearchIcon,
 } from "@/components/icons";
-import { useQuery } from "@tanstack/react-query";
-import { authControllerGetSessionInfo } from "@/server/generate/generate";
 import SignOutButton from "./registration/auth/UI/signOutButton";
-import { SpaceFlowLogo } from "./logo";
+import { UserEmail } from "./registration/email";
 
 export const Navbar = () => {
   const searchInput = (
@@ -51,10 +48,6 @@ export const Navbar = () => {
       type="search"
     />
   );
-  const { data } = useQuery({
-    queryKey: ["session"],
-    queryFn: () => authControllerGetSessionInfo(),
-  });
 
   return (
     <HeroUINavbar maxWidth="2xl" position="sticky" className="w-screen">
@@ -147,7 +140,7 @@ export const Navbar = () => {
           ))}
         </div>
       </NavbarMenu>
-      <div className="">{data?.email}</div>
+      <UserEmail />
       <SignOutButton />
     </HeroUINavbar>
   );
