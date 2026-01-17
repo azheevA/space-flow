@@ -9,6 +9,7 @@ import { SignUpForm } from "@/components/registration/auth/UI/signUpForm";
 import { NeonGlassCard } from "@/shared/ui/neon-card";
 import { Image } from "@heroui/image";
 import { ToggleBlockingButton } from "@/components/registration/toggle-blocking/ui/toggle-blocking-button";
+import { BlockPage } from "@/components/registration/block-list/block-page";
 export default function Home() {
   const { data } = useQuery({
     queryKey: ["session"],
@@ -48,6 +49,7 @@ export default function Home() {
         className="rounded-xl mt-10"
       />
       <ToggleBlockingButton />
+      <BlockPage />
     </section>
   );
 }

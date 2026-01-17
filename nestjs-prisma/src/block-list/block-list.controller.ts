@@ -34,6 +34,7 @@ export class BlockListController {
     return this.blockListService.getByUser(session.id, query);
   }
   @Post('item')
+  @UseGuards(AuthGuard)
   @ApiCreatedResponse({ type: BlockItemDto })
   addBlockItem(
     @Body() body: AddBlockItemDto,

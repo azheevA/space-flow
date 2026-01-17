@@ -3,12 +3,7 @@ import {
   accountControllerPatchAccount,
   PatchAccountDto,
 } from "@/server/generate/generate";
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const accountKey = ["account"];
 export function useAccountQuery() {
