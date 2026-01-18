@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Item: 'Item',
+  Photo: 'Photo',
   Account: 'Account',
   BlockList: 'BlockList',
   BlockItem: 'BlockItem'
@@ -94,6 +95,17 @@ export const ItemScalarFieldEnum = {
 } as const
 
 export type ItemScalarFieldEnum = (typeof ItemScalarFieldEnum)[keyof typeof ItemScalarFieldEnum]
+
+
+export const PhotoScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  filename: 'filename',
+  originalName: 'originalName',
+  itemId: 'itemId'
+} as const
+
+export type PhotoScalarFieldEnum = (typeof PhotoScalarFieldEnum)[keyof typeof PhotoScalarFieldEnum]
 
 
 export const AccountScalarFieldEnum = {

@@ -32,7 +32,18 @@ model Item {
   published Boolean? @default(false)
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
+  photo Photo[]
 }
+
+model Photo {
+  id Int @id @default(autoincrement())
+  url String
+  filename     String
+  originalName String
+  itemId Int 
+  item Item @relation(fields: [itemId], references: [id])
+}
+
 
 model Account{
   id Int @id @default(autoincrement())

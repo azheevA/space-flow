@@ -221,6 +221,7 @@ export type ItemWhereInput = {
   published?: Prisma.BoolNullableFilter<"Item"> | boolean | null
   authorId?: Prisma.IntNullableFilter<"Item"> | number | null
   author?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  photo?: Prisma.PhotoListRelationFilter
 }
 
 export type ItemOrderByWithRelationInput = {
@@ -230,6 +231,7 @@ export type ItemOrderByWithRelationInput = {
   published?: Prisma.SortOrderInput | Prisma.SortOrder
   authorId?: Prisma.SortOrderInput | Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
+  photo?: Prisma.PhotoOrderByRelationAggregateInput
 }
 
 export type ItemWhereUniqueInput = Prisma.AtLeast<{
@@ -242,6 +244,7 @@ export type ItemWhereUniqueInput = Prisma.AtLeast<{
   published?: Prisma.BoolNullableFilter<"Item"> | boolean | null
   authorId?: Prisma.IntNullableFilter<"Item"> | number | null
   author?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  photo?: Prisma.PhotoListRelationFilter
 }, "id">
 
 export type ItemOrderByWithAggregationInput = {
@@ -273,6 +276,7 @@ export type ItemCreateInput = {
   content?: string | null
   published?: boolean | null
   author?: Prisma.UserCreateNestedOneWithoutItemsInput
+  photo?: Prisma.PhotoCreateNestedManyWithoutItemInput
 }
 
 export type ItemUncheckedCreateInput = {
@@ -281,6 +285,7 @@ export type ItemUncheckedCreateInput = {
   content?: string | null
   published?: boolean | null
   authorId?: number | null
+  photo?: Prisma.PhotoUncheckedCreateNestedManyWithoutItemInput
 }
 
 export type ItemUpdateInput = {
@@ -288,6 +293,7 @@ export type ItemUpdateInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   author?: Prisma.UserUpdateOneWithoutItemsNestedInput
+  photo?: Prisma.PhotoUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateInput = {
@@ -296,6 +302,7 @@ export type ItemUncheckedUpdateInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   authorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  photo?: Prisma.PhotoUncheckedUpdateManyWithoutItemNestedInput
 }
 
 export type ItemCreateManyInput = {
@@ -364,6 +371,11 @@ export type ItemSumOrderByAggregateInput = {
   authorId?: Prisma.SortOrder
 }
 
+export type ItemScalarRelationFilter = {
+  is?: Prisma.ItemWhereInput
+  isNot?: Prisma.ItemWhereInput
+}
+
 export type ItemCreateNestedManyWithoutAuthorInput = {
   create?: Prisma.XOR<Prisma.ItemCreateWithoutAuthorInput, Prisma.ItemUncheckedCreateWithoutAuthorInput> | Prisma.ItemCreateWithoutAuthorInput[] | Prisma.ItemUncheckedCreateWithoutAuthorInput[]
   connectOrCreate?: Prisma.ItemCreateOrConnectWithoutAuthorInput | Prisma.ItemCreateOrConnectWithoutAuthorInput[]
@@ -418,10 +430,25 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type ItemCreateNestedOneWithoutPhotoInput = {
+  create?: Prisma.XOR<Prisma.ItemCreateWithoutPhotoInput, Prisma.ItemUncheckedCreateWithoutPhotoInput>
+  connectOrCreate?: Prisma.ItemCreateOrConnectWithoutPhotoInput
+  connect?: Prisma.ItemWhereUniqueInput
+}
+
+export type ItemUpdateOneRequiredWithoutPhotoNestedInput = {
+  create?: Prisma.XOR<Prisma.ItemCreateWithoutPhotoInput, Prisma.ItemUncheckedCreateWithoutPhotoInput>
+  connectOrCreate?: Prisma.ItemCreateOrConnectWithoutPhotoInput
+  upsert?: Prisma.ItemUpsertWithoutPhotoInput
+  connect?: Prisma.ItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ItemUpdateToOneWithWhereWithoutPhotoInput, Prisma.ItemUpdateWithoutPhotoInput>, Prisma.ItemUncheckedUpdateWithoutPhotoInput>
+}
+
 export type ItemCreateWithoutAuthorInput = {
   title: string
   content?: string | null
   published?: boolean | null
+  photo?: Prisma.PhotoCreateNestedManyWithoutItemInput
 }
 
 export type ItemUncheckedCreateWithoutAuthorInput = {
@@ -429,6 +456,7 @@ export type ItemUncheckedCreateWithoutAuthorInput = {
   title: string
   content?: string | null
   published?: boolean | null
+  photo?: Prisma.PhotoUncheckedCreateNestedManyWithoutItemInput
 }
 
 export type ItemCreateOrConnectWithoutAuthorInput = {
@@ -468,6 +496,52 @@ export type ItemScalarWhereInput = {
   authorId?: Prisma.IntNullableFilter<"Item"> | number | null
 }
 
+export type ItemCreateWithoutPhotoInput = {
+  title: string
+  content?: string | null
+  published?: boolean | null
+  author?: Prisma.UserCreateNestedOneWithoutItemsInput
+}
+
+export type ItemUncheckedCreateWithoutPhotoInput = {
+  id?: number
+  title: string
+  content?: string | null
+  published?: boolean | null
+  authorId?: number | null
+}
+
+export type ItemCreateOrConnectWithoutPhotoInput = {
+  where: Prisma.ItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.ItemCreateWithoutPhotoInput, Prisma.ItemUncheckedCreateWithoutPhotoInput>
+}
+
+export type ItemUpsertWithoutPhotoInput = {
+  update: Prisma.XOR<Prisma.ItemUpdateWithoutPhotoInput, Prisma.ItemUncheckedUpdateWithoutPhotoInput>
+  create: Prisma.XOR<Prisma.ItemCreateWithoutPhotoInput, Prisma.ItemUncheckedCreateWithoutPhotoInput>
+  where?: Prisma.ItemWhereInput
+}
+
+export type ItemUpdateToOneWithWhereWithoutPhotoInput = {
+  where?: Prisma.ItemWhereInput
+  data: Prisma.XOR<Prisma.ItemUpdateWithoutPhotoInput, Prisma.ItemUncheckedUpdateWithoutPhotoInput>
+}
+
+export type ItemUpdateWithoutPhotoInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  author?: Prisma.UserUpdateOneWithoutItemsNestedInput
+}
+
+export type ItemUncheckedUpdateWithoutPhotoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  authorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
 export type ItemCreateManyAuthorInput = {
   id?: number
   title: string
@@ -479,6 +553,7 @@ export type ItemUpdateWithoutAuthorInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  photo?: Prisma.PhotoUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateWithoutAuthorInput = {
@@ -486,6 +561,7 @@ export type ItemUncheckedUpdateWithoutAuthorInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  photo?: Prisma.PhotoUncheckedUpdateManyWithoutItemNestedInput
 }
 
 export type ItemUncheckedUpdateManyWithoutAuthorInput = {
@@ -496,6 +572,35 @@ export type ItemUncheckedUpdateManyWithoutAuthorInput = {
 }
 
 
+/**
+ * Count Type ItemCountOutputType
+ */
+
+export type ItemCountOutputType = {
+  photo: number
+}
+
+export type ItemCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  photo?: boolean | ItemCountOutputTypeCountPhotoArgs
+}
+
+/**
+ * ItemCountOutputType without action
+ */
+export type ItemCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ItemCountOutputType
+   */
+  select?: Prisma.ItemCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ItemCountOutputType without action
+ */
+export type ItemCountOutputTypeCountPhotoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PhotoWhereInput
+}
+
 
 export type ItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -504,6 +609,8 @@ export type ItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   published?: boolean
   authorId?: boolean
   author?: boolean | Prisma.Item$authorArgs<ExtArgs>
+  photo?: boolean | Prisma.Item$photoArgs<ExtArgs>
+  _count?: boolean | Prisma.ItemCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["item"]>
 
 export type ItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -535,6 +642,8 @@ export type ItemSelectScalar = {
 export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "published" | "authorId", ExtArgs["result"]["item"]>
 export type ItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.Item$authorArgs<ExtArgs>
+  photo?: boolean | Prisma.Item$photoArgs<ExtArgs>
+  _count?: boolean | Prisma.ItemCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.Item$authorArgs<ExtArgs>
@@ -547,6 +656,7 @@ export type $ItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Item"
   objects: {
     author: Prisma.$UserPayload<ExtArgs> | null
+    photo: Prisma.$PhotoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -949,6 +1059,7 @@ readonly fields: ItemFieldRefs;
 export interface Prisma__ItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   author<T extends Prisma.Item$authorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Item$authorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  photo<T extends Prisma.Item$photoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Item$photoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PhotoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1395,6 +1506,30 @@ export type Item$authorArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * Item.photo
+ */
+export type Item$photoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Photo
+   */
+  select?: Prisma.PhotoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Photo
+   */
+  omit?: Prisma.PhotoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PhotoInclude<ExtArgs> | null
+  where?: Prisma.PhotoWhereInput
+  orderBy?: Prisma.PhotoOrderByWithRelationInput | Prisma.PhotoOrderByWithRelationInput[]
+  cursor?: Prisma.PhotoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PhotoScalarFieldEnum | Prisma.PhotoScalarFieldEnum[]
 }
 
 /**
