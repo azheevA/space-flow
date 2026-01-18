@@ -28,8 +28,8 @@ async function bootstrap() {
   app.use(cookieParser());
   await app.listen(process.env.PORT ?? 3000, () => {
     console.log(
-      `Server is running on http://localhost:${process.env.PORT ?? 3000}/api`,
+      `Server is running on http://localhost:${process.env.PORT ?? 3000}/api  ${Date.now()}`,
     );
   });
 }
-bootstrap();
+void bootstrap();

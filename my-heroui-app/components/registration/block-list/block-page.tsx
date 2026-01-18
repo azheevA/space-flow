@@ -7,7 +7,7 @@ export function BlockPage() {
   const { data, isLoading } = useBlockListQuery();
   if (isLoading) return <div>Loading...</div>;
   return (
-    <div className="py-10 px-5 w-screen flex flex-col items-center justify-center">
+    <div className="py-10 px-5 w-full flex flex-col items-center justify-center">
       <h1 className="text-2xl mb-6">Block list</h1>
       <AddBlockItemForm />
       <BlockList />

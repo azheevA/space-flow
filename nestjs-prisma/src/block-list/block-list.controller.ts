@@ -22,11 +22,11 @@ import { sessionInfo } from 'src/auth/session-info.decorator';
 import { GetSessionInfoDto } from 'src/auth/auth.dto';
 
 @Controller('block-list')
+@UseGuards(AuthGuard)
 export class BlockListController {
   constructor(private readonly blockListService: BlockListService) {}
   @Get()
   @ApiOkResponse({ type: BlockListDto })
-  @UseGuards(AuthGuard)
   getList(
     @Query() query: BlockListQueryDto,
     @sessionInfo() session: GetSessionInfoDto,
@@ -34,7 +34,6 @@ export class BlockListController {
     return this.blockListService.getByUser(session.id, query);
   }
   @Post('item')
-  @UseGuards(AuthGuard)
   @ApiCreatedResponse({ type: BlockItemDto })
   addBlockItem(
     @Body() body: AddBlockItemDto,
@@ -44,12 +43,10 @@ export class BlockListController {
   }
 
   @Delete('item/:id')
-  @ApiOkResponse({
-    type: BlockItemDto,
-  })
+  @ApiOkResponse({ type: BlockItemDto })
   @ApiParam({ name: 'id', type: Number })
   removeBlockItem(
-    @Param(ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe) id: number,
     @sessionInfo() session: GetSessionInfoDto,
   ) {
     return this.blockListService.removeItem(session.id, id);

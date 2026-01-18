@@ -14,6 +14,7 @@ export function useBlockListQuery(params?: BlockListControllerGetListParams) {
   return useQuery({
     queryKey: params?.q ? [...blockListKey, params.q] : blockListKey,
     queryFn: () => blockListControllerGetList(params),
+    retry: false,
   });
 }
 
@@ -40,7 +41,7 @@ export function useRemoveBlockItemMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: number) => blockListControllerRemoveBlockItem(id),
-    async onSettled() {
+    async onSuccess() {
       await queryClient.invalidateQueries({ queryKey: blockListKey });
     },
   });

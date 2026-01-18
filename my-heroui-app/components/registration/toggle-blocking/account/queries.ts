@@ -10,6 +10,7 @@ export function useAccountQuery() {
   return useQuery({
     queryKey: accountKey,
     queryFn: accountControllerGetAccount,
+    retry: false,
   });
 }
 export function useUpdateAccountMutation() {
