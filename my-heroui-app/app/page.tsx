@@ -48,8 +48,8 @@ export default function Home() {
         height={400}
         className="rounded-xl mt-10"
       />
-      <ToggleBlockingButton />
-      <BlockPage />
+      {/* <ToggleBlockingButton />
+      <BlockPage /> */}
     </section>
   );
 }

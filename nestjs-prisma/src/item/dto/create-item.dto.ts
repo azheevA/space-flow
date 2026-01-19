@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
+  IsArray,
   IsBoolean,
   IsInt,
   IsNotEmpty,
@@ -12,6 +13,7 @@ import {
   MinLength,
   ValidateNested,
 } from 'class-validator';
+
 export class CreateContentDto {
   @ApiProperty({ example: 'черная дыра', description: 'Тип небесного тела' })
   @IsString()
@@ -31,7 +33,22 @@ export class CreateContentDto {
   @IsNotEmpty()
   size: string;
 }
+export class PhotoRecordDto {
+  @ApiProperty({ example: 'https://storage.com/photo1.jpg' })
+  @IsString()
+  @IsNotEmpty()
+  url: string;
 
+  @ApiProperty({ example: 'abc-123.jpg' })
+  @IsString()
+  @IsNotEmpty()
+  filename: string;
+
+  @ApiProperty({ example: 'my_cat.jpg' })
+  @IsString()
+  @IsNotEmpty()
+  originalName: string;
+}
 export class CreateItemDto {
   @ApiProperty({ example: 1 })
   @IsNumber()
@@ -66,4 +83,15 @@ export class CreateItemDto {
   @IsInt()
   @IsOptional()
   authorId?: number;
+
+  @ApiProperty({
+    type: [PhotoRecordDto],
+    description: 'Список данных о загруженных фотографиях',
+    required: false,
+  })
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => PhotoRecordDto)
+  photos?: PhotoRecordDto[];
 }

@@ -17,13 +17,19 @@ export class ItemService {
   };
 
   async createItem(dto: CreateItemDto): Promise<Item> {
-    const { content, authorId, title, published } = dto;
+    const { content, authorId, title, published, photos } = dto;
 
     const data: Prisma.ItemCreateInput = {
       title,
       published,
       author: authorId ? { connect: { id: authorId } } : undefined,
       content: content ? { create: content } : undefined,
+      photos:
+        photos && photos.length > 0
+          ? {
+              create: photos,
+            }
+          : undefined,
     };
     return this.prisma.item.create({
       data,
@@ -36,18 +42,29 @@ export class ItemService {
     data: UpdateItemDto;
   }): Promise<Item> {
     const { where, data } = params;
-    const { content, ...rest } = data;
+    const item = await this.prisma.item.findUnique({ where });
+    if (!item) {
+      throw new Error(`Item with ID ${where.id} not found`);
+    }
+    const { content, photos, ...rest } = data;
 
     return this.prisma.item.update({
       where,
       data: {
         ...rest,
+
         content: content
           ? {
               upsert: {
                 create: content,
                 update: content,
               },
+            }
+          : undefined,
+        photos: photos
+          ? {
+              deleteMany: {},
+              create: photos,
             }
           : undefined,
       },
@@ -74,8 +91,16 @@ export class ItemService {
   }
 
   async deleteItem(id: number): Promise<Item> {
-    return this.prisma.item.delete({
-      where: { id },
+    return this.prisma.$transaction(async (tx) => {
+      await tx.photo.deleteMany({
+        where: { itemId: id },
+      });
+      await tx.content.deleteMany({
+        where: { itemId: id },
+      });
+      return tx.item.delete({
+        where: { id },
+      });
     });
   }
 }

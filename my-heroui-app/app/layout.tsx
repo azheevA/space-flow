@@ -12,8 +12,6 @@ import Footer from "@/components/footer";
 import { AppProvider } from "./app-provider";
 import NeonCursor from "@/shared/ui/neon-cursor";
 import CustomCursor from "@/shared/ui/custom-cursor";
-import CursorGlow from "@/shared/ui/cursor-glow";
-import { ProtectedPage } from "@/components/registration/auth/UI/protected-page";
 
 export const metadata: Metadata = {
   title: {

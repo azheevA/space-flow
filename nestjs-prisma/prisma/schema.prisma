@@ -39,7 +39,7 @@ model Content {
   type    String
   subtype String
   size    String
-  item    Item   @relation(fields: [itemId], references: [id])
+  item    Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId  Int    @unique 
 }
 
@@ -49,7 +49,7 @@ model Photo {
   filename     String
   originalName String
   itemId Int 
-  item Item @relation(fields: [itemId], references: [id])
+  item Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
 }
 
 

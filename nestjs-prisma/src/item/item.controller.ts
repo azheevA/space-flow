@@ -11,7 +11,7 @@ import {
 import { ItemService } from './item.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
-import { ApiBody, ApiOperation } from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 
 @Controller('Items')
 export class ItemController {
@@ -25,6 +25,10 @@ export class ItemController {
   }
   @Get()
   @ApiOperation({ summary: 'Получить все айтемы' })
+  @ApiOkResponse({
+    type: [CreateItemDto],
+    description: 'Список всех айтемов с контентом',
+  })
   findAllItems() {
     return this.itemService.items({});
   }
