@@ -272,7 +272,7 @@ export type PhotoCreateInput = {
   url: string
   filename: string
   originalName: string
-  item: Prisma.ItemCreateNestedOneWithoutPhotoInput
+  item: Prisma.ItemCreateNestedOneWithoutPhotosInput
 }
 
 export type PhotoUncheckedCreateInput = {
@@ -287,7 +287,7 @@ export type PhotoUpdateInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  item?: Prisma.ItemUpdateOneRequiredWithoutPhotoNestedInput
+  item?: Prisma.ItemUpdateOneRequiredWithoutPhotosNestedInput
 }
 
 export type PhotoUncheckedUpdateInput = {

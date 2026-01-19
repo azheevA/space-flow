@@ -28,6 +28,11 @@ export type User = Prisma.UserModel
  */
 export type Item = Prisma.ItemModel
 /**
+ * Model Content
+ * 
+ */
+export type Content = Prisma.ContentModel
+/**
  * Model Photo
  * 
  */

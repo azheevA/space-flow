@@ -31,20 +31,20 @@ export class ItemController {
   @Get(':id')
   @ApiOperation({ summary: 'Получить один айтем' })
   findOneItem(@Param('id') id: string) {
-    return this.itemService.post({ id: +id });
+    return this.itemService.post(+id);
   }
   @Patch(':id')
   @ApiOperation({ summary: 'Обновить один айтем' })
   @ApiBody({ type: UpdateItemDto })
   updateItem(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
     return this.itemService.updateItem({
-      where: { id: updateItemDto.id },
+      where: { id: Number(id) },
       data: updateItemDto,
     });
   }
   @Delete(':id')
   @ApiOperation({ summary: 'Удалить айтем' })
   removeItem(@Param('id') id: string) {
-    return this.itemService.deleteItem({ id: +id });
+    return this.itemService.deleteItem(+id);
   }
 }

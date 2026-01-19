@@ -28,11 +28,19 @@ model User {
 model Item {
   id        Int      @default(autoincrement()) @id
   title     String
-  content   String?
+  content   Content?
   published Boolean? @default(false)
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
-  photo Photo[]
+  photos Photo[]
+}
+model Content {
+  id      Int    @id @default(autoincrement())
+  type    String
+  subtype String
+  size    String
+  item    Item   @relation(fields: [itemId], references: [id])
+  itemId  Int    @unique 
 }
 
 model Photo {

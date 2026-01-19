@@ -10,7 +10,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      forbidNonWhitelisted: true,
+      forbidNonWhitelisted: false,
       transform: true,
       transformOptions: { enableImplicitConversion: true },
     }),
@@ -19,7 +19,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('My Backend by Ghost Raven')
     .setDescription(
-      'This API works with two entities: Users and Items. Each User can have multiple Items.',
+      'This API works with several entities: Users,Items and e.t.c. Each User can have multiple Items.',
     )
     .setVersion('1.0')
     .build();

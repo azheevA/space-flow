@@ -1,33 +1,61 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsBoolean,
   IsInt,
+  IsNotEmpty,
   IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   MaxLength,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
+export class CreateContentDto {
+  @ApiProperty({ example: 'черная дыра', description: 'Тип небесного тела' })
+  @IsString()
+  @IsNotEmpty()
+  type: string;
+
+  @ApiProperty({
+    example: 'сверхмассивная',
+    description: 'Сабтип небесного тела',
+  })
+  @IsString()
+  @IsNotEmpty()
+  subtype: string;
+
+  @ApiProperty({ example: '390 млрд км', description: 'Размер в км' })
+  @IsString()
+  @IsNotEmpty()
+  size: string;
+}
 
 export class CreateItemDto {
   @ApiProperty({ example: 1 })
   @IsNumber()
   id: number;
 
-  @ApiProperty({ example: 'Заголовок', description: 'Заголовок статьи' })
+  @ApiProperty({ example: 'TON-618', description: 'название объекта' })
   @IsString()
-  @MinLength(3, { message: 'Заголовок слишком короткий' })
-  @MaxLength(20, { message: 'Заголовок слишком длинный' })
+  @MinLength(3, { message: 'Название слишком короткое' })
+  @MaxLength(30, { message: 'Название слишком длинное' })
   title: string;
 
   @ApiProperty({
-    example: 'Содержание статьи',
-    description: 'Содержание статьи',
+    example: {
+      type: 'черная дыра',
+      subtype: 'сверхмассивная',
+      size: '390 млрд км',
+    },
+    description: 'Данные контента (вложенный объект)',
   })
-  @IsString()
   @IsOptional()
-  @MaxLength(100, { message: 'Текст слишком длинный' })
-  content?: string;
+  @IsObject()
+  @ValidateNested()
+  @Type(() => CreateContentDto)
+  content?: CreateContentDto;
 
   @ApiProperty({ example: true, description: 'Опубликована ли статья' })
   @IsBoolean()
