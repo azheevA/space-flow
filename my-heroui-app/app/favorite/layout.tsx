@@ -1,6 +1,6 @@
 import { ProtectedPage } from "@/components/registration/auth/UI/protected-page";
 
-export default function DocsLayout({
+export default function FavoriteLayout({
   children,
 }: {
   children: React.ReactNode;

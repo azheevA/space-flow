@@ -51,8 +51,9 @@ export class PhotoRecordDto {
 }
 export class CreateItemDto {
   @ApiProperty({ example: 1 })
+  @IsOptional()
   @IsNumber()
-  id: number;
+  id?: number;
 
   @ApiProperty({ example: 'TON-618', description: 'название объекта' })
   @IsString()
