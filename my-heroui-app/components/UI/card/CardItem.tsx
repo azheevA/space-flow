@@ -1,6 +1,6 @@
 "use client";
 import React, { ReactNode } from "react";
-import { Card, CardFooter, Image, Button } from "@heroui/react";
+import { Card, CardFooter, Image, Button, Link } from "@heroui/react";
 import { CreateItemDto } from "@/server/generate/generate";
 
 type ItemType = CreateItemDto;
@@ -37,7 +37,7 @@ export default function CardItem({ children, item }: ICardItemProps) {
           size="sm"
           variant="flat"
         >
-          {children}
+          <Link href={`/items/${item.id}`}>{children}</Link>
         </Button>
       </CardFooter>
     </Card>

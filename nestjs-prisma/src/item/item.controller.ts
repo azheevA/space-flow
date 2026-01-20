@@ -34,6 +34,7 @@ export class ItemController {
   }
   @Get(':id')
   @ApiOperation({ summary: 'Получить один айтем' })
+  @ApiOkResponse({ type: CreateItemDto })
   findOneItem(@Param('id') id: string) {
     return this.itemService.post(+id);
   }

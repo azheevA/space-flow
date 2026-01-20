@@ -1,6 +1,6 @@
 import { ProtectedPage } from "@/components/registration/auth/UI/protected-page";
 
-export default function FavoriteLayout({
+export default function ItemLayout({
   children,
 }: {
   children: React.ReactNode;

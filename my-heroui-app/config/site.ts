@@ -10,8 +10,8 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Избранное",
-      href: "/favorite",
+      label: "Каталог",
+      href: "/items",
     },
     {
       label: "Карта",
