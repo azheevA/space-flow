@@ -4,29 +4,46 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { Request } from 'express';
 import { CookieService } from './cookie.service';
 import { JwtService } from '@nestjs/jwt';
+
+export interface SessionData {
+  userId?: string;
+  email?: string;
+  [key: string]: any;
+}
+interface AuthRequest extends Request {
+  cookies: {
+    [key: string]: string;
+  };
+  session?: SessionData;
+}
+
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
-    const req = context.switchToHttp().getRequest<unknown>() as Request;
-    const token = req.cookies[CookieService.tokenKey] as string | undefined;
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const req = context.switchToHttp().getRequest<AuthRequest>();
+    const token = req.cookies[CookieService.tokenKey];
+
     if (!token) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Токен не найден');
     }
+
     try {
-      const sessionInfo = this.jwtService.verifyAsync(token, {
-        secret: process.env.JWT_SECRET,
-      });
-      req['session'] = sessionInfo;
-    } catch {
-      throw new UnauthorizedException();
+      const sessionInfo = await this.jwtService.verifyAsync<SessionData>(
+        token,
+        {
+          secret: process.env.JWT_SECRET,
+        },
+      );
+      req.session = sessionInfo;
+      return true;
+    } catch (error) {
+      console.error('Ошибка верификации токена:', error);
+      throw new UnauthorizedException('Недействительный токен');
     }
-    return true;
   }
 }

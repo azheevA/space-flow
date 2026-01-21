@@ -1,7 +1,5 @@
-import {
-  CreateItemDto,
-  itemControllerFindOneItem,
-} from "@/server/generate/generate";
+import { itemControllerFindOneItem } from "@/server/generate/generate";
+import { ExtendedItemDto } from "@/types/extended";
 import { useQuery } from "@tanstack/react-query";
 
 export function useItemDetailsQuery(id: string) {
@@ -9,7 +7,7 @@ export function useItemDetailsQuery(id: string) {
     queryKey: ["item", id],
     queryFn: async () => {
       const response = await itemControllerFindOneItem(id);
-      return response as unknown as CreateItemDto;
+      return response as unknown as ExtendedItemDto;
     },
     enabled: !!id,
   });

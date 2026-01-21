@@ -8,7 +8,14 @@ const nextConfig = {
         protocol: "http",
         hostname: "localhost",
         port: "3000",
-        pathname: "/static/**",
+      },
+      {
+        protocol: "https",
+        hostname: "storage.com",
+      },
+      {
+        protocol: "https",
+        hostname: "example.com",
       },
     ],
   },

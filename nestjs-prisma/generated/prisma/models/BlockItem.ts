@@ -410,10 +410,6 @@ export type EnumBlockItemTypeFieldUpdateOperationsInput = {
   set?: $Enums.BlockItemType
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type BlockItemCreateWithoutOwnerInput = {
   type: $Enums.BlockItemType
   data: string

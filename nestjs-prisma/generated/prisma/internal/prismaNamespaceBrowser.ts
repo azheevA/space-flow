@@ -91,7 +91,8 @@ export const ItemScalarFieldEnum = {
   id: 'id',
   title: 'title',
   published: 'published',
-  authorId: 'authorId'
+  authorId: 'authorId',
+  createdAt: 'createdAt'
 } as const
 
 export type ItemScalarFieldEnum = (typeof ItemScalarFieldEnum)[keyof typeof ItemScalarFieldEnum]

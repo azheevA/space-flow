@@ -1,5 +1,3 @@
-import { title } from "@/components/primitives";
-import { NeonGlassCard } from "@/shared/ui/neon-card";
 import { CreateItemForm } from "@/components/UI/card/form/create-item-form";
 
 export default function CreateItemPage() {

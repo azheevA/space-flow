@@ -3,6 +3,7 @@ import { Type } from 'class-transformer';
 import {
   IsArray,
   IsBoolean,
+  IsDate,
   IsInt,
   IsNotEmpty,
   IsNumber,
@@ -95,4 +96,9 @@ export class CreateItemDto {
   @ValidateNested({ each: true })
   @Type(() => PhotoRecordDto)
   photos?: PhotoRecordDto[];
+
+  @ApiProperty({ example: '2024-01-20T10:30:00Z', required: false })
+  @IsOptional()
+  @IsDate()
+  createdAt?: Date;
 }

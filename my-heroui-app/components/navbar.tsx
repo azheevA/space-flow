@@ -50,7 +50,14 @@ export const Navbar = () => {
   );
 
   return (
-    <HeroUINavbar maxWidth="2xl" position="sticky" className="w-full">
+    <HeroUINavbar
+      maxWidth="2xl"
+      position="sticky"
+      className="w-full  
+  bg-black 
+   border-t border-blue-500/30
+  shadow-[0_-2px_30px_rgba(59,130,246,0.3),0_-1px_15px_rgba(168,85,247,0.2),0_0_5px_rgba(236,72,153,0.1)]"
+    >
       <NavbarContent justify="start">
         <NavbarBrand>
           <NextLink href="/" className="flex items-center gap-2">
@@ -120,7 +127,7 @@ export const Navbar = () => {
 
       <NavbarMenu>
         {searchInput}
-        <div className="mx-4 mt-2 flex flex-col gap-2">
+        <div className="mx-4 mt-2 flex flex-col gap-2 ">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link

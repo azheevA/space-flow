@@ -41,6 +41,7 @@ export type ItemMinAggregateOutputType = {
   title: string | null
   published: boolean | null
   authorId: number | null
+  createdAt: Date | null
 }
 
 export type ItemMaxAggregateOutputType = {
@@ -48,6 +49,7 @@ export type ItemMaxAggregateOutputType = {
   title: string | null
   published: boolean | null
   authorId: number | null
+  createdAt: Date | null
 }
 
 export type ItemCountAggregateOutputType = {
@@ -55,6 +57,7 @@ export type ItemCountAggregateOutputType = {
   title: number
   published: number
   authorId: number
+  createdAt: number
   _all: number
 }
 
@@ -74,6 +77,7 @@ export type ItemMinAggregateInputType = {
   title?: true
   published?: true
   authorId?: true
+  createdAt?: true
 }
 
 export type ItemMaxAggregateInputType = {
@@ -81,6 +85,7 @@ export type ItemMaxAggregateInputType = {
   title?: true
   published?: true
   authorId?: true
+  createdAt?: true
 }
 
 export type ItemCountAggregateInputType = {
@@ -88,6 +93,7 @@ export type ItemCountAggregateInputType = {
   title?: true
   published?: true
   authorId?: true
+  createdAt?: true
   _all?: true
 }
 
@@ -182,6 +188,7 @@ export type ItemGroupByOutputType = {
   title: string
   published: boolean | null
   authorId: number | null
+  createdAt: Date
   _count: ItemCountAggregateOutputType | null
   _avg: ItemAvgAggregateOutputType | null
   _sum: ItemSumAggregateOutputType | null
@@ -212,6 +219,7 @@ export type ItemWhereInput = {
   title?: Prisma.StringFilter<"Item"> | string
   published?: Prisma.BoolNullableFilter<"Item"> | boolean | null
   authorId?: Prisma.IntNullableFilter<"Item"> | number | null
+  createdAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   content?: Prisma.XOR<Prisma.ContentNullableScalarRelationFilter, Prisma.ContentWhereInput> | null
   author?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   photos?: Prisma.PhotoListRelationFilter
@@ -222,6 +230,7 @@ export type ItemOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   published?: Prisma.SortOrderInput | Prisma.SortOrder
   authorId?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   content?: Prisma.ContentOrderByWithRelationInput
   author?: Prisma.UserOrderByWithRelationInput
   photos?: Prisma.PhotoOrderByRelationAggregateInput
@@ -235,6 +244,7 @@ export type ItemWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Item"> | string
   published?: Prisma.BoolNullableFilter<"Item"> | boolean | null
   authorId?: Prisma.IntNullableFilter<"Item"> | number | null
+  createdAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   content?: Prisma.XOR<Prisma.ContentNullableScalarRelationFilter, Prisma.ContentWhereInput> | null
   author?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   photos?: Prisma.PhotoListRelationFilter
@@ -245,6 +255,7 @@ export type ItemOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   published?: Prisma.SortOrderInput | Prisma.SortOrder
   authorId?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.ItemCountOrderByAggregateInput
   _avg?: Prisma.ItemAvgOrderByAggregateInput
   _max?: Prisma.ItemMaxOrderByAggregateInput
@@ -260,11 +271,13 @@ export type ItemScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Item"> | string
   published?: Prisma.BoolNullableWithAggregatesFilter<"Item"> | boolean | null
   authorId?: Prisma.IntNullableWithAggregatesFilter<"Item"> | number | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Item"> | Date | string
 }
 
 export type ItemCreateInput = {
   title: string
   published?: boolean | null
+  createdAt?: Date | string
   content?: Prisma.ContentCreateNestedOneWithoutItemInput
   author?: Prisma.UserCreateNestedOneWithoutItemsInput
   photos?: Prisma.PhotoCreateNestedManyWithoutItemInput
@@ -275,6 +288,7 @@ export type ItemUncheckedCreateInput = {
   title: string
   published?: boolean | null
   authorId?: number | null
+  createdAt?: Date | string
   content?: Prisma.ContentUncheckedCreateNestedOneWithoutItemInput
   photos?: Prisma.PhotoUncheckedCreateNestedManyWithoutItemInput
 }
@@ -282,6 +296,7 @@ export type ItemUncheckedCreateInput = {
 export type ItemUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneWithoutItemNestedInput
   author?: Prisma.UserUpdateOneWithoutItemsNestedInput
   photos?: Prisma.PhotoUpdateManyWithoutItemNestedInput
@@ -292,6 +307,7 @@ export type ItemUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   authorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUncheckedUpdateOneWithoutItemNestedInput
   photos?: Prisma.PhotoUncheckedUpdateManyWithoutItemNestedInput
 }
@@ -301,11 +317,13 @@ export type ItemCreateManyInput = {
   title: string
   published?: boolean | null
   authorId?: number | null
+  createdAt?: Date | string
 }
 
 export type ItemUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ItemUncheckedUpdateManyInput = {
@@ -313,6 +331,7 @@ export type ItemUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   authorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ItemListRelationFilter = {
@@ -330,6 +349,7 @@ export type ItemCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   published?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ItemAvgOrderByAggregateInput = {
@@ -342,6 +362,7 @@ export type ItemMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   published?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ItemMinOrderByAggregateInput = {
@@ -349,6 +370,7 @@ export type ItemMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   published?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ItemSumOrderByAggregateInput = {
@@ -407,6 +429,10 @@ export type NullableBoolFieldUpdateOperationsInput = {
   set?: boolean | null
 }
 
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -446,6 +472,7 @@ export type ItemUpdateOneRequiredWithoutPhotosNestedInput = {
 export type ItemCreateWithoutAuthorInput = {
   title: string
   published?: boolean | null
+  createdAt?: Date | string
   content?: Prisma.ContentCreateNestedOneWithoutItemInput
   photos?: Prisma.PhotoCreateNestedManyWithoutItemInput
 }
@@ -454,6 +481,7 @@ export type ItemUncheckedCreateWithoutAuthorInput = {
   id?: number
   title: string
   published?: boolean | null
+  createdAt?: Date | string
   content?: Prisma.ContentUncheckedCreateNestedOneWithoutItemInput
   photos?: Prisma.PhotoUncheckedCreateNestedManyWithoutItemInput
 }
@@ -492,11 +520,13 @@ export type ItemScalarWhereInput = {
   title?: Prisma.StringFilter<"Item"> | string
   published?: Prisma.BoolNullableFilter<"Item"> | boolean | null
   authorId?: Prisma.IntNullableFilter<"Item"> | number | null
+  createdAt?: Prisma.DateTimeFilter<"Item"> | Date | string
 }
 
 export type ItemCreateWithoutContentInput = {
   title: string
   published?: boolean | null
+  createdAt?: Date | string
   author?: Prisma.UserCreateNestedOneWithoutItemsInput
   photos?: Prisma.PhotoCreateNestedManyWithoutItemInput
 }
@@ -506,6 +536,7 @@ export type ItemUncheckedCreateWithoutContentInput = {
   title: string
   published?: boolean | null
   authorId?: number | null
+  createdAt?: Date | string
   photos?: Prisma.PhotoUncheckedCreateNestedManyWithoutItemInput
 }
 
@@ -528,6 +559,7 @@ export type ItemUpdateToOneWithWhereWithoutContentInput = {
 export type ItemUpdateWithoutContentInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneWithoutItemsNestedInput
   photos?: Prisma.PhotoUpdateManyWithoutItemNestedInput
 }
@@ -537,12 +569,14 @@ export type ItemUncheckedUpdateWithoutContentInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   authorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   photos?: Prisma.PhotoUncheckedUpdateManyWithoutItemNestedInput
 }
 
 export type ItemCreateWithoutPhotosInput = {
   title: string
   published?: boolean | null
+  createdAt?: Date | string
   content?: Prisma.ContentCreateNestedOneWithoutItemInput
   author?: Prisma.UserCreateNestedOneWithoutItemsInput
 }
@@ -552,6 +586,7 @@ export type ItemUncheckedCreateWithoutPhotosInput = {
   title: string
   published?: boolean | null
   authorId?: number | null
+  createdAt?: Date | string
   content?: Prisma.ContentUncheckedCreateNestedOneWithoutItemInput
 }
 
@@ -574,6 +609,7 @@ export type ItemUpdateToOneWithWhereWithoutPhotosInput = {
 export type ItemUpdateWithoutPhotosInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneWithoutItemNestedInput
   author?: Prisma.UserUpdateOneWithoutItemsNestedInput
 }
@@ -583,6 +619,7 @@ export type ItemUncheckedUpdateWithoutPhotosInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   authorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUncheckedUpdateOneWithoutItemNestedInput
 }
 
@@ -590,11 +627,13 @@ export type ItemCreateManyAuthorInput = {
   id?: number
   title: string
   published?: boolean | null
+  createdAt?: Date | string
 }
 
 export type ItemUpdateWithoutAuthorInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneWithoutItemNestedInput
   photos?: Prisma.PhotoUpdateManyWithoutItemNestedInput
 }
@@ -603,6 +642,7 @@ export type ItemUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUncheckedUpdateOneWithoutItemNestedInput
   photos?: Prisma.PhotoUncheckedUpdateManyWithoutItemNestedInput
 }
@@ -611,6 +651,7 @@ export type ItemUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -649,6 +690,7 @@ export type ItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   title?: boolean
   published?: boolean
   authorId?: boolean
+  createdAt?: boolean
   content?: boolean | Prisma.Item$contentArgs<ExtArgs>
   author?: boolean | Prisma.Item$authorArgs<ExtArgs>
   photos?: boolean | Prisma.Item$photosArgs<ExtArgs>
@@ -660,6 +702,7 @@ export type ItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   published?: boolean
   authorId?: boolean
+  createdAt?: boolean
   author?: boolean | Prisma.Item$authorArgs<ExtArgs>
 }, ExtArgs["result"]["item"]>
 
@@ -668,6 +711,7 @@ export type ItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   published?: boolean
   authorId?: boolean
+  createdAt?: boolean
   author?: boolean | Prisma.Item$authorArgs<ExtArgs>
 }, ExtArgs["result"]["item"]>
 
@@ -676,9 +720,10 @@ export type ItemSelectScalar = {
   title?: boolean
   published?: boolean
   authorId?: boolean
+  createdAt?: boolean
 }
 
-export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "published" | "authorId", ExtArgs["result"]["item"]>
+export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "published" | "authorId" | "createdAt", ExtArgs["result"]["item"]>
 export type ItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   content?: boolean | Prisma.Item$contentArgs<ExtArgs>
   author?: boolean | Prisma.Item$authorArgs<ExtArgs>
@@ -704,6 +749,7 @@ export type $ItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     title: string
     published: boolean | null
     authorId: number | null
+    createdAt: Date
   }, ExtArgs["result"]["item"]>
   composites: {}
 }
@@ -1134,6 +1180,7 @@ export interface ItemFieldRefs {
   readonly title: Prisma.FieldRef<"Item", 'String'>
   readonly published: Prisma.FieldRef<"Item", 'Boolean'>
   readonly authorId: Prisma.FieldRef<"Item", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"Item", 'DateTime'>
 }
     
 

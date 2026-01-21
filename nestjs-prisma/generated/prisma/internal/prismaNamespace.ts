@@ -982,7 +982,8 @@ export const ItemScalarFieldEnum = {
   id: 'id',
   title: 'title',
   published: 'published',
-  authorId: 'authorId'
+  authorId: 'authorId',
+  createdAt: 'createdAt'
 } as const
 
 export type ItemScalarFieldEnum = (typeof ItemScalarFieldEnum)[keyof typeof ItemScalarFieldEnum]
@@ -1104,20 +1105,6 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'BlockItemType'
- */
-export type EnumBlockItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockItemType'>
-    
-
-
-/**
- * Reference to a field of type 'BlockItemType[]'
- */
-export type ListEnumBlockItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockItemType[]'>
-    
-
-
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1128,6 +1115,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BlockItemType'
+ */
+export type EnumBlockItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockItemType'>
+    
+
+
+/**
+ * Reference to a field of type 'BlockItemType[]'
+ */
+export type ListEnumBlockItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockItemType[]'>
     
 
 

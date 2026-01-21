@@ -1,72 +1,179 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useItemDetailsQuery } from "../../../components/UI/card/queries/use-item-details-query";
-import Image from "next/image";
+import { useUploadPhotosMutation } from "@/components/UI/card/queries/useItemPhotoMutation";
+import {
+  useDeleteItem,
+  useDeletePhoto,
+} from "@/components/UI/card/queries/use-item-delete-mutation";
+import { ItemHeader } from "./components/ItemHeader";
+import { PhotoGallery } from "./components/PhotoGallery";
+import { ItemSidebar } from "./components/ItemSidebar";
+import { DeleteItemModal } from "./components/DeleteItemModal";
+import { DeletePhotoModal } from "./components/DeletePhotoModal";
 
 export default function ItemPage() {
   const params = useParams();
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const id = params.id as string;
 
-  const { data: item, isLoading, error } = useItemDetailsQuery(id);
+  const [photoToDelete, setPhotoToDelete] = useState<number | null>(null);
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number>(0);
+  const [showAllPhotos, setShowAllPhotos] = useState<boolean>(false);
+  const [isDeleteItemOpen, setIsDeleteItemOpen] = useState(false);
+  const [isDeletePhotoOpen, setIsDeletePhotoOpen] = useState(false);
 
-  if (isLoading)
-    return <div className="p-10 text-white">Загрузка данных об объекте...</div>;
-  if (error || !item)
-    return <div className="p-10 text-red-500">Объект не найден</div>;
+  const { data: item, isLoading, error } = useItemDetailsQuery(id);
+  const uploadPhotosMutation = useUploadPhotosMutation();
+  const deleteItemMutation = useDeleteItem();
+  const deletePhotoMutation = useDeletePhoto();
+
+  const handleUploadPhotos = async (files: FileList) => {
+    if (!files || files.length === 0) return;
+
+    try {
+      await uploadPhotosMutation.mutateAsync({
+        itemId: Number(id),
+        files: files,
+      });
+      queryClient.invalidateQueries({ queryKey: ["item", id] });
+      queryClient.invalidateQueries({ queryKey: ["item"] });
+    } catch (error) {
+      console.error("Ошибка при загрузке фотографий:", error);
+    }
+  };
+
+  const handleDeleteItem = () => {
+    deleteItemMutation.mutate(id, {
+      onSuccess: () => {
+        router.push("/");
+        setIsDeleteItemOpen(false);
+      },
+    });
+  };
+
+  const handleDeletePhoto = () => {
+    if (photoToDelete) {
+      deletePhotoMutation.mutate(photoToDelete, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["item", id] });
+          queryClient.invalidateQueries({ queryKey: ["item"] });
+          setIsDeletePhotoOpen(false);
+          setPhotoToDelete(null);
+        },
+      });
+    }
+  };
+
+  const openDeletePhotoModal = (photoId: number) => {
+    setPhotoToDelete(photoId);
+    setIsDeletePhotoOpen(true);
+  };
+
+  if (isLoading) return <LoadingState />;
+  if (error || !item) return <ErrorState router={router} />;
+
+  const photos = item.photos || [];
+  const selectedPhoto = photos[selectedPhotoIndex];
 
   return (
-    <main className="min-h-screen bg-black text-white p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-5xl font-bold mb-6 text-blue-500">{item.title}</h1>
+    <main className="min-h-screen p-10 bg-gradient-to-br from-gray-900 via-black to-blue-900/20 rounded-2xl border-t border-blue-500/30 shadow-[0_-2px_30px_rgba(59,130,246,0.3),0_-1px_15px_rgba(168,85,247,0.2),0_0_5px_rgba(236,72,153,0.1)] mb-20">
+      <div className="fixed inset-0 bg-grid-white/[0.02] bg-grid" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-          <div className="space-y-4">
-            {item.photos && item.photos.length > 0 ? (
-              item.photos.map((photo, index) => (
-                <div
-                  key={index}
-                  className="relative aspect-video rounded-2xl overflow-hidden border border-stone-800"
-                >
-                  <Image
-                    src={`http://localhost:3000${photo.url}`}
-                    alt={photo.originalName}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ))
-            ) : (
-              <div className="aspect-video bg-stone-900 rounded-2xl flex items-center justify-center text-stone-500">
-                Нет доступных фото
-              </div>
-            )}
+      <div className="relative z-10 container mx-auto px-4 py-8">
+        <ItemHeader
+          item={item}
+          router={router}
+          onDeleteClick={() => setIsDeleteItemOpen(true)}
+          onUploadClick={() => document.getElementById("file-input")?.click()}
+          isUploadPending={uploadPhotosMutation.isPending}
+          isDeletePending={deleteItemMutation.isPending}
+        />
+
+        <input
+          id="file-input"
+          type="file"
+          className="hidden"
+          multiple
+          accept="image/*"
+          onChange={(e) => e.target.files && handleUploadPhotos(e.target.files)}
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-6">
+            <PhotoGallery
+              photos={photos}
+              selectedPhotoIndex={selectedPhotoIndex}
+              showAllPhotos={showAllPhotos}
+              onSelectPhoto={setSelectedPhotoIndex}
+              onToggleShowAll={() => setShowAllPhotos(!showAllPhotos)}
+              onDeletePhoto={openDeletePhotoModal}
+              selectedPhoto={selectedPhoto}
+              isDeletePending={deletePhotoMutation.isPending}
+            />
           </div>
 
-          <div className="bg-stone-950 p-6 rounded-3xl border border-stone-800">
-            <h2 className="text-2xl font-semibold mb-4 border-b border-stone-800 pb-2">
-              Характеристики
-            </h2>
-            <div className="space-y-3">
-              <p>
-                <span className="text-stone-400">Тип:</span>{" "}
-                {item.content?.type}
-              </p>
-              <p>
-                <span className="text-stone-400">Подтип:</span>{" "}
-                {item.content?.subtype}
-              </p>
-              <p>
-                <span className="text-stone-400">Размер:</span>{" "}
-                {item.content?.size}
-              </p>
-              <p>
-                <span className="text-stone-400">Статус:</span>{" "}
-                {item.published ? "Опубликовано" : "Черновик"}
-              </p>
-            </div>
-          </div>
+          <ItemSidebar
+            item={item}
+            photos={photos}
+            router={router}
+            itemId={id}
+            isUploadPending={uploadPhotosMutation.isPending}
+          />
         </div>
+
+        <DeleteItemModal
+          isOpen={isDeleteItemOpen}
+          onClose={() => setIsDeleteItemOpen(false)}
+          item={item}
+          onDelete={handleDeleteItem}
+          isPending={deleteItemMutation.isPending}
+        />
+
+        <DeletePhotoModal
+          isOpen={isDeletePhotoOpen}
+          onClose={() => setIsDeletePhotoOpen(false)}
+          selectedPhoto={selectedPhoto}
+          onDelete={handleDeletePhoto}
+          isPending={deletePhotoMutation.isPending}
+        />
       </div>
     </main>
+  );
+}
+
+function LoadingState() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+      <div className="text-center space-y-4">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+        <p className="text-gray-300">Загрузка данных об объекте...</p>
+      </div>
+    </div>
+  );
+}
+
+function ErrorState({ router }: { router: any }) {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+      <div className="max-w-md p-8 border border-red-500/30 bg-red-500/10 rounded-2xl">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-16 h-16 text-red-400">⚠️</div>
+          <h2 className="text-2xl font-bold text-white">Объект не найден</h2>
+          <p className="text-gray-300 text-center">
+            Запрошенный объект не существует или был удален
+          </p>
+          <button
+            onClick={() => router.push("/")}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2"
+          >
+            ← Вернуться на главную
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
