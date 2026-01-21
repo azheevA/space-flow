@@ -1,0 +1,21 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+COPY prisma ./prisma/
+
+RUN npm ci --legacy-peer-deps
+
+COPY . .
+
+RUN npm run build
+
+# Проверяем содержимое dist
+RUN echo "=== Содержимое папки dist ===" && ls -R dist/
+
+RUN mkdir -p uploads
+
+EXPOSE 3000
+
+CMD ["node", "dist/src/main.js"]

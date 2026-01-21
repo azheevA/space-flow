@@ -61,7 +61,7 @@ export function ItemHeader({
             {isUploadPending ? (
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
             ) : (
-              "📤"
+              ""
             )}
             Добавить фото
           </button>
@@ -71,7 +71,7 @@ export function ItemHeader({
             disabled={isDeletePending}
             className="px-4 py-2 bg-red-600/20 hover:bg-red-600/30 disabled:bg-red-600/10 text-red-400 border border-red-500/30 rounded-lg transition-colors flex items-center gap-2"
           >
-            🗑️ Удалить объект
+            Удалить объект
           </button>
         </div>
       </div>

@@ -70,7 +70,7 @@ export function DeletePhotoModal({
             {isPending ? (
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
             ) : (
-              "🗑️"
+              ""
             )}
             {isPending ? "Удаление..." : "Удалить фото"}
           </button>

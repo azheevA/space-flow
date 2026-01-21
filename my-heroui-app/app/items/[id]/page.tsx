@@ -13,6 +13,8 @@ import { PhotoGallery } from "./components/PhotoGallery";
 import { ItemSidebar } from "./components/ItemSidebar";
 import { DeleteItemModal } from "./components/DeleteItemModal";
 import { DeletePhotoModal } from "./components/DeletePhotoModal";
+import { LoadingState } from "./components/LoadingState";
+import { ErrorState } from "./components/ErrorState";
 
 export default function ItemPage() {
   const params = useParams();
@@ -80,7 +82,7 @@ export default function ItemPage() {
   const selectedPhoto = photos[selectedPhotoIndex];
 
   return (
-    <main className="min-h-screen p-10 bg-gradient-to-br from-gray-900 via-black to-blue-900/20 rounded-2xl border-t border-blue-500/30 shadow-[0_-2px_30px_rgba(59,130,246,0.3),0_-1px_15px_rgba(168,85,247,0.2),0_0_5px_rgba(236,72,153,0.1)] mb-20">
+    <main className="min-h-screen px-10 py-5 bg-gradient-to-br from-gray-900 via-black to-blue-900/20 rounded-2xl border-t border-blue-500/30 shadow-[0_-2px_30px_rgba(59,130,246,0.3),0_-1px_15px_rgba(168,85,247,0.2),0_0_5px_rgba(236,72,153,0.1)] mb-20">
       <div className="fixed inset-0 bg-grid-white/[0.02] bg-grid" />
 
       <div className="relative z-10 container mx-auto px-4 py-8">
@@ -142,38 +144,5 @@ export default function ItemPage() {
         />
       </div>
     </main>
-  );
-}
-
-function LoadingState() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
-      <div className="text-center space-y-4">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-        <p className="text-gray-300">Загрузка данных об объекте...</p>
-      </div>
-    </div>
-  );
-}
-
-function ErrorState({ router }: { router: any }) {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
-      <div className="max-w-md p-8 border border-red-500/30 bg-red-500/10 rounded-2xl">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-16 h-16 text-red-400">⚠️</div>
-          <h2 className="text-2xl font-bold text-white">Объект не найден</h2>
-          <p className="text-gray-300 text-center">
-            Запрошенный объект не существует или был удален
-          </p>
-          <button
-            onClick={() => router.push("/")}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2"
-          >
-            ← Вернуться на главную
-          </button>
-        </div>
-      </div>
-    </div>
   );
 }

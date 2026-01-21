@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: nestjs-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: nestjs_prisma
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./nestjs-prisma
+    container_name: nestjs-backend
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres123@postgres:5432/nestjs_prisma?schema=public"
+      JWT_SECRET: "my-super-secret-jwt-key"
+    depends_on:
+      - postgres
+    volumes:
+      - ./nestjs-prisma/uploads:/app/uploads
+
+  frontend:
+    build: ./my-heroui-app
+    container_name: nextjs-frontend
+    ports:
+      - "5000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: "http://localhost:3000"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
