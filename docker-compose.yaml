@@ -18,19 +18,22 @@ services:
       - "3000:3000"
     environment:
       DATABASE_URL: "postgresql://postgres:postgres123@postgres:5432/nestjs_prisma?schema=public"
-      JWT_SECRET: "my-super-secret-jwt-key"
+      JWT_SECRET: "asdfdsfrefr"
     depends_on:
       - postgres
     volumes:
+      - ./nestjs-prisma:/app
+      - /app/node_modules
       - ./nestjs-prisma/uploads:/app/uploads
 
   frontend:
     build: ./my-heroui-app
     container_name: nextjs-frontend
     ports:
-      - "5000:3000"
+      - "5000:5000"
     environment:
-      NEXT_PUBLIC_API_URL: "http://localhost:3000"
+      NEXT_PUBLIC_API_BASE_URL: "http://backend:3000"
+      NEXT_PUBLIC_API_URL: "http://backend:3000"
     depends_on:
       - backend
 

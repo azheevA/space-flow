@@ -13,7 +13,7 @@ async function bootstrap() {
     prefix: '/static/',
   });
   app.enableCors({
-    origin: 'http://localhost:5000',
+    origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
     allowedHeaders: 'Content-Type, Accept, Authorization',

@@ -8,7 +8,8 @@ interface ICardItemProps {
   children: ReactNode;
   item: ItemType;
 }
-const BASE_URL = "http://localhost:3000";
+const BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
 export default function CardItem({ children, item }: ICardItemProps) {
   const firstPhotoUrl =
     item.photos && item.photos.length > 0

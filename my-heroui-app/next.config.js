@@ -8,14 +8,13 @@ const nextConfig = {
         protocol: "http",
         hostname: "localhost",
         port: "3000",
+        pathname: "/static/**",
       },
       {
-        protocol: "https",
-        hostname: "storage.com",
-      },
-      {
-        protocol: "https",
-        hostname: "example.com",
+        protocol: "http",
+        hostname: "backend",
+        port: "3000",
+        pathname: "/static/**",
       },
     ],
   },
@@ -23,7 +22,11 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:3000/:path*",
+        destination: "http://backend:3000/:path*",
+      },
+      {
+        source: "/static/:path*",
+        destination: "http://backend:3000/static/:path*",
       },
     ];
   },
