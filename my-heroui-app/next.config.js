@@ -22,11 +22,11 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "http://backend:3000/:path*",
+        destination: `${process.env.NEXT_PUBLIC_API_BASE_URL}/:path*`,
       },
       {
         source: "/static/:path*",
-        destination: "http://backend:3000/static/:path*",
+        destination: `${process.env.NEXT_PUBLIC_API_BASE_URL}/static/:path*`,
       },
     ];
   },
