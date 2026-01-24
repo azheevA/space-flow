@@ -1,5 +1,5 @@
 "use client";
-import { Image } from "@heroui/react";
+import Image from "next/image";
 import { ImageIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { API_BASE_URL } from "@/config/url";
 
@@ -28,7 +28,7 @@ export function PhotoGallery({
     process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
 
   const getPhotoUrl = (url: string) => {
-    return `${BASE_URL}${url}`;
+    return url;
   };
 
   const displayedPhotos = showAllPhotos ? photos : photos.slice(0, 4);
@@ -41,6 +41,7 @@ export function PhotoGallery({
             <Image
               src={getPhotoUrl(selectedPhoto.url)}
               alt={selectedPhoto.originalName}
+              fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 66vw"
             />
@@ -120,6 +121,7 @@ export function PhotoGallery({
                   <Image
                     src={getPhotoUrl(photo.url)}
                     alt={photo.originalName}
+                    fill
                     className="object-cover"
                     sizes="(max-width: 768px) 50vw, 25vw"
                   />

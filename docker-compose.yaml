@@ -27,13 +27,17 @@ services:
       - ./nestjs-prisma/uploads:/app/uploads
 
   frontend:
-    build: ./my-heroui-app
+    build:
+      context: ./my-heroui-app
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_BASE_URL=http://backend:3000
     container_name: nextjs-frontend
     ports:
       - "5000:5000"
     environment:
-      NEXT_PUBLIC_API_BASE_URL: "http://backend:3000"
-      NEXT_PUBLIC_API_URL: "http://backend:3000"
+      - NEXT_PUBLIC_API_BASE_URL=http://backend:3000
+      - NEXT_PUBLIC_API_URL=http://backend:3000
     depends_on:
       - backend
 

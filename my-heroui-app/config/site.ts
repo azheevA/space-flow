@@ -25,6 +25,10 @@ export const siteConfig = {
       label: "Авторизация",
       href: "/sign-in",
     },
+    {
+      label: "сh-p",
+      href: "/change-password",
+    },
   ],
   navMenuItems: [
     {

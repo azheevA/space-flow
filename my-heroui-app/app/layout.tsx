@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   icons: {
-    icon: "/logo2.JPG",
+    icon: "/icon.png",
   },
 };
 

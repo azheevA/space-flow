@@ -8,14 +8,15 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-interface IForm {
-  email: string;
-  password: string;
-}
+interface IForm extends SignUpBodyDto {}
 export function useSignUp() {
   const router = useRouter();
 
-  const { register, handleSubmit } = useForm<IForm>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IForm>();
   const signUpMutation = useMutation({
     mutationFn: (data: SignUpBodyDto) => authControllerSignUp(data),
     onSuccess() {
@@ -29,6 +30,7 @@ export function useSignUp() {
   return {
     register,
     errorMessage,
+    errors,
     handleSubmit: handleSubmit((data) => signUpMutation.mutate(data)),
     isLoading: signUpMutation.isPending,
   };

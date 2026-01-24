@@ -5,9 +5,15 @@ import { Button } from "@/shared/ui/button";
 import clsx from "clsx";
 import Link from "next/link";
 import { useSignUp } from "../model/use-sign-up";
+import { KeyRound, Mail } from "lucide-react";
+import { AuthInput } from "@/shared/ui/auth-input";
+import { PasswordInput } from "@/shared/ui/input-password";
+import { usePasswordToggle } from "../model/use-password-toggle";
 
 export function SignUpForm() {
-  const { register, errorMessage, handleSubmit, isLoading } = useSignUp();
+  const { register, errorMessage, errors, handleSubmit, isLoading } =
+    useSignUp();
+  const togglePassword = usePasswordToggle();
   return (
     <form className="flex flex-col gap-2 p-6 w-full" onSubmit={handleSubmit}>
       <h1 className="text-2xl">
@@ -16,23 +22,17 @@ export function SignUpForm() {
           email
         </span>
       </h1>
-      <input
-        className="
-                  px-5 py-2 rounded-full 
-                bg-black text-white text-lg tracking-[0.2em]
-                border-2 border-cyan-500/80
-                shadow-[0_0_15px_rgba(6,182,212,0.4)]
-                outline-none focus:border-cyan-400 
-                focus:shadow-[0_0_25px_rgba(34,211,238,0.6)]
-                transition-all duration-300
-                "
-        type="email"
+      <AuthInput
+        icon={<Mail size={18} />}
         placeholder="test@test.com"
-        {...register("email", {
-          required: "This field is required",
+        color="cyan"
+        error={errors.email?.message}
+        type="email"
+        register={register("email", {
+          required: "Это поле обязательно",
           pattern: {
             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-            message: "Invalid email address",
+            message: "Неверный формат почты",
           },
         })}
       />
@@ -42,31 +42,27 @@ export function SignUpForm() {
           пароль
         </span>
       </h1>
-      <input
-        className="
-                 px-5 py-2 rounded-full 
-                bg-black text-white text-lg tracking-[0.2em]
-                border-2 border-cyan-500/80
-                shadow-[0_0_15px_rgba(6,182,212,0.4)]
-                outline-none focus:border-cyan-400 
-                focus:shadow-[0_0_25px_rgba(34,211,238,0.6)]
-                transition-all duration-300
-                "
-        type="text"
+      <PasswordInput
+        icon={<KeyRound size={18} />}
         placeholder="qwerty"
-        {...register("password", {
-          required: "This field is required",
+        toggle={togglePassword.toggle}
+        visible={togglePassword.visible}
+        type={togglePassword.type}
+        error={errors.password?.message}
+        register={register("password", {
+          required: "Пароль обязателен",
           minLength: {
             value: 6,
-            message: "Password must be at least 6 characters",
+            message: "Минимум 6 символов",
           },
         })}
+        color="violet"
       />
-      <div className="mt-20 w-full flex justify-center gap-5">
-        <Button size="lg" disabled={isLoading}>
+      <div className="mt-10 w-full flex justify-center gap-5">
+        <Button size="lg" disabled={isLoading} variant="secondary">
           Sign Up
         </Button>
-        <Button size="lg">
+        <Button size="lg" variant="secondary">
           <Link href={ROUTES.SIGN_IN}>Sign In</Link>
         </Button>
       </div>

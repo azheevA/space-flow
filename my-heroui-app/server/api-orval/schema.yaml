@@ -188,6 +188,10 @@ paths:
       responses:
         '200':
           description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateItemDto'
       summary: Получить один айтем
       tags:
         - Item
@@ -275,6 +279,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetSessionInfoDto'
+      tags:
+        - Auth
+  /auth/change-password:
+    post:
+      operationId: AuthController_changePassword
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordDto'
+      responses:
+        '200':
+          description: ''
       tags:
         - Auth
   /photos/upload:
@@ -456,6 +475,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PhotoRecordDto'
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-01-20T10:30:00Z'
       required:
         - id
         - title
@@ -493,6 +516,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PhotoRecordDto'
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-01-20T10:30:00Z'
     SignUpBodyDto:
       type: object
       properties:
@@ -533,6 +560,22 @@ components:
         - email
         - iat
         - exp
+    ChangePasswordDto:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+          example: '1234'
+        newPassword:
+          type: string
+          example: newPassword123
+        confirmNewPassword:
+          type: string
+          example: newPassword123
+      required:
+        - oldPassword
+        - newPassword
+        - confirmNewPassword
     UploadPhotoDto:
       type: object
       properties:

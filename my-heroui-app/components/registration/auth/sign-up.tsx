@@ -1,3 +1,4 @@
+import { uniqueText } from "@/components/primitives";
 import { SignUpForm } from "./UI/signUpForm";
 import clsx from "clsx";
 
@@ -8,8 +9,20 @@ export function SignUpPage({ className }: SignUpPageProps) {
   return (
     <div className={clsx("flex flex-col ", className)}>
       <main className="grow flex flex-col ">
-        <div className="rounded-xl border border-slate-300 px-14 py-8  bg-[#19172c] w-full">
-          <h1 className="text-2xl mb-10">Sign Up</h1>
+        <div
+          className="px-14 pt-8  w-full
+                      rounded-2xl bg-[#0b0b14]
+                      border border-cyan-500/20
+                      shadow-[0_0_40px_rgba(34,211,238,0.15)]"
+        >
+          <h1
+            className={clsx(
+              "text-3xl mb-2",
+              uniqueText({ color: "cyan", size: "lg" }),
+            )}
+          >
+            Регистрация
+          </h1>
           <SignUpForm />
         </div>
       </main>

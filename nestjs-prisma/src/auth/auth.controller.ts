@@ -9,7 +9,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { GetSessionInfoDto, SignInBodyDto, SignUpBodyDto } from './auth.dto';
+import {
+  ChangePasswordDto,
+  GetSessionInfoDto,
+  SignInBodyDto,
+  SignUpBodyDto,
+} from './auth.dto';
 import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import type { Response } from 'express';
 import { CookieService } from './cookie.service';
@@ -64,5 +69,20 @@ export class AuthController {
   @UseGuards(AuthGuard)
   getSessionInfo(@sessionInfo() session: GetSessionInfoDto) {
     return session;
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('change-password')
+  @HttpCode(HttpStatus.OK)
+  changePassword(
+    @Body() body: ChangePasswordDto,
+    @sessionInfo() session: GetSessionInfoDto,
+  ) {
+    return this.authService.changePassword(
+      session.id,
+      body.oldPassword,
+      body.newPassword,
+      body.confirmNewPassword,
+    );
   }
 }

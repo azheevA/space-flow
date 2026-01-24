@@ -8,13 +8,10 @@ interface ICardItemProps {
   children: ReactNode;
   item: ItemType;
 }
-const BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+
 export default function CardItem({ children, item }: ICardItemProps) {
   const firstPhotoUrl =
-    item.photos && item.photos.length > 0
-      ? `${BASE_URL}${item.photos[0].url}`
-      : "/123.png";
+    item.photos && item.photos.length > 0 ? item.photos[0].url : "/123.png";
   return (
     <Card isFooterBlurred className="border-none" radius="lg">
       <Image

@@ -28,6 +28,7 @@ export class AuthService {
     });
     return { accessToken };
   }
+
   async signIn(email: string, password: string) {
     const user = await this.userService.findByEmail(email);
     if (!user) {
@@ -43,5 +44,45 @@ export class AuthService {
       email: user.email,
     });
     return { accessToken };
+  }
+
+  async changePassword(
+    userId: number,
+    oldPassword: string,
+    newPassword: string,
+    confirmNewPassword: string,
+  ) {
+    if (newPassword !== confirmNewPassword) {
+      throw new BadRequestException('Passwords do not match');
+    }
+
+    const user = await this.userService.user({ id: userId });
+
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    const oldHash = this.passwordServiсe.getHash(oldPassword, user.salt);
+
+    if (oldHash !== user.hash) {
+      throw new BadRequestException('Old password is incorrect');
+    }
+
+    if (oldPassword === newPassword) {
+      throw new BadRequestException('New password must be different');
+    }
+
+    const newSalt = this.passwordServiсe.getSalt();
+    const newHash = this.passwordServiсe.getHash(newPassword, newSalt);
+
+    await this.userService.updateUser({
+      where: { id: userId },
+      data: {
+        salt: newSalt,
+        hash: newHash,
+      },
+    });
+
+    return { success: true };
   }
 }

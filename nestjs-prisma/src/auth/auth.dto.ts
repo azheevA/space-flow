@@ -39,3 +39,19 @@ export class GetSessionInfoDto {
   @IsNumber()
   'exp': number;
 }
+
+export class ChangePasswordDto {
+  @ApiProperty({ example: '1234' })
+  @IsString()
+  oldPassword: string;
+
+  @ApiProperty({ example: 'newPassword123' })
+  @IsString()
+  @MinLength(4)
+  newPassword: string;
+
+  @ApiProperty({ example: 'newPassword123' })
+  @IsString()
+  @MinLength(4)
+  confirmNewPassword: string;
+}
