@@ -26,8 +26,8 @@ export const siteConfig = {
       href: "/sign-in",
     },
     {
-      label: "сh-p",
-      href: "/change-password",
+      label: "Профиль",
+      href: "/profile",
     },
   ],
   navMenuItems: [

@@ -1,6 +1,6 @@
 import { useProfile } from "./change-user-data/hooks/use-profile";
 
-export const UserEmail = () => {
+export const UserIcon = () => {
   const { data } = useProfile();
 
   return (

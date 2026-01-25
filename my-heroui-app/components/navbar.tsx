@@ -25,7 +25,7 @@ import {
   SearchIcon,
 } from "@/components/icons";
 import SignOutButton from "./registration/auth/UI/signOutButton";
-import { UserEmail } from "./registration/email";
+import { UserIcon } from "./registration/user-icon";
 
 export const Navbar = () => {
   const searchInput = (
@@ -147,7 +147,7 @@ export const Navbar = () => {
           ))}
         </div>
       </NavbarMenu>
-      <UserEmail />
+      <UserIcon />
       <SignOutButton />
     </HeroUINavbar>
   );

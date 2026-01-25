@@ -5,11 +5,11 @@ import { ProfileForm } from "@/components/registration/change-user-data/user-pro
 
 export default function ChangePasswordPage() {
   return (
-    <>
-      <div className="flex flex-row gap-10">
+    <div className="flex-1 flex items-center">
+      <div className="flex flex-row gap-10 mx-auto">
         <ProfileForm />
         <ChangePasswordForm />
       </div>
-    </>
+    </div>
   );
 }

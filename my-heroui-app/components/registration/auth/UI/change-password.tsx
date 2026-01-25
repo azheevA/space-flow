@@ -16,15 +16,15 @@ export function ChangePasswordForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="
-        flex flex-col gap-6 p-8
+      className="flex flex-col gap-6 p-8
         rounded-2xl bg-[#0b0b14]
         border border-cyan-500/20
         shadow-[0_0_40px_rgba(34,211,238,0.15)]
         max-w-md mx-auto
+        justify-center
       "
     >
-      <h2 className="text-2xl text-white text-center">🔐 Смена пароля</h2>
+      <h2 className="text-2xl text-white text-center mb-3">🔐 Смена пароля</h2>
       <PasswordInput
         icon={<Lock size={18} />}
         placeholder="Старый пароль"
