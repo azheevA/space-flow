@@ -29,11 +29,13 @@ export type AggregatePhoto = {
 export type PhotoAvgAggregateOutputType = {
   id: number | null
   itemId: number | null
+  userId: number | null
 }
 
 export type PhotoSumAggregateOutputType = {
   id: number | null
   itemId: number | null
+  userId: number | null
 }
 
 export type PhotoMinAggregateOutputType = {
@@ -42,6 +44,7 @@ export type PhotoMinAggregateOutputType = {
   filename: string | null
   originalName: string | null
   itemId: number | null
+  userId: number | null
 }
 
 export type PhotoMaxAggregateOutputType = {
@@ -50,6 +53,7 @@ export type PhotoMaxAggregateOutputType = {
   filename: string | null
   originalName: string | null
   itemId: number | null
+  userId: number | null
 }
 
 export type PhotoCountAggregateOutputType = {
@@ -58,6 +62,7 @@ export type PhotoCountAggregateOutputType = {
   filename: number
   originalName: number
   itemId: number
+  userId: number
   _all: number
 }
 
@@ -65,11 +70,13 @@ export type PhotoCountAggregateOutputType = {
 export type PhotoAvgAggregateInputType = {
   id?: true
   itemId?: true
+  userId?: true
 }
 
 export type PhotoSumAggregateInputType = {
   id?: true
   itemId?: true
+  userId?: true
 }
 
 export type PhotoMinAggregateInputType = {
@@ -78,6 +85,7 @@ export type PhotoMinAggregateInputType = {
   filename?: true
   originalName?: true
   itemId?: true
+  userId?: true
 }
 
 export type PhotoMaxAggregateInputType = {
@@ -86,6 +94,7 @@ export type PhotoMaxAggregateInputType = {
   filename?: true
   originalName?: true
   itemId?: true
+  userId?: true
 }
 
 export type PhotoCountAggregateInputType = {
@@ -94,6 +103,7 @@ export type PhotoCountAggregateInputType = {
   filename?: true
   originalName?: true
   itemId?: true
+  userId?: true
   _all?: true
 }
 
@@ -188,7 +198,8 @@ export type PhotoGroupByOutputType = {
   url: string
   filename: string
   originalName: string
-  itemId: number
+  itemId: number | null
+  userId: number | null
   _count: PhotoCountAggregateOutputType | null
   _avg: PhotoAvgAggregateOutputType | null
   _sum: PhotoSumAggregateOutputType | null
@@ -219,8 +230,10 @@ export type PhotoWhereInput = {
   url?: Prisma.StringFilter<"Photo"> | string
   filename?: Prisma.StringFilter<"Photo"> | string
   originalName?: Prisma.StringFilter<"Photo"> | string
-  itemId?: Prisma.IntFilter<"Photo"> | number
-  item?: Prisma.XOR<Prisma.ItemScalarRelationFilter, Prisma.ItemWhereInput>
+  itemId?: Prisma.IntNullableFilter<"Photo"> | number | null
+  userId?: Prisma.IntNullableFilter<"Photo"> | number | null
+  item?: Prisma.XOR<Prisma.ItemNullableScalarRelationFilter, Prisma.ItemWhereInput> | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type PhotoOrderByWithRelationInput = {
@@ -228,28 +241,33 @@ export type PhotoOrderByWithRelationInput = {
   url?: Prisma.SortOrder
   filename?: Prisma.SortOrder
   originalName?: Prisma.SortOrder
-  itemId?: Prisma.SortOrder
+  itemId?: Prisma.SortOrderInput | Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   item?: Prisma.ItemOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type PhotoWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  userId?: number
   AND?: Prisma.PhotoWhereInput | Prisma.PhotoWhereInput[]
   OR?: Prisma.PhotoWhereInput[]
   NOT?: Prisma.PhotoWhereInput | Prisma.PhotoWhereInput[]
   url?: Prisma.StringFilter<"Photo"> | string
   filename?: Prisma.StringFilter<"Photo"> | string
   originalName?: Prisma.StringFilter<"Photo"> | string
-  itemId?: Prisma.IntFilter<"Photo"> | number
-  item?: Prisma.XOR<Prisma.ItemScalarRelationFilter, Prisma.ItemWhereInput>
-}, "id">
+  itemId?: Prisma.IntNullableFilter<"Photo"> | number | null
+  item?: Prisma.XOR<Prisma.ItemNullableScalarRelationFilter, Prisma.ItemWhereInput> | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+}, "id" | "userId">
 
 export type PhotoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
   filename?: Prisma.SortOrder
   originalName?: Prisma.SortOrder
-  itemId?: Prisma.SortOrder
+  itemId?: Prisma.SortOrderInput | Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PhotoCountOrderByAggregateInput
   _avg?: Prisma.PhotoAvgOrderByAggregateInput
   _max?: Prisma.PhotoMaxOrderByAggregateInput
@@ -265,14 +283,16 @@ export type PhotoScalarWhereWithAggregatesInput = {
   url?: Prisma.StringWithAggregatesFilter<"Photo"> | string
   filename?: Prisma.StringWithAggregatesFilter<"Photo"> | string
   originalName?: Prisma.StringWithAggregatesFilter<"Photo"> | string
-  itemId?: Prisma.IntWithAggregatesFilter<"Photo"> | number
+  itemId?: Prisma.IntNullableWithAggregatesFilter<"Photo"> | number | null
+  userId?: Prisma.IntNullableWithAggregatesFilter<"Photo"> | number | null
 }
 
 export type PhotoCreateInput = {
   url: string
   filename: string
   originalName: string
-  item: Prisma.ItemCreateNestedOneWithoutPhotosInput
+  item?: Prisma.ItemCreateNestedOneWithoutPhotosInput
+  user?: Prisma.UserCreateNestedOneWithoutPhotoInput
 }
 
 export type PhotoUncheckedCreateInput = {
@@ -280,14 +300,16 @@ export type PhotoUncheckedCreateInput = {
   url: string
   filename: string
   originalName: string
-  itemId: number
+  itemId?: number | null
+  userId?: number | null
 }
 
 export type PhotoUpdateInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  item?: Prisma.ItemUpdateOneRequiredWithoutPhotosNestedInput
+  item?: Prisma.ItemUpdateOneWithoutPhotosNestedInput
+  user?: Prisma.UserUpdateOneWithoutPhotoNestedInput
 }
 
 export type PhotoUncheckedUpdateInput = {
@@ -295,7 +317,8 @@ export type PhotoUncheckedUpdateInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  itemId?: Prisma.IntFieldUpdateOperationsInput | number
+  itemId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type PhotoCreateManyInput = {
@@ -303,7 +326,8 @@ export type PhotoCreateManyInput = {
   url: string
   filename: string
   originalName: string
-  itemId: number
+  itemId?: number | null
+  userId?: number | null
 }
 
 export type PhotoUpdateManyMutationInput = {
@@ -317,7 +341,13 @@ export type PhotoUncheckedUpdateManyInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  itemId?: Prisma.IntFieldUpdateOperationsInput | number
+  itemId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type PhotoNullableScalarRelationFilter = {
+  is?: Prisma.PhotoWhereInput | null
+  isNot?: Prisma.PhotoWhereInput | null
 }
 
 export type PhotoListRelationFilter = {
@@ -336,11 +366,13 @@ export type PhotoCountOrderByAggregateInput = {
   filename?: Prisma.SortOrder
   originalName?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type PhotoAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type PhotoMaxOrderByAggregateInput = {
@@ -349,6 +381,7 @@ export type PhotoMaxOrderByAggregateInput = {
   filename?: Prisma.SortOrder
   originalName?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type PhotoMinOrderByAggregateInput = {
@@ -357,11 +390,45 @@ export type PhotoMinOrderByAggregateInput = {
   filename?: Prisma.SortOrder
   originalName?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type PhotoSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+}
+
+export type PhotoCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.PhotoCreateWithoutUserInput, Prisma.PhotoUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.PhotoCreateOrConnectWithoutUserInput
+  connect?: Prisma.PhotoWhereUniqueInput
+}
+
+export type PhotoUncheckedCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.PhotoCreateWithoutUserInput, Prisma.PhotoUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.PhotoCreateOrConnectWithoutUserInput
+  connect?: Prisma.PhotoWhereUniqueInput
+}
+
+export type PhotoUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.PhotoCreateWithoutUserInput, Prisma.PhotoUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.PhotoCreateOrConnectWithoutUserInput
+  upsert?: Prisma.PhotoUpsertWithoutUserInput
+  disconnect?: Prisma.PhotoWhereInput | boolean
+  delete?: Prisma.PhotoWhereInput | boolean
+  connect?: Prisma.PhotoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PhotoUpdateToOneWithWhereWithoutUserInput, Prisma.PhotoUpdateWithoutUserInput>, Prisma.PhotoUncheckedUpdateWithoutUserInput>
+}
+
+export type PhotoUncheckedUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.PhotoCreateWithoutUserInput, Prisma.PhotoUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.PhotoCreateOrConnectWithoutUserInput
+  upsert?: Prisma.PhotoUpsertWithoutUserInput
+  disconnect?: Prisma.PhotoWhereInput | boolean
+  delete?: Prisma.PhotoWhereInput | boolean
+  connect?: Prisma.PhotoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PhotoUpdateToOneWithWhereWithoutUserInput, Prisma.PhotoUpdateWithoutUserInput>, Prisma.PhotoUncheckedUpdateWithoutUserInput>
 }
 
 export type PhotoCreateNestedManyWithoutItemInput = {
@@ -406,10 +473,57 @@ export type PhotoUncheckedUpdateManyWithoutItemNestedInput = {
   deleteMany?: Prisma.PhotoScalarWhereInput | Prisma.PhotoScalarWhereInput[]
 }
 
+export type PhotoCreateWithoutUserInput = {
+  url: string
+  filename: string
+  originalName: string
+  item?: Prisma.ItemCreateNestedOneWithoutPhotosInput
+}
+
+export type PhotoUncheckedCreateWithoutUserInput = {
+  id?: number
+  url: string
+  filename: string
+  originalName: string
+  itemId?: number | null
+}
+
+export type PhotoCreateOrConnectWithoutUserInput = {
+  where: Prisma.PhotoWhereUniqueInput
+  create: Prisma.XOR<Prisma.PhotoCreateWithoutUserInput, Prisma.PhotoUncheckedCreateWithoutUserInput>
+}
+
+export type PhotoUpsertWithoutUserInput = {
+  update: Prisma.XOR<Prisma.PhotoUpdateWithoutUserInput, Prisma.PhotoUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.PhotoCreateWithoutUserInput, Prisma.PhotoUncheckedCreateWithoutUserInput>
+  where?: Prisma.PhotoWhereInput
+}
+
+export type PhotoUpdateToOneWithWhereWithoutUserInput = {
+  where?: Prisma.PhotoWhereInput
+  data: Prisma.XOR<Prisma.PhotoUpdateWithoutUserInput, Prisma.PhotoUncheckedUpdateWithoutUserInput>
+}
+
+export type PhotoUpdateWithoutUserInput = {
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  item?: Prisma.ItemUpdateOneWithoutPhotosNestedInput
+}
+
+export type PhotoUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  itemId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
 export type PhotoCreateWithoutItemInput = {
   url: string
   filename: string
   originalName: string
+  user?: Prisma.UserCreateNestedOneWithoutPhotoInput
 }
 
 export type PhotoUncheckedCreateWithoutItemInput = {
@@ -417,6 +531,7 @@ export type PhotoUncheckedCreateWithoutItemInput = {
   url: string
   filename: string
   originalName: string
+  userId?: number | null
 }
 
 export type PhotoCreateOrConnectWithoutItemInput = {
@@ -453,7 +568,8 @@ export type PhotoScalarWhereInput = {
   url?: Prisma.StringFilter<"Photo"> | string
   filename?: Prisma.StringFilter<"Photo"> | string
   originalName?: Prisma.StringFilter<"Photo"> | string
-  itemId?: Prisma.IntFilter<"Photo"> | number
+  itemId?: Prisma.IntNullableFilter<"Photo"> | number | null
+  userId?: Prisma.IntNullableFilter<"Photo"> | number | null
 }
 
 export type PhotoCreateManyItemInput = {
@@ -461,12 +577,14 @@ export type PhotoCreateManyItemInput = {
   url: string
   filename: string
   originalName: string
+  userId?: number | null
 }
 
 export type PhotoUpdateWithoutItemInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.UserUpdateOneWithoutPhotoNestedInput
 }
 
 export type PhotoUncheckedUpdateWithoutItemInput = {
@@ -474,6 +592,7 @@ export type PhotoUncheckedUpdateWithoutItemInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type PhotoUncheckedUpdateManyWithoutItemInput = {
@@ -481,6 +600,7 @@ export type PhotoUncheckedUpdateManyWithoutItemInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -491,7 +611,9 @@ export type PhotoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   filename?: boolean
   originalName?: boolean
   itemId?: boolean
-  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  userId?: boolean
+  item?: boolean | Prisma.Photo$itemArgs<ExtArgs>
+  user?: boolean | Prisma.Photo$userArgs<ExtArgs>
 }, ExtArgs["result"]["photo"]>
 
 export type PhotoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -500,7 +622,9 @@ export type PhotoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   filename?: boolean
   originalName?: boolean
   itemId?: boolean
-  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  userId?: boolean
+  item?: boolean | Prisma.Photo$itemArgs<ExtArgs>
+  user?: boolean | Prisma.Photo$userArgs<ExtArgs>
 }, ExtArgs["result"]["photo"]>
 
 export type PhotoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -509,7 +633,9 @@ export type PhotoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   filename?: boolean
   originalName?: boolean
   itemId?: boolean
-  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  userId?: boolean
+  item?: boolean | Prisma.Photo$itemArgs<ExtArgs>
+  user?: boolean | Prisma.Photo$userArgs<ExtArgs>
 }, ExtArgs["result"]["photo"]>
 
 export type PhotoSelectScalar = {
@@ -518,30 +644,36 @@ export type PhotoSelectScalar = {
   filename?: boolean
   originalName?: boolean
   itemId?: boolean
+  userId?: boolean
 }
 
-export type PhotoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "filename" | "originalName" | "itemId", ExtArgs["result"]["photo"]>
+export type PhotoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "filename" | "originalName" | "itemId" | "userId", ExtArgs["result"]["photo"]>
 export type PhotoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  item?: boolean | Prisma.Photo$itemArgs<ExtArgs>
+  user?: boolean | Prisma.Photo$userArgs<ExtArgs>
 }
 export type PhotoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  item?: boolean | Prisma.Photo$itemArgs<ExtArgs>
+  user?: boolean | Prisma.Photo$userArgs<ExtArgs>
 }
 export type PhotoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
+  item?: boolean | Prisma.Photo$itemArgs<ExtArgs>
+  user?: boolean | Prisma.Photo$userArgs<ExtArgs>
 }
 
 export type $PhotoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Photo"
   objects: {
-    item: Prisma.$ItemPayload<ExtArgs>
+    item: Prisma.$ItemPayload<ExtArgs> | null
+    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     url: string
     filename: string
     originalName: string
-    itemId: number
+    itemId: number | null
+    userId: number | null
   }, ExtArgs["result"]["photo"]>
   composites: {}
 }
@@ -936,7 +1068,8 @@ readonly fields: PhotoFieldRefs;
  */
 export interface Prisma__PhotoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  item<T extends Prisma.ItemDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ItemDefaultArgs<ExtArgs>>): Prisma.Prisma__ItemClient<runtime.Types.Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  item<T extends Prisma.Photo$itemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Photo$itemArgs<ExtArgs>>): Prisma.Prisma__ItemClient<runtime.Types.Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.Photo$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Photo$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -971,6 +1104,7 @@ export interface PhotoFieldRefs {
   readonly filename: Prisma.FieldRef<"Photo", 'String'>
   readonly originalName: Prisma.FieldRef<"Photo", 'String'>
   readonly itemId: Prisma.FieldRef<"Photo", 'Int'>
+  readonly userId: Prisma.FieldRef<"Photo", 'Int'>
 }
     
 
@@ -1364,6 +1498,44 @@ export type PhotoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Photos to delete.
    */
   limit?: number
+}
+
+/**
+ * Photo.item
+ */
+export type Photo$itemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Item
+   */
+  select?: Prisma.ItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Item
+   */
+  omit?: Prisma.ItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ItemInclude<ExtArgs> | null
+  where?: Prisma.ItemWhereInput
+}
+
+/**
+ * Photo.user
+ */
+export type Photo$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

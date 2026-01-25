@@ -6,7 +6,12 @@ export class SignUpBodyDto {
   @IsEmail()
   email: string;
 
-  @ApiProperty({ example: '1234' })
+  @ApiProperty({ example: 'John Doe' })
+  @IsString()
+  @MinLength(2)
+  name: string;
+
+  @ApiProperty({ example: '1234567' })
   @IsString()
   @MinLength(4)
   password: string;
@@ -17,7 +22,7 @@ export class SignInBodyDto {
   @IsEmail()
   email: string;
 
-  @ApiProperty({ example: '1234' })
+  @ApiProperty({ example: '1234567' })
   @IsString()
   @MinLength(4)
   password: string;

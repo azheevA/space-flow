@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
 import {
   IsEmail,
   IsOptional,
@@ -6,6 +7,29 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+class PhotoDto {
+  @ApiProperty()
+  id: number;
+
+  @ApiProperty()
+  url: string;
+
+  @ApiProperty()
+  filename: string;
+}
+export class UserDto {
+  @ApiProperty({ example: 1 })
+  id: number;
+
+  @ApiProperty({ example: 'test@test.com' })
+  email: string;
+
+  @ApiProperty({ example: 'John Doe', required: false })
+  name?: string;
+
+  @ApiProperty({ type: PhotoDto, nullable: true })
+  photo?: PhotoDto;
+}
 
 export class CreateUserDto {
   @ApiProperty({ example: 'test@test.com', description: 'Email of the user' })
@@ -21,9 +45,11 @@ export class CreateUserDto {
 
   @ApiProperty({ example: '13123213' })
   @IsString()
+  @Exclude()
   hash: string;
 
   @ApiProperty({ example: '13123213' })
   @IsString()
+  @Exclude()
   salt: string;
 }

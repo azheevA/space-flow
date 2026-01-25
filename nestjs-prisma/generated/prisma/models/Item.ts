@@ -383,6 +383,11 @@ export type ItemScalarRelationFilter = {
   isNot?: Prisma.ItemWhereInput
 }
 
+export type ItemNullableScalarRelationFilter = {
+  is?: Prisma.ItemWhereInput | null
+  isNot?: Prisma.ItemWhereInput | null
+}
+
 export type ItemCreateNestedManyWithoutAuthorInput = {
   create?: Prisma.XOR<Prisma.ItemCreateWithoutAuthorInput, Prisma.ItemUncheckedCreateWithoutAuthorInput> | Prisma.ItemCreateWithoutAuthorInput[] | Prisma.ItemUncheckedCreateWithoutAuthorInput[]
   connectOrCreate?: Prisma.ItemCreateOrConnectWithoutAuthorInput | Prisma.ItemCreateOrConnectWithoutAuthorInput[]
@@ -461,10 +466,12 @@ export type ItemCreateNestedOneWithoutPhotosInput = {
   connect?: Prisma.ItemWhereUniqueInput
 }
 
-export type ItemUpdateOneRequiredWithoutPhotosNestedInput = {
+export type ItemUpdateOneWithoutPhotosNestedInput = {
   create?: Prisma.XOR<Prisma.ItemCreateWithoutPhotosInput, Prisma.ItemUncheckedCreateWithoutPhotosInput>
   connectOrCreate?: Prisma.ItemCreateOrConnectWithoutPhotosInput
   upsert?: Prisma.ItemUpsertWithoutPhotosInput
+  disconnect?: Prisma.ItemWhereInput | boolean
+  delete?: Prisma.ItemWhereInput | boolean
   connect?: Prisma.ItemWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ItemUpdateToOneWithWhereWithoutPhotosInput, Prisma.ItemUpdateWithoutPhotosInput>, Prisma.ItemUncheckedUpdateWithoutPhotosInput>
 }

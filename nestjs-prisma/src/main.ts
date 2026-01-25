@@ -12,6 +12,9 @@ async function bootstrap() {
   app.useStaticAssets(join(process.cwd(), 'uploads'), {
     prefix: '/static/',
   });
+  app.useStaticAssets(join(process.cwd(), 'user-uploads'), {
+    prefix: '/static/users/',
+  });
   app.enableCors({
     origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',

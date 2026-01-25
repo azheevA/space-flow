@@ -17,6 +17,9 @@ export class UsersService {
   ): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: userWhereUniqueInput,
+      include: {
+        photo: true,
+      },
     });
   }
 
@@ -34,14 +37,22 @@ export class UsersService {
       cursor,
       where,
       orderBy,
+      include: {
+        photo: true,
+      },
     });
   }
   async findByEmail(email: string): Promise<User | null> {
     return await this.prisma.user.findFirst({ where: { email } });
   }
-  async createUser(email: string, hash: string, salt: string): Promise<User> {
+  async createUser(
+    name: string,
+    email: string,
+    hash: string,
+    salt: string,
+  ): Promise<User> {
     const user = await this.prisma.user.create({
-      data: { email, hash, salt },
+      data: { name, email, hash, salt },
     });
     await this.accountService.create(user.id);
     await this.blockListService.create(user.id);
@@ -56,6 +67,9 @@ export class UsersService {
     return this.prisma.user.update({
       data,
       where,
+      include: {
+        photo: true,
+      },
     });
   }
 

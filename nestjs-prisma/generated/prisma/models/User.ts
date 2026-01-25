@@ -217,6 +217,7 @@ export type UserWhereInput = {
   hash?: Prisma.StringFilter<"User"> | string
   salt?: Prisma.StringFilter<"User"> | string
   items?: Prisma.ItemListRelationFilter
+  photo?: Prisma.XOR<Prisma.PhotoNullableScalarRelationFilter, Prisma.PhotoWhereInput> | null
   account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   blockList?: Prisma.XOR<Prisma.BlockListNullableScalarRelationFilter, Prisma.BlockListWhereInput> | null
 }
@@ -228,6 +229,7 @@ export type UserOrderByWithRelationInput = {
   hash?: Prisma.SortOrder
   salt?: Prisma.SortOrder
   items?: Prisma.ItemOrderByRelationAggregateInput
+  photo?: Prisma.PhotoOrderByWithRelationInput
   account?: Prisma.AccountOrderByWithRelationInput
   blockList?: Prisma.BlockListOrderByWithRelationInput
 }
@@ -242,6 +244,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   hash?: Prisma.StringFilter<"User"> | string
   salt?: Prisma.StringFilter<"User"> | string
   items?: Prisma.ItemListRelationFilter
+  photo?: Prisma.XOR<Prisma.PhotoNullableScalarRelationFilter, Prisma.PhotoWhereInput> | null
   account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   blockList?: Prisma.XOR<Prisma.BlockListNullableScalarRelationFilter, Prisma.BlockListWhereInput> | null
 }, "id" | "email">
@@ -276,6 +279,7 @@ export type UserCreateInput = {
   hash: string
   salt: string
   items?: Prisma.ItemCreateNestedManyWithoutAuthorInput
+  photo?: Prisma.PhotoCreateNestedOneWithoutUserInput
   account?: Prisma.AccountCreateNestedOneWithoutOwnerInput
   blockList?: Prisma.BlockListCreateNestedOneWithoutOwnerInput
 }
@@ -287,6 +291,7 @@ export type UserUncheckedCreateInput = {
   hash: string
   salt: string
   items?: Prisma.ItemUncheckedCreateNestedManyWithoutAuthorInput
+  photo?: Prisma.PhotoUncheckedCreateNestedOneWithoutUserInput
   account?: Prisma.AccountUncheckedCreateNestedOneWithoutOwnerInput
   blockList?: Prisma.BlockListUncheckedCreateNestedOneWithoutOwnerInput
 }
@@ -297,6 +302,7 @@ export type UserUpdateInput = {
   hash?: Prisma.StringFieldUpdateOperationsInput | string
   salt?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.ItemUpdateManyWithoutAuthorNestedInput
+  photo?: Prisma.PhotoUpdateOneWithoutUserNestedInput
   account?: Prisma.AccountUpdateOneWithoutOwnerNestedInput
   blockList?: Prisma.BlockListUpdateOneWithoutOwnerNestedInput
 }
@@ -308,6 +314,7 @@ export type UserUncheckedUpdateInput = {
   hash?: Prisma.StringFieldUpdateOperationsInput | string
   salt?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.ItemUncheckedUpdateManyWithoutAuthorNestedInput
+  photo?: Prisma.PhotoUncheckedUpdateOneWithoutUserNestedInput
   account?: Prisma.AccountUncheckedUpdateOneWithoutOwnerNestedInput
   blockList?: Prisma.BlockListUncheckedUpdateOneWithoutOwnerNestedInput
 }
@@ -409,6 +416,22 @@ export type UserUpdateOneWithoutItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutItemsInput, Prisma.UserUpdateWithoutItemsInput>, Prisma.UserUncheckedUpdateWithoutItemsInput>
 }
 
+export type UserCreateNestedOneWithoutPhotoInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPhotoInput, Prisma.UserUncheckedCreateWithoutPhotoInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPhotoInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutPhotoNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPhotoInput, Prisma.UserUncheckedCreateWithoutPhotoInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPhotoInput
+  upsert?: Prisma.UserUpsertWithoutPhotoInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPhotoInput, Prisma.UserUpdateWithoutPhotoInput>, Prisma.UserUncheckedUpdateWithoutPhotoInput>
+}
+
 export type UserCreateNestedOneWithoutAccountInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutAccountInput, Prisma.UserUncheckedCreateWithoutAccountInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutAccountInput
@@ -442,6 +465,7 @@ export type UserCreateWithoutItemsInput = {
   name?: string | null
   hash: string
   salt: string
+  photo?: Prisma.PhotoCreateNestedOneWithoutUserInput
   account?: Prisma.AccountCreateNestedOneWithoutOwnerInput
   blockList?: Prisma.BlockListCreateNestedOneWithoutOwnerInput
 }
@@ -452,6 +476,7 @@ export type UserUncheckedCreateWithoutItemsInput = {
   name?: string | null
   hash: string
   salt: string
+  photo?: Prisma.PhotoUncheckedCreateNestedOneWithoutUserInput
   account?: Prisma.AccountUncheckedCreateNestedOneWithoutOwnerInput
   blockList?: Prisma.BlockListUncheckedCreateNestedOneWithoutOwnerInput
 }
@@ -477,6 +502,7 @@ export type UserUpdateWithoutItemsInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hash?: Prisma.StringFieldUpdateOperationsInput | string
   salt?: Prisma.StringFieldUpdateOperationsInput | string
+  photo?: Prisma.PhotoUpdateOneWithoutUserNestedInput
   account?: Prisma.AccountUpdateOneWithoutOwnerNestedInput
   blockList?: Prisma.BlockListUpdateOneWithoutOwnerNestedInput
 }
@@ -487,6 +513,65 @@ export type UserUncheckedUpdateWithoutItemsInput = {
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hash?: Prisma.StringFieldUpdateOperationsInput | string
   salt?: Prisma.StringFieldUpdateOperationsInput | string
+  photo?: Prisma.PhotoUncheckedUpdateOneWithoutUserNestedInput
+  account?: Prisma.AccountUncheckedUpdateOneWithoutOwnerNestedInput
+  blockList?: Prisma.BlockListUncheckedUpdateOneWithoutOwnerNestedInput
+}
+
+export type UserCreateWithoutPhotoInput = {
+  email: string
+  name?: string | null
+  hash: string
+  salt: string
+  items?: Prisma.ItemCreateNestedManyWithoutAuthorInput
+  account?: Prisma.AccountCreateNestedOneWithoutOwnerInput
+  blockList?: Prisma.BlockListCreateNestedOneWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutPhotoInput = {
+  id?: number
+  email: string
+  name?: string | null
+  hash: string
+  salt: string
+  items?: Prisma.ItemUncheckedCreateNestedManyWithoutAuthorInput
+  account?: Prisma.AccountUncheckedCreateNestedOneWithoutOwnerInput
+  blockList?: Prisma.BlockListUncheckedCreateNestedOneWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutPhotoInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPhotoInput, Prisma.UserUncheckedCreateWithoutPhotoInput>
+}
+
+export type UserUpsertWithoutPhotoInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPhotoInput, Prisma.UserUncheckedUpdateWithoutPhotoInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPhotoInput, Prisma.UserUncheckedCreateWithoutPhotoInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPhotoInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPhotoInput, Prisma.UserUncheckedUpdateWithoutPhotoInput>
+}
+
+export type UserUpdateWithoutPhotoInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hash?: Prisma.StringFieldUpdateOperationsInput | string
+  salt?: Prisma.StringFieldUpdateOperationsInput | string
+  items?: Prisma.ItemUpdateManyWithoutAuthorNestedInput
+  account?: Prisma.AccountUpdateOneWithoutOwnerNestedInput
+  blockList?: Prisma.BlockListUpdateOneWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPhotoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hash?: Prisma.StringFieldUpdateOperationsInput | string
+  salt?: Prisma.StringFieldUpdateOperationsInput | string
+  items?: Prisma.ItemUncheckedUpdateManyWithoutAuthorNestedInput
   account?: Prisma.AccountUncheckedUpdateOneWithoutOwnerNestedInput
   blockList?: Prisma.BlockListUncheckedUpdateOneWithoutOwnerNestedInput
 }
@@ -497,6 +582,7 @@ export type UserCreateWithoutAccountInput = {
   hash: string
   salt: string
   items?: Prisma.ItemCreateNestedManyWithoutAuthorInput
+  photo?: Prisma.PhotoCreateNestedOneWithoutUserInput
   blockList?: Prisma.BlockListCreateNestedOneWithoutOwnerInput
 }
 
@@ -507,6 +593,7 @@ export type UserUncheckedCreateWithoutAccountInput = {
   hash: string
   salt: string
   items?: Prisma.ItemUncheckedCreateNestedManyWithoutAuthorInput
+  photo?: Prisma.PhotoUncheckedCreateNestedOneWithoutUserInput
   blockList?: Prisma.BlockListUncheckedCreateNestedOneWithoutOwnerInput
 }
 
@@ -532,6 +619,7 @@ export type UserUpdateWithoutAccountInput = {
   hash?: Prisma.StringFieldUpdateOperationsInput | string
   salt?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.ItemUpdateManyWithoutAuthorNestedInput
+  photo?: Prisma.PhotoUpdateOneWithoutUserNestedInput
   blockList?: Prisma.BlockListUpdateOneWithoutOwnerNestedInput
 }
 
@@ -542,6 +630,7 @@ export type UserUncheckedUpdateWithoutAccountInput = {
   hash?: Prisma.StringFieldUpdateOperationsInput | string
   salt?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.ItemUncheckedUpdateManyWithoutAuthorNestedInput
+  photo?: Prisma.PhotoUncheckedUpdateOneWithoutUserNestedInput
   blockList?: Prisma.BlockListUncheckedUpdateOneWithoutOwnerNestedInput
 }
 
@@ -551,6 +640,7 @@ export type UserCreateWithoutBlockListInput = {
   hash: string
   salt: string
   items?: Prisma.ItemCreateNestedManyWithoutAuthorInput
+  photo?: Prisma.PhotoCreateNestedOneWithoutUserInput
   account?: Prisma.AccountCreateNestedOneWithoutOwnerInput
 }
 
@@ -561,6 +651,7 @@ export type UserUncheckedCreateWithoutBlockListInput = {
   hash: string
   salt: string
   items?: Prisma.ItemUncheckedCreateNestedManyWithoutAuthorInput
+  photo?: Prisma.PhotoUncheckedCreateNestedOneWithoutUserInput
   account?: Prisma.AccountUncheckedCreateNestedOneWithoutOwnerInput
 }
 
@@ -586,6 +677,7 @@ export type UserUpdateWithoutBlockListInput = {
   hash?: Prisma.StringFieldUpdateOperationsInput | string
   salt?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.ItemUpdateManyWithoutAuthorNestedInput
+  photo?: Prisma.PhotoUpdateOneWithoutUserNestedInput
   account?: Prisma.AccountUpdateOneWithoutOwnerNestedInput
 }
 
@@ -596,6 +688,7 @@ export type UserUncheckedUpdateWithoutBlockListInput = {
   hash?: Prisma.StringFieldUpdateOperationsInput | string
   salt?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.ItemUncheckedUpdateManyWithoutAuthorNestedInput
+  photo?: Prisma.PhotoUncheckedUpdateOneWithoutUserNestedInput
   account?: Prisma.AccountUncheckedUpdateOneWithoutOwnerNestedInput
 }
 
@@ -637,6 +730,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   hash?: boolean
   salt?: boolean
   items?: boolean | Prisma.User$itemsArgs<ExtArgs>
+  photo?: boolean | Prisma.User$photoArgs<ExtArgs>
   account?: boolean | Prisma.User$accountArgs<ExtArgs>
   blockList?: boolean | Prisma.User$blockListArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -669,6 +763,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "hash" | "salt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | Prisma.User$itemsArgs<ExtArgs>
+  photo?: boolean | Prisma.User$photoArgs<ExtArgs>
   account?: boolean | Prisma.User$accountArgs<ExtArgs>
   blockList?: boolean | Prisma.User$blockListArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -680,6 +775,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     items: Prisma.$ItemPayload<ExtArgs>[]
+    photo: Prisma.$PhotoPayload<ExtArgs> | null
     account: Prisma.$AccountPayload<ExtArgs> | null
     blockList: Prisma.$BlockListPayload<ExtArgs> | null
   }
@@ -1084,6 +1180,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   items<T extends Prisma.User$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  photo<T extends Prisma.User$photoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$photoArgs<ExtArgs>>): Prisma.Prisma__PhotoClient<runtime.Types.Result.GetResult<Prisma.$PhotoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   account<T extends Prisma.User$accountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountArgs<ExtArgs>>): Prisma.Prisma__AccountClient<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   blockList<T extends Prisma.User$blockListArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blockListArgs<ExtArgs>>): Prisma.Prisma__BlockListClient<runtime.Types.Result.GetResult<Prisma.$BlockListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1529,6 +1626,25 @@ export type User$itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.ItemScalarFieldEnum | Prisma.ItemScalarFieldEnum[]
+}
+
+/**
+ * User.photo
+ */
+export type User$photoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Photo
+   */
+  select?: Prisma.PhotoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Photo
+   */
+  omit?: Prisma.PhotoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PhotoInclude<ExtArgs> | null
+  where?: Prisma.PhotoWhereInput
 }
 
 /**

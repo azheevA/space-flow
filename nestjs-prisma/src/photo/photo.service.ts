@@ -48,4 +48,38 @@ export class PhotoService {
       where: { id: phodoId },
     });
   }
+  async addUserPhoto(userId: number, file: Express.Multer.File) {
+    const userExists = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!userExists) {
+      throw new NotFoundException(
+        `Пользователь с ID ${userId} не найден в базе данных`,
+      );
+    }
+    const oldPhoto = await this.prisma.photo.findUnique({
+      where: { userId: userId },
+    });
+
+    if (oldPhoto) {
+      await this.deletePhysicalFile(oldPhoto.filename, 'user-uploads');
+      await this.prisma.photo.delete({ where: { id: oldPhoto.id } });
+    }
+    return await this.prisma.photo.create({
+      data: {
+        url: `/static/users/${file.filename}`,
+        filename: file.filename,
+        originalName: file.originalname,
+        userId: userId,
+      },
+    });
+  }
+  public async deletePhysicalFile(filename: string, folder: string) {
+    const filePath = join(process.cwd(), folder, filename);
+    try {
+      await unlink(filePath);
+    } catch {
+      //dwd
+    }
+  }
 }

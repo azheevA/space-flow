@@ -14,14 +14,14 @@ export class AuthService {
     private passwordServiсe: PasswordService,
     private JwtService: JwtService,
   ) {}
-  async signUp(email: string, password: string) {
+  async signUp(email: string, password: string, name: string) {
     const user = await this.userService.findByEmail(email);
     if (user) {
       throw new BadRequestException({ type: 'email-exists' });
     }
     const salt = this.passwordServiсe.getSalt();
     const hash = this.passwordServiсe.getHash(password, salt);
-    const newUser = await this.userService.createUser(email, hash, salt);
+    const newUser = await this.userService.createUser(name, email, hash, salt);
     const accessToken = await this.JwtService.signAsync({
       id: newUser.id,
       email: newUser.email,
@@ -41,6 +41,7 @@ export class AuthService {
     }
     const accessToken = await this.JwtService.signAsync({
       id: user.id,
+      name: user.name,
       email: user.email,
     });
     return { accessToken };

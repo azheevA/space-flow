@@ -21,6 +21,7 @@ model User {
   hash String
   salt String
   items Item[]
+  photo     Photo?    @relation("UserPhoto")
   account Account?
   blockList BlockList?
 }
@@ -49,22 +50,24 @@ model Photo {
   url String
   filename     String
   originalName String
-  itemId Int 
-  item Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId Int? 
+  item Item? @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  userId       Int?     @unique
+  user         User?    @relation("UserPhoto", fields: [userId], references: [id], onDelete: Cascade)
 }
 
 
 model Account{
   id Int @id @default(autoincrement())
   ownerId Int @unique
-  owner User @relation(fields: [ownerId], references: [id])
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   isBlockingEnabled Boolean
 }
 
 model BlockList {
   id Int @id @default(autoincrement())
   ownerId Int @unique
-  owner User @relation(fields: [ownerId], references: [id])
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
   items BlockItem[]
 }

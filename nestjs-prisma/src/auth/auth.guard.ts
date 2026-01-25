@@ -9,6 +9,7 @@ import { CookieService } from './cookie.service';
 import { JwtService } from '@nestjs/jwt';
 
 export interface SessionData {
+  id: number;
   userId?: string;
   email?: string;
   [key: string]: any;

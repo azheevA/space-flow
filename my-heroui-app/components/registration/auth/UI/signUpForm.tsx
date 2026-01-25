@@ -19,6 +19,22 @@ export function SignUpForm() {
       <h1 className="text-2xl">
         Введите{" "}
         <span className={clsx(uniqueText({ color: "violet", size: "sm" }))}>
+          name
+        </span>
+      </h1>
+      <AuthInput
+        icon={<Mail size={18} />}
+        placeholder="name"
+        color="cyan"
+        error={errors.name?.message}
+        type="text"
+        register={register("name", {
+          required: "Это поле обязательно",
+        })}
+      />
+      <h1 className="text-2xl">
+        Введите{" "}
+        <span className={clsx(uniqueText({ color: "violet", size: "sm" }))}>
           email
         </span>
       </h1>

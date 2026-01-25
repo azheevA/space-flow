@@ -10,6 +10,33 @@ paths:
       summary: Получить всех пользователей
       tags:
         - Users
+  /users/me:
+    get:
+      operationId: UserController_getMe
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+      tags:
+        - Users
+    patch:
+      operationId: UserController_updateProfile
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Users
   /users/{id}:
     get:
       operationId: UserController_findOne
@@ -57,6 +84,28 @@ paths:
         '200':
           description: ''
       summary: Удалить пользователя
+      tags:
+        - Users
+  /users/upload:
+    post:
+      operationId: UserController_uploadAvatar
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: ''
+      security:
+        - bearer: []
+      summary: Загрузка аватара пользователя
       tags:
         - Users
   /account:
@@ -145,6 +194,36 @@ paths:
                 $ref: '#/components/schemas/BlockItemDto'
       tags:
         - BlockList
+  /photos/upload:
+    post:
+      operationId: PhotoController_uploadPhoto
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UploadPhotoDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+        - Photos
+  /photos/{id}:
+    delete:
+      operationId: PhotoController_removePhoto
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Удалить фотографию по ID
+      tags:
+        - Photos
   /Items:
     post:
       operationId: ItemController_createItem
@@ -296,36 +375,6 @@ paths:
           description: ''
       tags:
         - Auth
-  /photos/upload:
-    post:
-      operationId: PhotoController_uploadPhoto
-      parameters: []
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UploadPhotoDto'
-      responses:
-        '201':
-          description: ''
-      tags:
-        - Photos
-  /photos/{id}:
-    delete:
-      operationId: PhotoController_removePhoto
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-      summary: Удалить фотографию по ID
-      tags:
-        - Photos
 info:
   title: My Backend by Ghost Raven
   description: >-
@@ -337,6 +386,42 @@ tags: []
 servers: []
 components:
   schemas:
+    PhotoDto:
+      type: object
+      properties:
+        id:
+          type: number
+        url:
+          type: string
+        filename:
+          type: string
+      required:
+        - id
+        - url
+        - filename
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        email:
+          type: string
+          example: test@test.com
+        name:
+          type: string
+          example: John Doe
+        photo:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/PhotoDto'
+      required:
+        - id
+        - email
+        - photo
+    UpdateProfileDto:
+      type: object
+      properties: {}
     UpdateUserDto:
       type: object
       properties: {}
@@ -409,6 +494,22 @@ components:
       required:
         - type
         - data
+    UploadPhotoDto:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+          description: Выберите несколько файлов
+        itemId:
+          type: string
+          description: Id предмета
+          example: 1
+      required:
+        - files
+        - itemId
     CreateContentDto:
       type: object
       properties:
@@ -526,11 +627,15 @@ components:
         email:
           type: string
           example: test@test.com
+        name:
+          type: string
+          example: John Doe
         password:
           type: string
-          example: '1234'
+          example: '1234567'
       required:
         - email
+        - name
         - password
     SignInBodyDto:
       type: object
@@ -540,7 +645,7 @@ components:
           example: test@test.com
         password:
           type: string
-          example: '1234'
+          example: '1234567'
       required:
         - email
         - password
@@ -576,19 +681,3 @@ components:
         - oldPassword
         - newPassword
         - confirmNewPassword
-    UploadPhotoDto:
-      type: object
-      properties:
-        files:
-          type: array
-          items:
-            type: string
-            format: binary
-          description: Выберите несколько файлов
-        itemId:
-          type: string
-          description: Id предмета
-          example: 1
-      required:
-        - files
-        - itemId
