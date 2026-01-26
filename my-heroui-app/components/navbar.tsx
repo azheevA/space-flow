@@ -18,11 +18,12 @@ import clsx from "clsx";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
-  TwitterIcon,
   GithubIcon,
   DiscordIcon,
   HeartFilledIcon,
   SearchIcon,
+  TelegramIcon,
+  VKIcon,
 } from "@/components/icons";
 import SignOutButton from "./registration/auth/UI/signOutButton";
 import { UserIcon } from "./registration/user-icon";
@@ -91,8 +92,12 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-            <TwitterIcon className="text-default-500" />
+          <Link
+            isExternal
+            aria-label="Twitter"
+            href={siteConfig.links.telegram}
+          >
+            <TelegramIcon className="text-default-500" />
           </Link>
           <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
             <DiscordIcon className="text-default-500" />
@@ -100,6 +105,10 @@ export const Navbar = () => {
           <Link isExternal aria-label="Github" href={siteConfig.links.github}>
             <GithubIcon className="text-default-500" />
           </Link>
+          <Link isExternal aria-label="Github" href={siteConfig.links.vk}>
+            <VKIcon className="text-default-500" />
+          </Link>
+
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>

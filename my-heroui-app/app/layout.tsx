@@ -51,7 +51,7 @@ export default function RootLayout({
               <CustomCursor />
               <NeonCursor />
               <Navbar />
-              <main className="mx-auto w-full max-w-7xl pt-16 px-6 flex-grow">
+              <main className="mx-auto w-full max-w-7xl px-6 pt-14 flex-grow">
                 {children}
               </main>
               <Footer />

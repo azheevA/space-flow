@@ -66,6 +66,24 @@ export const TwitterIcon: React.FC<IconSvgProps> = ({
   );
 };
 
+export const VKIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => (
+  <svg
+    viewBox="0 2 20 24"
+    width={size || width}
+    height={size || height}
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M13.162 18.994c-6.098 0-10.307-4.174-10.453-11.1h3.333c.101 5.093 2.344 7.252 4.125 7.7v-7.7h3.143v4.397c1.921-.205 3.737-2.193 4.417-4.397h3.143c-.517 2.637-2.453 4.625-4.22 5.65 1.767.82 4.102 2.536 4.965 5.45h-3.484c-.682-2.126-2.381-3.765-4.383-3.965v3.965h-.944z" />
+  </svg>
+);
+
 export const GithubIcon: React.FC<IconSvgProps> = ({
   size = 24,
   width,
@@ -88,7 +106,28 @@ export const GithubIcon: React.FC<IconSvgProps> = ({
     </svg>
   );
 };
-
+export const TelegramIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      height={size || height}
+      width={size || width}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42l10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l.002.001l-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15l4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+};
 export const MoonFilledIcon = ({
   size = 24,
   width,

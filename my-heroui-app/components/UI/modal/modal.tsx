@@ -20,7 +20,14 @@ export default function ModalComponent({
 
   return (
     <>
-      <Button color="secondary" onPress={onOpen}>
+      <Button
+        variant="flat"
+        color="secondary"
+        radius="full"
+        size="lg"
+        className="font-semibold"
+        onPress={onOpen}
+      >
         Зарегистироваться
       </Button>
       <Modal

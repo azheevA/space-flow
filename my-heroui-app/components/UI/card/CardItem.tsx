@@ -13,7 +13,7 @@ export default function CardItem({ children, item }: ICardItemProps) {
   const firstPhotoUrl =
     item.photos && item.photos.length > 0 ? item.photos[0].url : "/123.png";
   return (
-    <Card isFooterBlurred className="border-none" radius="lg">
+    <Card isFooterBlurred className="border-none " radius="lg">
       <Image
         alt={item.title}
         className="object-cover"
