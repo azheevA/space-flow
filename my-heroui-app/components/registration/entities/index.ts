@@ -1,6 +1,5 @@
 import { authControllerGetSessionInfo } from "@/server/generate/generate";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Hepta_Slab } from "next/font/google";
 
 const sessionKey = ["session"];
 export function useSessionQuery() {
@@ -14,5 +13,8 @@ export function useSessionQuery() {
 
 export function useResetSession() {
   const queryClient = useQueryClient();
-  return () => queryClient.setQueryData(sessionKey, null);
+  return () => {
+    queryClient.setQueryData(sessionKey, null);
+    queryClient.invalidateQueries({ queryKey: ["me"] });
+  };
 }

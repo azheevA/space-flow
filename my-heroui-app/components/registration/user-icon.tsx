@@ -5,7 +5,7 @@ export const UserIcon = () => {
 
   return (
     <img
-      src={data?.photo?.url || "/avatar-placeholder.png"}
+      src={data?.photo?.url || "/profile.jpg"}
       className="w-10 h-10 rounded-full object-cover border border-cyan-500/40"
     />
   );
