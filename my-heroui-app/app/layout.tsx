@@ -5,13 +5,13 @@ import clsx from "clsx";
 import "./globals.css";
 import { Providers } from "./providers";
 
-import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
-import { Navbar } from "@/components/navbar";
-import Footer from "@/components/footer";
+import { siteConfig } from "@/config/utils/site";
+import { fontSans } from "@/config/utils/fonts";
+import { Navbar } from "@/components/navbar/ui/navbar";
+import Footer from "@/components/footer/ui/footer";
 import { AppProvider } from "./app-provider";
-import NeonCursor from "@/shared/ui/neon-cursor";
-import CustomCursor from "@/shared/ui/custom-cursor";
+import NeonCursor from "@/shared/ui/cursor/neon-cursor";
+import CustomCursor from "@/shared/ui/cursor/custom-cursor";
 import Loading from "./(protected)/loading";
 import { Suspense } from "react";
 

@@ -2,19 +2,19 @@
 import { useParams, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useItemDetailsQuery } from "../../../components/UI/card/queries/use-item-details-query";
-import { useUploadPhotosMutation } from "@/components/UI/card/queries/useItemPhotoMutation";
+import { useItemDetailsQuery } from "../../../components/card/model/use-item-details-query";
+import { useUploadPhotosMutation } from "@/components/card/model/useItemPhotoMutation";
 import {
   useDeleteItem,
   useDeletePhoto,
-} from "@/components/UI/card/queries/use-item-delete-mutation";
-import { ItemHeader } from "./components/ItemHeader";
-import { PhotoGallery } from "./components/PhotoGallery";
-import { ItemSidebar } from "./components/ItemSidebar";
-import { DeleteItemModal } from "./components/DeleteItemModal";
-import { DeletePhotoModal } from "./components/DeletePhotoModal";
-import { LoadingState } from "./components/LoadingState";
-import { ErrorState } from "./components/ErrorState";
+} from "@/components/card/model/use-item-delete-mutation";
+import { ItemHeader } from "../../../components/item-profile/ui/ItemHeader";
+import { PhotoGallery } from "../../../components/item-profile/ui/PhotoGallery";
+import { ItemSidebar } from "../../../components/item-profile/ui/ItemSidebar";
+import { DeleteItemModal } from "../../../components/item-profile/ui/DeleteItemModal";
+import { DeletePhotoModal } from "../../../components/item-profile/ui/DeletePhotoModal";
+import { LoadingState } from "../../../components/item-profile/ui/LoadingState";
+import { ErrorState } from "../../../components/item-profile/ui/ErrorState";
 
 export default function ItemPage() {
   const params = useParams();

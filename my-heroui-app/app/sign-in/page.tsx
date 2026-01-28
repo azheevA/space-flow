@@ -1,5 +1,5 @@
 "use client";
-import { SignInPage } from "@/components/registration/auth/sign-in";
+import { SignInPage } from "@/components/registration/auth/sign-in/ui/sign-in";
 import { motion } from "framer-motion";
 import React from "react";
 

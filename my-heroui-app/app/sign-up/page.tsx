@@ -1,5 +1,5 @@
 "use client";
-import { SignUpPage } from "@/components/registration/auth/sign-up";
+import { SignUpPage } from "@/components/registration/auth/sign-up/ui/sign-up";
 import { motion } from "framer-motion";
 import React from "react";
 

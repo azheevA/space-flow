@@ -2,6 +2,9 @@ const { source } = require("framer-motion/client");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    root: __dirname,
+  },
   images: {
     remotePatterns: [
       {

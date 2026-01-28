@@ -1,6 +1,6 @@
 "use client";
-import { ChangePasswordForm } from "@/components/registration/auth/UI/change-password";
-import { ProfileForm } from "@/components/registration/change-user-data/user-profile-form";
+import { ChangePasswordForm } from "@/components/registration/auth/change-password/model/change-password";
+import { ProfileForm } from "@/components/registration/change-user-data/ui/user-profile-form";
 import { motion } from "framer-motion";
 
 export default function ChangePasswordPage() {

@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { useRef, useState, DragEvent } from "react";
 import { CreateItemDto } from "@/server/generate/generate";
-import { useSessionQuery } from "@/components/registration/entities";
+import { useSessionQuery } from "@/components/registration/session-entities";
 import {
   Rocket,
   Layers,
@@ -13,10 +13,10 @@ import {
   UploadCloud,
   X,
 } from "lucide-react";
-import { AuthInput } from "@/shared/ui/auth-input";
-import { Button } from "@/shared/ui/button";
-import { useCreateItemMutation } from "@/components/UI/card/queries/useCardItemQuery";
-import { useUploadPhotosMutation } from "@/components/UI/card/queries/useItemPhotoMutation";
+import { AuthInput } from "@/shared/ui/input/auth-input";
+import { Button } from "@/shared/ui/button/button";
+import { useCreateItemMutation } from "@/components/card/model/useCardItemQuery";
+import { useUploadPhotosMutation } from "@/components/card/model/useItemPhotoMutation";
 import clsx from "clsx";
 
 export default function CreateItemForm({

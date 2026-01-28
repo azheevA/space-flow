@@ -1,11 +1,11 @@
 "use client";
 
-import { siteConfig } from "@/config/site";
-import { title, subtitle, uniqueText } from "@/components/primitives";
+import { siteConfig } from "@/config/utils/site";
+import { title, subtitle, uniqueText } from "@/config/utils/primitives";
 import clsx from "clsx";
-import ModalComponent from "@/components/UI/modal/modal";
-import { SignUpForm } from "@/components/registration/auth/UI/signUpForm";
-import { NeonGlassCard } from "@/shared/ui/neon-card";
+import ModalComponent from "@/components/modal/modal";
+import { SignUpForm } from "@/components/registration/auth/sign-up/ui/signUpForm";
+import { NeonGlassCard } from "@/shared/border-css/neon-card";
 import { Image } from "@heroui/image";
 import { TextWritter } from "@/components/UI/text-write/text-writing";
 import { motion } from "framer-motion";

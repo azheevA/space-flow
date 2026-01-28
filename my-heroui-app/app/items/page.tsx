@@ -1,10 +1,10 @@
 "use client";
-import { title, uniqueText } from "@/components/primitives";
-import CardList from "../../components/UI/card/CardList";
+import { title, uniqueText } from "@/config/utils/primitives";
+import CardList from "../../components/card/ui/CardList";
 
 import clsx from "clsx";
 import { Link } from "@heroui/link";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui/button/button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Select, SelectItem } from "@heroui/select";
 

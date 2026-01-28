@@ -1,6 +1,6 @@
 import { AddBlockItemDto } from "@/server/generate/generate";
 import { useRemoveBlockItemMutation } from "../query/queries";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui/button/button";
 
 interface BlockItemProps extends AddBlockItemDto {
   id: number;

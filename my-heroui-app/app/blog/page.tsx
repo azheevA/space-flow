@@ -1,4 +1,4 @@
-import { title } from "@/components/primitives";
+import { title } from "@/config/utils/primitives";
 import { Image } from "@heroui/image";
 export default function BlogPage() {
   return (

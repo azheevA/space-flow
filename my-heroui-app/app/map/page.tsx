@@ -1,8 +1,8 @@
 "use client";
 
-import { title, subtitle, uniqueText } from "@/components/primitives";
-import { MapBlock } from "./MapBlock";
-import { NeonGlassCard } from "@/shared/ui/neon-card";
+import { title, subtitle, uniqueText } from "@/config/utils/primitives";
+import { MapBlock } from "../../components/map/MapBlock";
+import { NeonGlassCard } from "@/shared/border-css/neon-card";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 

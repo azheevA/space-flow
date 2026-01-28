@@ -1,4 +1,4 @@
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui/button/button";
 import { useToggleBlocking } from "../module/use-toggle-blocking";
 
 export function ToggleBlockingButton() {

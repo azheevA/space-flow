@@ -1,4 +1,4 @@
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui/button/button";
 import { useBlockItem } from "../model/use-block-item";
 import { AddBlockItemDtoType } from "@/server/generate/generate";
 

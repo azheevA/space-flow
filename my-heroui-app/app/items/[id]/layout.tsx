@@ -1,4 +1,4 @@
-import { ProtectedPage } from "@/components/registration/auth/UI/protected-page";
+import { ProtectedPage } from "@/components/registration/auth/protected-page/ui/protected-page";
 
 export default function ItemLayout({
   children,
