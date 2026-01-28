@@ -12,6 +12,7 @@ import Loading from "@/app/(protected)/loading";
 export default function CardList() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query") || "";
+  const sort = searchParams.get("sort") || "newest";
   const {
     data,
     isLoading,
@@ -19,7 +20,7 @@ export default function CardList() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useCardItemInfiniteQuery(query);
+  } = useCardItemInfiniteQuery(query, sort);
   const cursorRef = useIntersection(() => {
     if (hasNextPage && !isFetchingNextPage) {
       fetchNextPage();

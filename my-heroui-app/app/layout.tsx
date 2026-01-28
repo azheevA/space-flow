@@ -12,6 +12,8 @@ import Footer from "@/components/footer";
 import { AppProvider } from "./app-provider";
 import NeonCursor from "@/shared/ui/neon-cursor";
 import CustomCursor from "@/shared/ui/custom-cursor";
+import Loading from "./(protected)/loading";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: {
@@ -50,7 +52,9 @@ export default function RootLayout({
             <AppProvider>
               <CustomCursor />
               <NeonCursor />
-              <Navbar />
+              <Suspense fallback={<Loading />}>
+                <Navbar />
+              </Suspense>
               <main className="mx-auto w-full max-w-7xl px-6 pt-14 flex-grow">
                 {children}
               </main>

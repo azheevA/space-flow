@@ -35,8 +35,9 @@ export class ItemController {
     @Query('page', new ParseIntPipe({ optional: true })) page: number = 1,
     @Query('limit', new ParseIntPipe({ optional: true })) limit: number = 8,
     @Query('search') search?: string,
+    @Query('sort') sort?: string,
   ) {
-    return this.itemService.items(page, limit, search);
+    return this.itemService.items(page, limit, search, sort);
   }
   @Get(':id')
   @ApiOperation({ summary: 'Получить один айтем' })

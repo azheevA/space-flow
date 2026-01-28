@@ -258,6 +258,11 @@ paths:
           in: query
           schema:
             type: string
+        - name: sort
+          required: true
+          in: query
+          schema:
+            type: string
       responses:
         '200':
           description: Список всех айтемов с контентом

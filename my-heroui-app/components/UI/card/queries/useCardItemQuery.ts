@@ -23,14 +23,15 @@ export function useCreateItemMutation() {
   });
 }
 
-export function useCardItemInfiniteQuery(search: string) {
+export function useCardItemInfiniteQuery(search: string, sort: string) {
   return useInfiniteQuery({
-    queryKey: ["item", "infinite", search],
+    queryKey: ["item", "infinite", search, sort],
     queryFn: async ({ pageParam }) =>
       itemControllerFindAllItems({
         page: pageParam,
         limit: 8,
         search: search,
+        sort,
       }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {

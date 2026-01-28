@@ -79,7 +79,7 @@ export class ItemService {
     });
   }
 
-  async items(page: number, limit: number, search?: string) {
+  async items(page: number, limit: number, search?: string, sort?: string) {
     const where: Prisma.ItemWhereInput = search
       ? {
           OR: [
@@ -88,6 +88,14 @@ export class ItemService {
           ],
         }
       : {};
+    let orderBy: Prisma.ItemOrderByWithRelationInput = { createdAt: 'desc' };
+    if (sort === 'oldest') {
+      orderBy = { createdAt: 'asc' };
+    } else if (sort === 'title_asc') {
+      orderBy = { title: 'asc' };
+    } else if (sort === 'title_desc') {
+      orderBy = { title: 'desc' };
+    }
     const skip = (page - 1) * limit;
     const [data, total] = await Promise.all([
       this.prisma.item.findMany({
@@ -95,7 +103,7 @@ export class ItemService {
         skip,
         take: limit,
         include: this.defaultInclude,
-        orderBy: { createdAt: 'desc' },
+        orderBy,
       }),
       this.prisma.item.count({ where }),
     ]);
