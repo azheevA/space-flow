@@ -24,7 +24,7 @@ export function AvatarCropModal({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center">
-      <div className="bg-[#0b0b14] p-6 rounded-2xl w-[340px]">
+      <div className="bg-[#0b0b14] p-6 rounded-2xl w-[500px]">
         <div className="relative w-full h-[300px]">
           <Cropper
             image={image}
@@ -48,13 +48,15 @@ export function AvatarCropModal({
           className="w-full mt-4"
         />
 
-        <div className="flex gap-3 mt-5">
-          <Button onClick={onClose} className="w-full">
-            Отмена
-          </Button>
-          <Button onClick={handleSave} className="w-full">
-            Сохранить
-          </Button>
+        <div className="flex gap-6 mt-5 w-full justify-center">
+          <div className="flex gap-6">
+            <Button onClick={handleSave} className="" variant="secondary">
+              Сохранить
+            </Button>
+            <Button onClick={onClose} className="" variant="secondary">
+              Отмена
+            </Button>
+          </div>
         </div>
       </div>
     </div>

@@ -27,11 +27,28 @@ import {
 } from "@/components/icons";
 import SignOutButton from "./registration/auth/UI/signOutButton";
 import { UserIcon } from "./registration/user-icon";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
 export const Navbar = () => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set("query", term);
+    } else {
+      params.delete("query");
+    }
+    replace(`${pathname}?${params.toString()}`);
+  }, 500);
   const searchInput = (
     <Input
       aria-label="Search"
+      defaultValue={searchParams.get("query")?.toString()}
+      onChange={(e) => handleSearch(e.target.value)}
       classNames={{
         inputWrapper: "bg-default-100",
         input: "text-sm",

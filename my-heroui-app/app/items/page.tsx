@@ -11,7 +11,7 @@ export default function ItemList() {
       <h1 className={clsx(title(), "mb-10", uniqueText({ color: "cyan" }))}>
         Каталог
       </h1>
-      <Button variant="primary">
+      <Button size="lg" variant="secondary">
         <Link href="/items/create-item">Создать свою карточку</Link>
       </Button>
       <CardList />

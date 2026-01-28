@@ -242,16 +242,29 @@ paths:
         - Item
     get:
       operationId: ItemController_findAllItems
-      parameters: []
+      parameters:
+        - name: page
+          required: true
+          in: query
+          schema:
+            type: number
+        - name: limit
+          required: true
+          in: query
+          schema:
+            type: number
+        - name: search
+          required: true
+          in: query
+          schema:
+            type: string
       responses:
         '200':
           description: Список всех айтемов с контентом
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CreateItemDto'
+                $ref: '#/components/schemas/PaginatedItemDto'
       summary: Получить все айтемы
       tags:
         - Item
@@ -586,6 +599,24 @@ components:
         - content
         - published
         - authorId
+    PaginatedItemDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateItemDto'
+        total:
+          type: number
+          example: 100
+        nextPage:
+          type: object
+          example: 2
+          nullable: true
+      required:
+        - data
+        - total
+        - nextPage
     UpdateItemDto:
       type: object
       properties:

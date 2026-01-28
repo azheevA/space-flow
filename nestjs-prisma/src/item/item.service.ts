@@ -79,15 +79,35 @@ export class ItemService {
     });
   }
 
-  async items(params: {
-    skip?: number;
-    take?: number;
-    where?: Prisma.ItemWhereInput;
-  }): Promise<Item[]> {
-    return this.prisma.item.findMany({
-      ...params,
-      include: this.defaultInclude,
-    });
+  async items(page: number, limit: number, search?: string) {
+    const where: Prisma.ItemWhereInput = search
+      ? {
+          OR: [
+            { title: { contains: search, mode: 'insensitive' } },
+            { content: { type: { contains: search, mode: 'insensitive' } } },
+          ],
+        }
+      : {};
+    const skip = (page - 1) * limit;
+    const [data, total] = await Promise.all([
+      this.prisma.item.findMany({
+        where,
+        skip,
+        take: limit,
+        include: this.defaultInclude,
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.item.count({ where }),
+    ]);
+
+    const lastPage = Math.ceil(total / limit);
+    const nextPage = page < lastPage ? page + 1 : null;
+
+    return {
+      data,
+      total,
+      nextPage,
+    };
   }
 
   async deleteItem(id: number): Promise<Item> {

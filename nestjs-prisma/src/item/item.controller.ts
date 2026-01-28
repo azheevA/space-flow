@@ -4,12 +4,14 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 
 import { ItemService } from './item.service';
-import { CreateItemDto } from './dto/create-item.dto';
+import { CreateItemDto, PaginatedItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { ApiBody, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 
@@ -26,11 +28,15 @@ export class ItemController {
   @Get()
   @ApiOperation({ summary: 'Получить все айтемы' })
   @ApiOkResponse({
-    type: [CreateItemDto],
+    type: PaginatedItemDto,
     description: 'Список всех айтемов с контентом',
   })
-  findAllItems() {
-    return this.itemService.items({});
+  findAllItems(
+    @Query('page', new ParseIntPipe({ optional: true })) page: number = 1,
+    @Query('limit', new ParseIntPipe({ optional: true })) limit: number = 8,
+    @Query('search') search?: string,
+  ) {
+    return this.itemService.items(page, limit, search);
   }
   @Get(':id')
   @ApiOperation({ summary: 'Получить один айтем' })

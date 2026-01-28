@@ -102,3 +102,14 @@ export class CreateItemDto {
   @IsDate()
   createdAt?: Date;
 }
+
+export class PaginatedItemDto {
+  @ApiProperty({ type: [CreateItemDto] })
+  data: CreateItemDto[];
+
+  @ApiProperty({ example: 100 })
+  total: number;
+
+  @ApiProperty({ example: 2, nullable: true })
+  nextPage: number | null;
+}
