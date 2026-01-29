@@ -126,7 +126,7 @@ export const Navbar = () => {
             <VKIcon className="text-default-500" />
           </Link>
 
-          <ThemeSwitch />
+          {/* <ThemeSwitch /> */}
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
         <NavbarItem className="hidden md:flex">

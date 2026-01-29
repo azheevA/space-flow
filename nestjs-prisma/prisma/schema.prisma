@@ -20,6 +20,8 @@ model User {
   name  String?
   hash String
   salt String
+  resetCode    String?
+  resetCodeExp DateTime?
   items Item[]
   photo     Photo?    @relation("UserPhoto")
   account Account?

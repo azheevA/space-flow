@@ -11,7 +11,9 @@ import {
 import { AuthService } from './auth.service';
 import {
   ChangePasswordDto,
+  ForgotPasswordDto,
   GetSessionInfoDto,
+  ResetPasswordConfirmDto,
   SignInBodyDto,
   SignUpBodyDto,
 } from './auth.dto';
@@ -20,6 +22,7 @@ import type { Response } from 'express';
 import { CookieService } from './cookie.service';
 import { AuthGuard } from './auth.guard';
 import { sessionInfo } from './session-info.decorator';
+
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -84,6 +87,22 @@ export class AuthController {
       body.oldPassword,
       body.newPassword,
       body.confirmNewPassword,
+    );
+  }
+
+  @Post('forgot-password')
+  @HttpCode(HttpStatus.OK)
+  async forgotPassword(@Body() body: ForgotPasswordDto) {
+    return this.authService.forgotPassword(body.email);
+  }
+
+  @Post('reset-password-confirm')
+  @HttpCode(HttpStatus.OK)
+  async resetPasswordConfirm(@Body() body: ResetPasswordConfirmDto) {
+    return this.authService.resetPasswordByCode(
+      body.email,
+      body.code,
+      body.newPassword,
     );
   }
 }

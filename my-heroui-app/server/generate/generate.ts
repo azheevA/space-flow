@@ -161,6 +161,16 @@ export interface ChangePasswordDto {
   confirmNewPassword: string;
 }
 
+export interface ForgotPasswordDto {
+  email: string;
+}
+
+export interface ResetPasswordConfirmDto {
+  email: string;
+  code: string;
+  newPassword: string;
+}
+
 export type UserControllerUploadAvatarBody = {
   file?: Blob;
 };
@@ -505,6 +515,36 @@ export const authControllerChangePassword = (
   );
 };
 
+export const authControllerForgotPassword = (
+  forgotPasswordDto: BodyType<ForgotPasswordDto>,
+  options?: SecondParameter<typeof createInstance<void>>,
+) => {
+  return createInstance<void>(
+    {
+      url: `/auth/forgot-password`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: forgotPasswordDto,
+    },
+    options,
+  );
+};
+
+export const authControllerResetPasswordConfirm = (
+  resetPasswordConfirmDto: BodyType<ResetPasswordConfirmDto>,
+  options?: SecondParameter<typeof createInstance<void>>,
+) => {
+  return createInstance<void>(
+    {
+      url: `/auth/reset-password-confirm`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: resetPasswordConfirmDto,
+    },
+    options,
+  );
+};
+
 export type UserControllerFindAllResult = NonNullable<
   Awaited<ReturnType<typeof userControllerFindAll>>
 >;
@@ -576,4 +616,10 @@ export type AuthControllerGetSessionInfoResult = NonNullable<
 >;
 export type AuthControllerChangePasswordResult = NonNullable<
   Awaited<ReturnType<typeof authControllerChangePassword>>
+>;
+export type AuthControllerForgotPasswordResult = NonNullable<
+  Awaited<ReturnType<typeof authControllerForgotPassword>>
+>;
+export type AuthControllerResetPasswordConfirmResult = NonNullable<
+  Awaited<ReturnType<typeof authControllerResetPasswordConfirm>>
 >;

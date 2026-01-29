@@ -2,7 +2,7 @@
 import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 import { useCardItemInfiniteQuery } from "../model/useCardItemQuery";
-import { NeonGlassCard } from "@/shared/border-css/neon-card";
+import { NeonGlassCard } from "@/shared/ui/border-css/neon-card";
 import CardItem from "./CardItem";
 import { CreateItemDto } from "@/server/generate/generate";
 import { useIntersection } from "../model/use-intersection";

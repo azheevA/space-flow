@@ -9,6 +9,7 @@ import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.setGlobalPrefix('api');
   app.useStaticAssets(join(process.cwd(), 'uploads'), {
     prefix: '/static/',
   });

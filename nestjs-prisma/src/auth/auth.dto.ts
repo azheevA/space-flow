@@ -60,3 +60,24 @@ export class ChangePasswordDto {
   @MinLength(4)
   confirmNewPassword: string;
 }
+
+export class ForgotPasswordDto {
+  @ApiProperty({ example: 'test@test.com' })
+  @IsEmail()
+  email: string;
+}
+
+export class ResetPasswordConfirmDto {
+  @ApiProperty({ example: 'test@test.com' })
+  @IsEmail()
+  email: string;
+
+  @ApiProperty({ example: '123456' })
+  @IsString()
+  code: string;
+
+  @ApiProperty({ example: 'newPassword123' })
+  @IsString()
+  @MinLength(6)
+  newPassword: string;
+}

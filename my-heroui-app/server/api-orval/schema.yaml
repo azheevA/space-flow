@@ -393,6 +393,36 @@ paths:
           description: ''
       tags:
         - Auth
+  /auth/forgot-password:
+    post:
+      operationId: AuthController_forgotPassword
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotPasswordDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Auth
+  /auth/reset-password-confirm:
+    post:
+      operationId: AuthController_resetPasswordConfirm
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordConfirmDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Auth
 info:
   title: My Backend by Ghost Raven
   description: >-
@@ -717,3 +747,27 @@ components:
         - oldPassword
         - newPassword
         - confirmNewPassword
+    ForgotPasswordDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@test.com
+      required:
+        - email
+    ResetPasswordConfirmDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@test.com
+        code:
+          type: string
+          example: '123456'
+        newPassword:
+          type: string
+          example: newPassword123
+      required:
+        - email
+        - code
+        - newPassword

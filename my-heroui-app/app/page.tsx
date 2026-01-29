@@ -5,7 +5,7 @@ import { title, subtitle, uniqueText } from "@/config/utils/primitives";
 import clsx from "clsx";
 import ModalComponent from "@/components/modal/modal";
 import { SignUpForm } from "@/components/registration/auth/sign-up/ui/signUpForm";
-import { NeonGlassCard } from "@/shared/border-css/neon-card";
+import { NeonGlassCard } from "@/shared/ui/border-css/neon-card";
 import { Image } from "@heroui/image";
 import { TextWritter } from "@/components/UI/text-write/text-writing";
 import { motion } from "framer-motion";
