@@ -235,7 +235,6 @@ export type UserWhereInput = {
   items?: Prisma.ItemListRelationFilter
   photo?: Prisma.XOR<Prisma.PhotoNullableScalarRelationFilter, Prisma.PhotoWhereInput> | null
   account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
-  blockList?: Prisma.XOR<Prisma.BlockListNullableScalarRelationFilter, Prisma.BlockListWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -249,7 +248,6 @@ export type UserOrderByWithRelationInput = {
   items?: Prisma.ItemOrderByRelationAggregateInput
   photo?: Prisma.PhotoOrderByWithRelationInput
   account?: Prisma.AccountOrderByWithRelationInput
-  blockList?: Prisma.BlockListOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -266,7 +264,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   items?: Prisma.ItemListRelationFilter
   photo?: Prisma.XOR<Prisma.PhotoNullableScalarRelationFilter, Prisma.PhotoWhereInput> | null
   account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
-  blockList?: Prisma.XOR<Prisma.BlockListNullableScalarRelationFilter, Prisma.BlockListWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -307,7 +304,6 @@ export type UserCreateInput = {
   items?: Prisma.ItemCreateNestedManyWithoutAuthorInput
   photo?: Prisma.PhotoCreateNestedOneWithoutUserInput
   account?: Prisma.AccountCreateNestedOneWithoutOwnerInput
-  blockList?: Prisma.BlockListCreateNestedOneWithoutOwnerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -321,7 +317,6 @@ export type UserUncheckedCreateInput = {
   items?: Prisma.ItemUncheckedCreateNestedManyWithoutAuthorInput
   photo?: Prisma.PhotoUncheckedCreateNestedOneWithoutUserInput
   account?: Prisma.AccountUncheckedCreateNestedOneWithoutOwnerInput
-  blockList?: Prisma.BlockListUncheckedCreateNestedOneWithoutOwnerInput
 }
 
 export type UserUpdateInput = {
@@ -334,7 +329,6 @@ export type UserUpdateInput = {
   items?: Prisma.ItemUpdateManyWithoutAuthorNestedInput
   photo?: Prisma.PhotoUpdateOneWithoutUserNestedInput
   account?: Prisma.AccountUpdateOneWithoutOwnerNestedInput
-  blockList?: Prisma.BlockListUpdateOneWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -348,7 +342,6 @@ export type UserUncheckedUpdateInput = {
   items?: Prisma.ItemUncheckedUpdateManyWithoutAuthorNestedInput
   photo?: Prisma.PhotoUncheckedUpdateOneWithoutUserNestedInput
   account?: Prisma.AccountUncheckedUpdateOneWithoutOwnerNestedInput
-  blockList?: Prisma.BlockListUncheckedUpdateOneWithoutOwnerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -494,20 +487,6 @@ export type UserUpdateOneRequiredWithoutAccountNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountInput, Prisma.UserUpdateWithoutAccountInput>, Prisma.UserUncheckedUpdateWithoutAccountInput>
 }
 
-export type UserCreateNestedOneWithoutBlockListInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutBlockListInput, Prisma.UserUncheckedCreateWithoutBlockListInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlockListInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutBlockListNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutBlockListInput, Prisma.UserUncheckedCreateWithoutBlockListInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlockListInput
-  upsert?: Prisma.UserUpsertWithoutBlockListInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlockListInput, Prisma.UserUpdateWithoutBlockListInput>, Prisma.UserUncheckedUpdateWithoutBlockListInput>
-}
-
 export type UserCreateWithoutItemsInput = {
   email: string
   name?: string | null
@@ -517,7 +496,6 @@ export type UserCreateWithoutItemsInput = {
   resetCodeExp?: Date | string | null
   photo?: Prisma.PhotoCreateNestedOneWithoutUserInput
   account?: Prisma.AccountCreateNestedOneWithoutOwnerInput
-  blockList?: Prisma.BlockListCreateNestedOneWithoutOwnerInput
 }
 
 export type UserUncheckedCreateWithoutItemsInput = {
@@ -530,7 +508,6 @@ export type UserUncheckedCreateWithoutItemsInput = {
   resetCodeExp?: Date | string | null
   photo?: Prisma.PhotoUncheckedCreateNestedOneWithoutUserInput
   account?: Prisma.AccountUncheckedCreateNestedOneWithoutOwnerInput
-  blockList?: Prisma.BlockListUncheckedCreateNestedOneWithoutOwnerInput
 }
 
 export type UserCreateOrConnectWithoutItemsInput = {
@@ -558,7 +535,6 @@ export type UserUpdateWithoutItemsInput = {
   resetCodeExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   photo?: Prisma.PhotoUpdateOneWithoutUserNestedInput
   account?: Prisma.AccountUpdateOneWithoutOwnerNestedInput
-  blockList?: Prisma.BlockListUpdateOneWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutItemsInput = {
@@ -571,7 +547,6 @@ export type UserUncheckedUpdateWithoutItemsInput = {
   resetCodeExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   photo?: Prisma.PhotoUncheckedUpdateOneWithoutUserNestedInput
   account?: Prisma.AccountUncheckedUpdateOneWithoutOwnerNestedInput
-  blockList?: Prisma.BlockListUncheckedUpdateOneWithoutOwnerNestedInput
 }
 
 export type UserCreateWithoutPhotoInput = {
@@ -583,7 +558,6 @@ export type UserCreateWithoutPhotoInput = {
   resetCodeExp?: Date | string | null
   items?: Prisma.ItemCreateNestedManyWithoutAuthorInput
   account?: Prisma.AccountCreateNestedOneWithoutOwnerInput
-  blockList?: Prisma.BlockListCreateNestedOneWithoutOwnerInput
 }
 
 export type UserUncheckedCreateWithoutPhotoInput = {
@@ -596,7 +570,6 @@ export type UserUncheckedCreateWithoutPhotoInput = {
   resetCodeExp?: Date | string | null
   items?: Prisma.ItemUncheckedCreateNestedManyWithoutAuthorInput
   account?: Prisma.AccountUncheckedCreateNestedOneWithoutOwnerInput
-  blockList?: Prisma.BlockListUncheckedCreateNestedOneWithoutOwnerInput
 }
 
 export type UserCreateOrConnectWithoutPhotoInput = {
@@ -624,7 +597,6 @@ export type UserUpdateWithoutPhotoInput = {
   resetCodeExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.ItemUpdateManyWithoutAuthorNestedInput
   account?: Prisma.AccountUpdateOneWithoutOwnerNestedInput
-  blockList?: Prisma.BlockListUpdateOneWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPhotoInput = {
@@ -637,7 +609,6 @@ export type UserUncheckedUpdateWithoutPhotoInput = {
   resetCodeExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.ItemUncheckedUpdateManyWithoutAuthorNestedInput
   account?: Prisma.AccountUncheckedUpdateOneWithoutOwnerNestedInput
-  blockList?: Prisma.BlockListUncheckedUpdateOneWithoutOwnerNestedInput
 }
 
 export type UserCreateWithoutAccountInput = {
@@ -649,7 +620,6 @@ export type UserCreateWithoutAccountInput = {
   resetCodeExp?: Date | string | null
   items?: Prisma.ItemCreateNestedManyWithoutAuthorInput
   photo?: Prisma.PhotoCreateNestedOneWithoutUserInput
-  blockList?: Prisma.BlockListCreateNestedOneWithoutOwnerInput
 }
 
 export type UserUncheckedCreateWithoutAccountInput = {
@@ -662,7 +632,6 @@ export type UserUncheckedCreateWithoutAccountInput = {
   resetCodeExp?: Date | string | null
   items?: Prisma.ItemUncheckedCreateNestedManyWithoutAuthorInput
   photo?: Prisma.PhotoUncheckedCreateNestedOneWithoutUserInput
-  blockList?: Prisma.BlockListUncheckedCreateNestedOneWithoutOwnerInput
 }
 
 export type UserCreateOrConnectWithoutAccountInput = {
@@ -690,7 +659,6 @@ export type UserUpdateWithoutAccountInput = {
   resetCodeExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.ItemUpdateManyWithoutAuthorNestedInput
   photo?: Prisma.PhotoUpdateOneWithoutUserNestedInput
-  blockList?: Prisma.BlockListUpdateOneWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountInput = {
@@ -703,73 +671,6 @@ export type UserUncheckedUpdateWithoutAccountInput = {
   resetCodeExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.ItemUncheckedUpdateManyWithoutAuthorNestedInput
   photo?: Prisma.PhotoUncheckedUpdateOneWithoutUserNestedInput
-  blockList?: Prisma.BlockListUncheckedUpdateOneWithoutOwnerNestedInput
-}
-
-export type UserCreateWithoutBlockListInput = {
-  email: string
-  name?: string | null
-  hash: string
-  salt: string
-  resetCode?: string | null
-  resetCodeExp?: Date | string | null
-  items?: Prisma.ItemCreateNestedManyWithoutAuthorInput
-  photo?: Prisma.PhotoCreateNestedOneWithoutUserInput
-  account?: Prisma.AccountCreateNestedOneWithoutOwnerInput
-}
-
-export type UserUncheckedCreateWithoutBlockListInput = {
-  id?: number
-  email: string
-  name?: string | null
-  hash: string
-  salt: string
-  resetCode?: string | null
-  resetCodeExp?: Date | string | null
-  items?: Prisma.ItemUncheckedCreateNestedManyWithoutAuthorInput
-  photo?: Prisma.PhotoUncheckedCreateNestedOneWithoutUserInput
-  account?: Prisma.AccountUncheckedCreateNestedOneWithoutOwnerInput
-}
-
-export type UserCreateOrConnectWithoutBlockListInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutBlockListInput, Prisma.UserUncheckedCreateWithoutBlockListInput>
-}
-
-export type UserUpsertWithoutBlockListInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutBlockListInput, Prisma.UserUncheckedUpdateWithoutBlockListInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutBlockListInput, Prisma.UserUncheckedCreateWithoutBlockListInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutBlockListInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutBlockListInput, Prisma.UserUncheckedUpdateWithoutBlockListInput>
-}
-
-export type UserUpdateWithoutBlockListInput = {
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  hash?: Prisma.StringFieldUpdateOperationsInput | string
-  salt?: Prisma.StringFieldUpdateOperationsInput | string
-  resetCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  resetCodeExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  items?: Prisma.ItemUpdateManyWithoutAuthorNestedInput
-  photo?: Prisma.PhotoUpdateOneWithoutUserNestedInput
-  account?: Prisma.AccountUpdateOneWithoutOwnerNestedInput
-}
-
-export type UserUncheckedUpdateWithoutBlockListInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  hash?: Prisma.StringFieldUpdateOperationsInput | string
-  salt?: Prisma.StringFieldUpdateOperationsInput | string
-  resetCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  resetCodeExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  items?: Prisma.ItemUncheckedUpdateManyWithoutAuthorNestedInput
-  photo?: Prisma.PhotoUncheckedUpdateOneWithoutUserNestedInput
-  account?: Prisma.AccountUncheckedUpdateOneWithoutOwnerNestedInput
 }
 
 
@@ -814,7 +715,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   items?: boolean | Prisma.User$itemsArgs<ExtArgs>
   photo?: boolean | Prisma.User$photoArgs<ExtArgs>
   account?: boolean | Prisma.User$accountArgs<ExtArgs>
-  blockList?: boolean | Prisma.User$blockListArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -853,7 +753,6 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   items?: boolean | Prisma.User$itemsArgs<ExtArgs>
   photo?: boolean | Prisma.User$photoArgs<ExtArgs>
   account?: boolean | Prisma.User$accountArgs<ExtArgs>
-  blockList?: boolean | Prisma.User$blockListArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -865,7 +764,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     items: Prisma.$ItemPayload<ExtArgs>[]
     photo: Prisma.$PhotoPayload<ExtArgs> | null
     account: Prisma.$AccountPayload<ExtArgs> | null
-    blockList: Prisma.$BlockListPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1272,7 +1170,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   items<T extends Prisma.User$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   photo<T extends Prisma.User$photoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$photoArgs<ExtArgs>>): Prisma.Prisma__PhotoClient<runtime.Types.Result.GetResult<Prisma.$PhotoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   account<T extends Prisma.User$accountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountArgs<ExtArgs>>): Prisma.Prisma__AccountClient<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  blockList<T extends Prisma.User$blockListArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blockListArgs<ExtArgs>>): Prisma.Prisma__BlockListClient<runtime.Types.Result.GetResult<Prisma.$BlockListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1756,25 +1653,6 @@ export type User$accountArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   include?: Prisma.AccountInclude<ExtArgs> | null
   where?: Prisma.AccountWhereInput
-}
-
-/**
- * User.blockList
- */
-export type User$blockListArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the BlockList
-   */
-  select?: Prisma.BlockListSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the BlockList
-   */
-  omit?: Prisma.BlockListOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.BlockListInclude<ExtArgs> | null
-  where?: Prisma.BlockListWhereInput
 }
 
 /**

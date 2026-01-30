@@ -9,9 +9,7 @@
 * 🟢 You can import this file directly.
 */
 
-export const BlockItemType = {
-  Website: 'Website',
-  KeyWord: 'KeyWord'
-} as const
 
-export type BlockItemType = (typeof BlockItemType)[keyof typeof BlockItemType]
+
+// This file is empty because there are no enums in the schema.
+export {}

@@ -4,9 +4,13 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { ItemModule } from './item/item.module';
 import { AuthModule } from './auth/auth.module';
 import { AccountModule } from './account/account.module';
-import { BlockListModule } from './block-list/block-list.module';
+
 import { PhotoModule } from './photo/photo.module';
 import { EmailModule } from './email/email.module';
+import { PhotoController } from './photo/photo.controller';
+import { ItemService } from './item/item.service';
+import { PhotoService } from './photo/photo.service';
+import { ItemController } from './item/item.controller';
 
 @Module({
   imports: [
@@ -15,9 +19,10 @@ import { EmailModule } from './email/email.module';
     ItemModule,
     AuthModule,
     AccountModule,
-    BlockListModule,
     PhotoModule,
     EmailModule,
   ],
+  controllers: [ItemController, PhotoController],
+  providers: [ItemService, PhotoService],
 })
 export class AppModule {}

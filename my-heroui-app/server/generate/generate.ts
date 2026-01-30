@@ -7,79 +7,6 @@
  */
 import { createInstance } from "../api-instance";
 import type { BodyType } from "../api-instance";
-export interface PhotoDto {
-  id: number;
-  url: string;
-  filename: string;
-}
-
-export interface UserDto {
-  id: number;
-  email: string;
-  name?: string;
-  photo: PhotoDto | null;
-}
-
-export interface UpdateProfileDto {
-  [key: string]: unknown;
-}
-
-export interface UpdateUserDto {
-  [key: string]: unknown;
-}
-
-export interface AccountDto {
-  id: number;
-  ownerId: number;
-  isBlockingEnabled: boolean;
-}
-
-export interface PatchAccountDto {
-  isBlockingEnabled?: boolean;
-}
-
-export type BlockItemDtoType =
-  (typeof BlockItemDtoType)[keyof typeof BlockItemDtoType];
-
-export const BlockItemDtoType = {
-  KeyWord: "KeyWord",
-  Website: "Website",
-} as const;
-
-export interface BlockItemDto {
-  id: number;
-  blockListid: number;
-  type: BlockItemDtoType;
-  data: string;
-  createdAt: string;
-}
-
-export interface BlockListDto {
-  id: number;
-  ownerId: number;
-  items: BlockItemDto[];
-}
-
-export type AddBlockItemDtoType =
-  (typeof AddBlockItemDtoType)[keyof typeof AddBlockItemDtoType];
-
-export const AddBlockItemDtoType = {
-  KeyWord: "KeyWord",
-  Website: "Website",
-} as const;
-
-export interface AddBlockItemDto {
-  type: AddBlockItemDtoType;
-  data: string;
-}
-
-export interface UploadPhotoDto {
-  /** Выберите несколько файлов */
-  files: string[];
-  /** Id предмета */
-  itemId: string;
-}
-
 export interface CreateContentDto {
   /** Тип небесного тела */
   type: string;
@@ -137,6 +64,37 @@ export interface UpdateItemDto {
   createdAt?: string;
 }
 
+export interface PhotoDto {
+  id: number;
+  url: string;
+  filename: string;
+}
+
+export interface UserDto {
+  id: number;
+  email: string;
+  name?: string;
+  photo: PhotoDto | null;
+}
+
+export interface UpdateProfileDto {
+  [key: string]: unknown;
+}
+
+export interface UpdateUserDto {
+  [key: string]: unknown;
+}
+
+export interface AccountDto {
+  id: number;
+  ownerId: number;
+  isBlockingEnabled: boolean;
+}
+
+export interface PatchAccountDto {
+  isBlockingEnabled?: boolean;
+}
+
 export interface SignUpBodyDto {
   email: string;
   name: string;
@@ -171,14 +129,6 @@ export interface ResetPasswordConfirmDto {
   newPassword: string;
 }
 
-export type UserControllerUploadAvatarBody = {
-  file?: Blob;
-};
-
-export type BlockListControllerGetListParams = {
-  q?: string;
-};
-
 export type ItemControllerFindAllItemsParams = {
   page: number;
   limit: number;
@@ -186,7 +136,126 @@ export type ItemControllerFindAllItemsParams = {
   sort: string;
 };
 
+export type PhotoControllerUploadPhotoBody = {
+  itemId: string;
+  files: string[];
+};
+
+export type UserControllerUploadAvatarBody = {
+  file?: Blob;
+};
+
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+/**
+ * @summary Создать все новые айтемы
+ */
+export const itemControllerCreateItem = (
+  createItemDto: BodyType<CreateItemDto>,
+  options?: SecondParameter<typeof createInstance<void>>,
+) => {
+  return createInstance<void>(
+    {
+      url: `/api/Items`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createItemDto,
+    },
+    options,
+  );
+};
+
+/**
+ * @summary Получить все айтемы
+ */
+export const itemControllerFindAllItems = (
+  params: ItemControllerFindAllItemsParams,
+  options?: SecondParameter<typeof createInstance<PaginatedItemDto>>,
+) => {
+  return createInstance<PaginatedItemDto>(
+    { url: `/api/Items`, method: "GET", params },
+    options,
+  );
+};
+
+/**
+ * @summary Получить один айтем
+ */
+export const itemControllerFindOneItem = (
+  id: string,
+  options?: SecondParameter<typeof createInstance<CreateItemDto>>,
+) => {
+  return createInstance<CreateItemDto>(
+    { url: `/api/Items/${id}`, method: "GET" },
+    options,
+  );
+};
+
+/**
+ * @summary Обновить один айтем
+ */
+export const itemControllerUpdateItem = (
+  id: string,
+  updateItemDto: BodyType<UpdateItemDto>,
+  options?: SecondParameter<typeof createInstance<void>>,
+) => {
+  return createInstance<void>(
+    {
+      url: `/api/Items/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateItemDto,
+    },
+    options,
+  );
+};
+
+/**
+ * @summary Удалить айтем
+ */
+export const itemControllerRemoveItem = (
+  id: string,
+  options?: SecondParameter<typeof createInstance<void>>,
+) => {
+  return createInstance<void>(
+    { url: `/api/Items/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
+export const photoControllerUploadPhoto = (
+  photoControllerUploadPhotoBody: BodyType<PhotoControllerUploadPhotoBody>,
+  options?: SecondParameter<typeof createInstance<void>>,
+) => {
+  const formData = new FormData();
+  formData.append(`itemId`, photoControllerUploadPhotoBody.itemId);
+  photoControllerUploadPhotoBody.files.forEach((value) =>
+    formData.append(`files`, value),
+  );
+
+  return createInstance<void>(
+    {
+      url: `/api/photos/upload`,
+      method: "POST",
+      headers: { "Content-Type": "multipart/form-data" },
+      data: formData,
+    },
+    options,
+  );
+};
+
+/**
+ * @summary Удалить фотографию по ID
+ */
+export const photoControllerRemovePhoto = (
+  id: string,
+  options?: SecondParameter<typeof createInstance<void>>,
+) => {
+  return createInstance<void>(
+    { url: `/api/photos/${id}`, method: "DELETE" },
+    options,
+  );
+};
 
 /**
  * @summary Получить всех пользователей
@@ -194,13 +263,16 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 export const userControllerFindAll = (
   options?: SecondParameter<typeof createInstance<void>>,
 ) => {
-  return createInstance<void>({ url: `/users`, method: "GET" }, options);
+  return createInstance<void>({ url: `/api/users`, method: "GET" }, options);
 };
 
 export const userControllerGetMe = (
   options?: SecondParameter<typeof createInstance<UserDto>>,
 ) => {
-  return createInstance<UserDto>({ url: `/users/me`, method: "GET" }, options);
+  return createInstance<UserDto>(
+    { url: `/api/users/me`, method: "GET" },
+    options,
+  );
 };
 
 export const userControllerUpdateProfile = (
@@ -211,7 +283,7 @@ export const userControllerUpdateProfile = (
 
   return createInstance<void>(
     {
-      url: `/users/me`,
+      url: `/api/users/me`,
       method: "PATCH",
       headers: { "Content-Type": "multipart/form-data" },
       data: formData,
@@ -227,7 +299,10 @@ export const userControllerFindOne = (
   id: string,
   options?: SecondParameter<typeof createInstance<void>>,
 ) => {
-  return createInstance<void>({ url: `/users/${id}`, method: "GET" }, options);
+  return createInstance<void>(
+    { url: `/api/users/${id}`, method: "GET" },
+    options,
+  );
 };
 
 /**
@@ -240,7 +315,7 @@ export const userControllerUpdate = (
 ) => {
   return createInstance<void>(
     {
-      url: `/users/${id}`,
+      url: `/api/users/${id}`,
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       data: updateUserDto,
@@ -257,7 +332,7 @@ export const userControllerRemove = (
   options?: SecondParameter<typeof createInstance<void>>,
 ) => {
   return createInstance<void>(
-    { url: `/users/${id}`, method: "DELETE" },
+    { url: `/api/users/${id}`, method: "DELETE" },
     options,
   );
 };
@@ -276,7 +351,7 @@ export const userControllerUploadAvatar = (
 
   return createInstance<void>(
     {
-      url: `/users/upload`,
+      url: `/api/users/upload`,
       method: "POST",
       headers: { "Content-Type": "multipart/form-data" },
       data: formData,
@@ -289,7 +364,7 @@ export const accountControllerGetAccount = (
   options?: SecondParameter<typeof createInstance<AccountDto>>,
 ) => {
   return createInstance<AccountDto>(
-    { url: `/account`, method: "GET" },
+    { url: `/api/account`, method: "GET" },
     options,
   );
 };
@@ -300,154 +375,11 @@ export const accountControllerPatchAccount = (
 ) => {
   return createInstance<PatchAccountDto>(
     {
-      url: `/account`,
+      url: `/api/account`,
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       data: patchAccountDto,
     },
-    options,
-  );
-};
-
-export const blockListControllerGetList = (
-  params?: BlockListControllerGetListParams,
-  options?: SecondParameter<typeof createInstance<BlockListDto>>,
-) => {
-  return createInstance<BlockListDto>(
-    { url: `/block-list`, method: "GET", params },
-    options,
-  );
-};
-
-export const blockListControllerAddBlockItem = (
-  addBlockItemDto: BodyType<AddBlockItemDto>,
-  options?: SecondParameter<typeof createInstance<BlockItemDto>>,
-) => {
-  return createInstance<BlockItemDto>(
-    {
-      url: `/block-list/item`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: addBlockItemDto,
-    },
-    options,
-  );
-};
-
-export const blockListControllerRemoveBlockItem = (
-  id: number,
-  options?: SecondParameter<typeof createInstance<BlockItemDto>>,
-) => {
-  return createInstance<BlockItemDto>(
-    { url: `/block-list/item/${id}`, method: "DELETE" },
-    options,
-  );
-};
-
-export const photoControllerUploadPhoto = (
-  uploadPhotoDto: BodyType<UploadPhotoDto>,
-  options?: SecondParameter<typeof createInstance<void>>,
-) => {
-  const formData = new FormData();
-  uploadPhotoDto.files.forEach((value) => formData.append(`files`, value));
-  formData.append(`itemId`, uploadPhotoDto.itemId);
-
-  return createInstance<void>(
-    {
-      url: `/photos/upload`,
-      method: "POST",
-      headers: { "Content-Type": "multipart/form-data" },
-      data: formData,
-    },
-    options,
-  );
-};
-
-/**
- * @summary Удалить фотографию по ID
- */
-export const photoControllerRemovePhoto = (
-  id: string,
-  options?: SecondParameter<typeof createInstance<void>>,
-) => {
-  return createInstance<void>(
-    { url: `/photos/${id}`, method: "DELETE" },
-    options,
-  );
-};
-
-/**
- * @summary Создать все новые айтемы
- */
-export const itemControllerCreateItem = (
-  createItemDto: BodyType<CreateItemDto>,
-  options?: SecondParameter<typeof createInstance<void>>,
-) => {
-  return createInstance<void>(
-    {
-      url: `/Items`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: createItemDto,
-    },
-    options,
-  );
-};
-
-/**
- * @summary Получить все айтемы
- */
-export const itemControllerFindAllItems = (
-  params: ItemControllerFindAllItemsParams,
-  options?: SecondParameter<typeof createInstance<PaginatedItemDto>>,
-) => {
-  return createInstance<PaginatedItemDto>(
-    { url: `/Items`, method: "GET", params },
-    options,
-  );
-};
-
-/**
- * @summary Получить один айтем
- */
-export const itemControllerFindOneItem = (
-  id: string,
-  options?: SecondParameter<typeof createInstance<CreateItemDto>>,
-) => {
-  return createInstance<CreateItemDto>(
-    { url: `/Items/${id}`, method: "GET" },
-    options,
-  );
-};
-
-/**
- * @summary Обновить один айтем
- */
-export const itemControllerUpdateItem = (
-  id: string,
-  updateItemDto: BodyType<UpdateItemDto>,
-  options?: SecondParameter<typeof createInstance<void>>,
-) => {
-  return createInstance<void>(
-    {
-      url: `/Items/${id}`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateItemDto,
-    },
-    options,
-  );
-};
-
-/**
- * @summary Удалить айтем
- */
-export const itemControllerRemoveItem = (
-  id: string,
-  options?: SecondParameter<typeof createInstance<void>>,
-) => {
-  return createInstance<void>(
-    { url: `/Items/${id}`, method: "DELETE" },
     options,
   );
 };
@@ -458,7 +390,7 @@ export const authControllerSignUp = (
 ) => {
   return createInstance<void>(
     {
-      url: `/auth/sign-up`,
+      url: `/api/auth/sign-up`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: signUpBodyDto,
@@ -473,7 +405,7 @@ export const authControllerSignIn = (
 ) => {
   return createInstance<void>(
     {
-      url: `/auth/sign-in`,
+      url: `/api/auth/sign-in`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: signInBodyDto,
@@ -486,7 +418,7 @@ export const authControllerSignOut = (
   options?: SecondParameter<typeof createInstance<void>>,
 ) => {
   return createInstance<void>(
-    { url: `/auth/sign-out`, method: "POST" },
+    { url: `/api/auth/sign-out`, method: "POST" },
     options,
   );
 };
@@ -495,7 +427,7 @@ export const authControllerGetSessionInfo = (
   options?: SecondParameter<typeof createInstance<GetSessionInfoDto>>,
 ) => {
   return createInstance<GetSessionInfoDto>(
-    { url: `/auth/session`, method: "GET" },
+    { url: `/api/auth/session`, method: "GET" },
     options,
   );
 };
@@ -506,7 +438,7 @@ export const authControllerChangePassword = (
 ) => {
   return createInstance<void>(
     {
-      url: `/auth/change-password`,
+      url: `/api/auth/change-password`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: changePasswordDto,
@@ -521,7 +453,7 @@ export const authControllerForgotPassword = (
 ) => {
   return createInstance<void>(
     {
-      url: `/auth/forgot-password`,
+      url: `/api/auth/forgot-password`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: forgotPasswordDto,
@@ -536,7 +468,7 @@ export const authControllerResetPasswordConfirm = (
 ) => {
   return createInstance<void>(
     {
-      url: `/auth/reset-password-confirm`,
+      url: `/api/auth/reset-password-confirm`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: resetPasswordConfirmDto,
@@ -545,6 +477,27 @@ export const authControllerResetPasswordConfirm = (
   );
 };
 
+export type ItemControllerCreateItemResult = NonNullable<
+  Awaited<ReturnType<typeof itemControllerCreateItem>>
+>;
+export type ItemControllerFindAllItemsResult = NonNullable<
+  Awaited<ReturnType<typeof itemControllerFindAllItems>>
+>;
+export type ItemControllerFindOneItemResult = NonNullable<
+  Awaited<ReturnType<typeof itemControllerFindOneItem>>
+>;
+export type ItemControllerUpdateItemResult = NonNullable<
+  Awaited<ReturnType<typeof itemControllerUpdateItem>>
+>;
+export type ItemControllerRemoveItemResult = NonNullable<
+  Awaited<ReturnType<typeof itemControllerRemoveItem>>
+>;
+export type PhotoControllerUploadPhotoResult = NonNullable<
+  Awaited<ReturnType<typeof photoControllerUploadPhoto>>
+>;
+export type PhotoControllerRemovePhotoResult = NonNullable<
+  Awaited<ReturnType<typeof photoControllerRemovePhoto>>
+>;
 export type UserControllerFindAllResult = NonNullable<
   Awaited<ReturnType<typeof userControllerFindAll>>
 >;
@@ -571,36 +524,6 @@ export type AccountControllerGetAccountResult = NonNullable<
 >;
 export type AccountControllerPatchAccountResult = NonNullable<
   Awaited<ReturnType<typeof accountControllerPatchAccount>>
->;
-export type BlockListControllerGetListResult = NonNullable<
-  Awaited<ReturnType<typeof blockListControllerGetList>>
->;
-export type BlockListControllerAddBlockItemResult = NonNullable<
-  Awaited<ReturnType<typeof blockListControllerAddBlockItem>>
->;
-export type BlockListControllerRemoveBlockItemResult = NonNullable<
-  Awaited<ReturnType<typeof blockListControllerRemoveBlockItem>>
->;
-export type PhotoControllerUploadPhotoResult = NonNullable<
-  Awaited<ReturnType<typeof photoControllerUploadPhoto>>
->;
-export type PhotoControllerRemovePhotoResult = NonNullable<
-  Awaited<ReturnType<typeof photoControllerRemovePhoto>>
->;
-export type ItemControllerCreateItemResult = NonNullable<
-  Awaited<ReturnType<typeof itemControllerCreateItem>>
->;
-export type ItemControllerFindAllItemsResult = NonNullable<
-  Awaited<ReturnType<typeof itemControllerFindAllItems>>
->;
-export type ItemControllerFindOneItemResult = NonNullable<
-  Awaited<ReturnType<typeof itemControllerFindOneItem>>
->;
-export type ItemControllerUpdateItemResult = NonNullable<
-  Awaited<ReturnType<typeof itemControllerUpdateItem>>
->;
-export type ItemControllerRemoveItemResult = NonNullable<
-  Awaited<ReturnType<typeof itemControllerRemoveItem>>
 >;
 export type AuthControllerSignUpResult = NonNullable<
   Awaited<ReturnType<typeof authControllerSignUp>>

@@ -42,13 +42,3 @@ export type Photo = Prisma.PhotoModel
  * 
  */
 export type Account = Prisma.AccountModel
-/**
- * Model BlockList
- * 
- */
-export type BlockList = Prisma.BlockListModel
-/**
- * Model BlockItem
- * 
- */
-export type BlockItem = Prisma.BlockItemModel

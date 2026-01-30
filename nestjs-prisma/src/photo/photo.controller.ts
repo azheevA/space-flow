@@ -12,7 +12,6 @@ import { ApiConsumes, ApiBody, ApiTags, ApiOperation } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { PhotoService } from './photo.service';
-import { UploadPhotoDto } from './photo.dto';
 
 @ApiTags('Photos')
 @Controller('photos')
@@ -20,8 +19,6 @@ export class PhotoController {
   constructor(private readonly photoService: PhotoService) {}
 
   @Post('upload')
-  @ApiConsumes('multipart/form-data')
-  @ApiBody({ type: UploadPhotoDto })
   @UseInterceptors(
     FilesInterceptor('files', 10, {
       storage: diskStorage({
@@ -33,11 +30,31 @@ export class PhotoController {
       }),
     }),
   )
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        itemId: {
+          type: 'string',
+          example: '1',
+        },
+        files: {
+          type: 'array',
+          items: {
+            type: 'string',
+            format: 'binary',
+          },
+        },
+      },
+      required: ['itemId', 'files'],
+    },
+  })
   async uploadPhoto(
-    @UploadedFiles() files: Array<Express.Multer.File>,
-    @Body() body: UploadPhotoDto,
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body('itemId') itemId: string,
   ) {
-    return await this.photoService.AddPhoto(Number(body.itemId), files);
+    return this.photoService.AddPhoto(Number(itemId), files);
   }
 
   @Delete(':id')

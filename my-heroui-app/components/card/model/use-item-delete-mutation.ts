@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { itemControllerRemoveItem } from "@/server/generate/generate";
-import axios from "axios";
+import {
+  itemControllerRemoveItem,
+  photoControllerRemovePhoto,
+} from "@/server/generate/generate";
 
 export function useDeleteItem() {
   const queryClient = useQueryClient();
@@ -12,17 +14,13 @@ export function useDeleteItem() {
     },
   });
 }
+
 export function useDeletePhoto() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (photoId: number) => {
-      const response = await axios.delete(
-        `http://localhost:3000/photos/${photoId}`,
-        { withCredentials: true },
-      );
-      return response.data;
-    },
+    mutationFn: (photoId: number) =>
+      photoControllerRemovePhoto(String(photoId)),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["item"] });
     },

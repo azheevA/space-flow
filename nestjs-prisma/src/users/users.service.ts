@@ -2,14 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { User, Prisma } from '../../generated/prisma/client';
 import { AccountService } from 'src/account/account.service';
-import { BlockListService } from 'src/block-list/block-list.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     private prisma: PrismaService,
     private accountService: AccountService,
-    private blockListService: BlockListService,
   ) {}
 
   async user(
@@ -55,7 +53,6 @@ export class UsersService {
       data: { name, email, hash, salt },
     });
     await this.accountService.create(user.id);
-    await this.blockListService.create(user.id);
     return user;
   }
 

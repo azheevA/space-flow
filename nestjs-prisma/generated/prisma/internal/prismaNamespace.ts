@@ -388,9 +388,7 @@ export const ModelName = {
   Item: 'Item',
   Content: 'Content',
   Photo: 'Photo',
-  Account: 'Account',
-  BlockList: 'BlockList',
-  BlockItem: 'BlockItem'
+  Account: 'Account'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "item" | "content" | "photo" | "account" | "blockList" | "blockItem"
+    modelProps: "user" | "item" | "content" | "photo" | "account"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -780,154 +778,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    BlockList: {
-      payload: Prisma.$BlockListPayload<ExtArgs>
-      fields: Prisma.BlockListFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.BlockListFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockListPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.BlockListFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockListPayload>
-        }
-        findFirst: {
-          args: Prisma.BlockListFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockListPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.BlockListFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockListPayload>
-        }
-        findMany: {
-          args: Prisma.BlockListFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockListPayload>[]
-        }
-        create: {
-          args: Prisma.BlockListCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockListPayload>
-        }
-        createMany: {
-          args: Prisma.BlockListCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.BlockListCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockListPayload>[]
-        }
-        delete: {
-          args: Prisma.BlockListDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockListPayload>
-        }
-        update: {
-          args: Prisma.BlockListUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockListPayload>
-        }
-        deleteMany: {
-          args: Prisma.BlockListDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.BlockListUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.BlockListUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockListPayload>[]
-        }
-        upsert: {
-          args: Prisma.BlockListUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockListPayload>
-        }
-        aggregate: {
-          args: Prisma.BlockListAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateBlockList>
-        }
-        groupBy: {
-          args: Prisma.BlockListGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.BlockListGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.BlockListCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.BlockListCountAggregateOutputType> | number
-        }
-      }
-    }
-    BlockItem: {
-      payload: Prisma.$BlockItemPayload<ExtArgs>
-      fields: Prisma.BlockItemFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.BlockItemFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockItemPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.BlockItemFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockItemPayload>
-        }
-        findFirst: {
-          args: Prisma.BlockItemFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockItemPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.BlockItemFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockItemPayload>
-        }
-        findMany: {
-          args: Prisma.BlockItemFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockItemPayload>[]
-        }
-        create: {
-          args: Prisma.BlockItemCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockItemPayload>
-        }
-        createMany: {
-          args: Prisma.BlockItemCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.BlockItemCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockItemPayload>[]
-        }
-        delete: {
-          args: Prisma.BlockItemDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockItemPayload>
-        }
-        update: {
-          args: Prisma.BlockItemUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockItemPayload>
-        }
-        deleteMany: {
-          args: Prisma.BlockItemDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.BlockItemUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.BlockItemUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockItemPayload>[]
-        }
-        upsert: {
-          args: Prisma.BlockItemUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockItemPayload>
-        }
-        aggregate: {
-          args: Prisma.BlockItemAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateBlockItem>
-        }
-        groupBy: {
-          args: Prisma.BlockItemGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.BlockItemGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.BlockItemCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.BlockItemCountAggregateOutputType> | number
-        }
-      }
-    }
   }
 } & {
   other: {
@@ -1023,25 +873,6 @@ export const AccountScalarFieldEnum = {
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
 
 
-export const BlockListScalarFieldEnum = {
-  id: 'id',
-  ownerId: 'ownerId'
-} as const
-
-export type BlockListScalarFieldEnum = (typeof BlockListScalarFieldEnum)[keyof typeof BlockListScalarFieldEnum]
-
-
-export const BlockItemScalarFieldEnum = {
-  id: 'id',
-  blockListId: 'blockListId',
-  type: 'type',
-  data: 'data',
-  createdAt: 'createdAt'
-} as const
-
-export type BlockItemScalarFieldEnum = (typeof BlockItemScalarFieldEnum)[keyof typeof BlockItemScalarFieldEnum]
-
-
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1118,20 +949,6 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
- * Reference to a field of type 'BlockItemType'
- */
-export type EnumBlockItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockItemType'>
-    
-
-
-/**
- * Reference to a field of type 'BlockItemType[]'
- */
-export type ListEnumBlockItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockItemType[]'>
     
 
 
@@ -1248,8 +1065,6 @@ export type GlobalOmitConfig = {
   content?: Prisma.ContentOmit
   photo?: Prisma.PhotoOmit
   account?: Prisma.AccountOmit
-  blockList?: Prisma.BlockListOmit
-  blockItem?: Prisma.BlockItemOmit
 }
 
 /* Types for Logging */

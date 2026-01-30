@@ -1,230 +1,6 @@
 openapi: 3.0.0
 paths:
-  /users:
-    get:
-      operationId: UserController_findAll
-      parameters: []
-      responses:
-        '200':
-          description: ''
-      summary: Получить всех пользователей
-      tags:
-        - Users
-  /users/me:
-    get:
-      operationId: UserController_getMe
-      parameters: []
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserDto'
-      tags:
-        - Users
-    patch:
-      operationId: UserController_updateProfile
-      parameters: []
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UpdateProfileDto'
-      responses:
-        '200':
-          description: ''
-      tags:
-        - Users
-  /users/{id}:
-    get:
-      operationId: UserController_findOne
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-      summary: Получить одного пользователя
-      tags:
-        - Users
-    patch:
-      operationId: UserController_update
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateUserDto'
-      responses:
-        '200':
-          description: ''
-      summary: Обновить пользователя
-      tags:
-        - Users
-    delete:
-      operationId: UserController_remove
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-      summary: Удалить пользователя
-      tags:
-        - Users
-  /users/upload:
-    post:
-      operationId: UserController_uploadAvatar
-      parameters: []
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  format: binary
-      responses:
-        '201':
-          description: ''
-      security:
-        - bearer: []
-      summary: Загрузка аватара пользователя
-      tags:
-        - Users
-  /account:
-    get:
-      operationId: AccountController_getAccount
-      parameters: []
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AccountDto'
-      tags:
-        - Account
-    patch:
-      operationId: AccountController_patchAccount
-      parameters: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchAccountDto'
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PatchAccountDto'
-      tags:
-        - Account
-  /block-list:
-    get:
-      operationId: BlockListController_getList
-      parameters:
-        - name: q
-          required: false
-          in: query
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BlockListDto'
-      tags:
-        - BlockList
-  /block-list/item:
-    post:
-      operationId: BlockListController_addBlockItem
-      parameters: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AddBlockItemDto'
-      responses:
-        '201':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BlockItemDto'
-      tags:
-        - BlockList
-  /block-list/item/{id}:
-    delete:
-      operationId: BlockListController_removeBlockItem
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: number
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BlockItemDto'
-      tags:
-        - BlockList
-  /photos/upload:
-    post:
-      operationId: PhotoController_uploadPhoto
-      parameters: []
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UploadPhotoDto'
-      responses:
-        '201':
-          description: ''
-      tags:
-        - Photos
-  /photos/{id}:
-    delete:
-      operationId: PhotoController_removePhoto
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-      summary: Удалить фотографию по ID
-      tags:
-        - Photos
-  /Items:
+  /api/Items:
     post:
       operationId: ItemController_createItem
       parameters: []
@@ -273,7 +49,7 @@ paths:
       summary: Получить все айтемы
       tags:
         - Item
-  /Items/{id}:
+  /api/Items/{id}:
     get:
       operationId: ItemController_findOneItem
       parameters:
@@ -326,7 +102,188 @@ paths:
       summary: Удалить айтем
       tags:
         - Item
-  /auth/sign-up:
+  /api/photos/upload:
+    post:
+      operationId: PhotoController_uploadPhoto
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                itemId:
+                  type: string
+                  example: '1'
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+              required:
+                - itemId
+                - files
+      responses:
+        '201':
+          description: ''
+      tags:
+        - Photos
+  /api/photos/{id}:
+    delete:
+      operationId: PhotoController_removePhoto
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Удалить фотографию по ID
+      tags:
+        - Photos
+  /api/users:
+    get:
+      operationId: UserController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: Получить всех пользователей
+      tags:
+        - Users
+  /api/users/me:
+    get:
+      operationId: UserController_getMe
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+      tags:
+        - Users
+    patch:
+      operationId: UserController_updateProfile
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Users
+  /api/users/{id}:
+    get:
+      operationId: UserController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Получить одного пользователя
+      tags:
+        - Users
+    patch:
+      operationId: UserController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDto'
+      responses:
+        '200':
+          description: ''
+      summary: Обновить пользователя
+      tags:
+        - Users
+    delete:
+      operationId: UserController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Удалить пользователя
+      tags:
+        - Users
+  /api/users/upload:
+    post:
+      operationId: UserController_uploadAvatar
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: ''
+      security:
+        - bearer: []
+      summary: Загрузка аватара пользователя
+      tags:
+        - Users
+  /api/account:
+    get:
+      operationId: AccountController_getAccount
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDto'
+      tags:
+        - Account
+    patch:
+      operationId: AccountController_patchAccount
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchAccountDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchAccountDto'
+      tags:
+        - Account
+  /api/auth/sign-up:
     post:
       operationId: AuthController_signUp
       parameters: []
@@ -341,7 +298,7 @@ paths:
           description: ''
       tags:
         - Auth
-  /auth/sign-in:
+  /api/auth/sign-in:
     post:
       operationId: AuthController_signIn
       parameters: []
@@ -356,7 +313,7 @@ paths:
           description: ''
       tags:
         - Auth
-  /auth/sign-out:
+  /api/auth/sign-out:
     post:
       operationId: AuthController_signOut
       parameters: []
@@ -365,7 +322,7 @@ paths:
           description: ''
       tags:
         - Auth
-  /auth/session:
+  /api/auth/session:
     get:
       operationId: AuthController_getSessionInfo
       parameters: []
@@ -378,7 +335,7 @@ paths:
                 $ref: '#/components/schemas/GetSessionInfoDto'
       tags:
         - Auth
-  /auth/change-password:
+  /api/auth/change-password:
     post:
       operationId: AuthController_changePassword
       parameters: []
@@ -393,7 +350,7 @@ paths:
           description: ''
       tags:
         - Auth
-  /auth/forgot-password:
+  /api/auth/forgot-password:
     post:
       operationId: AuthController_forgotPassword
       parameters: []
@@ -408,7 +365,7 @@ paths:
           description: ''
       tags:
         - Auth
-  /auth/reset-password-confirm:
+  /api/auth/reset-password-confirm:
     post:
       operationId: AuthController_resetPasswordConfirm
       parameters: []
@@ -434,130 +391,6 @@ tags: []
 servers: []
 components:
   schemas:
-    PhotoDto:
-      type: object
-      properties:
-        id:
-          type: number
-        url:
-          type: string
-        filename:
-          type: string
-      required:
-        - id
-        - url
-        - filename
-    UserDto:
-      type: object
-      properties:
-        id:
-          type: number
-          example: 1
-        email:
-          type: string
-          example: test@test.com
-        name:
-          type: string
-          example: John Doe
-        photo:
-          nullable: true
-          allOf:
-            - $ref: '#/components/schemas/PhotoDto'
-      required:
-        - id
-        - email
-        - photo
-    UpdateProfileDto:
-      type: object
-      properties: {}
-    UpdateUserDto:
-      type: object
-      properties: {}
-    AccountDto:
-      type: object
-      properties:
-        id:
-          type: number
-        ownerId:
-          type: number
-        isBlockingEnabled:
-          type: boolean
-      required:
-        - id
-        - ownerId
-        - isBlockingEnabled
-    PatchAccountDto:
-      type: object
-      properties:
-        isBlockingEnabled:
-          type: boolean
-    BlockItemDto:
-      type: object
-      properties:
-        id:
-          type: number
-        blockListid:
-          type: number
-        type:
-          type: string
-          enum:
-            - KeyWord
-            - Website
-        data:
-          type: string
-        createdAt:
-          format: date-time
-          type: string
-      required:
-        - id
-        - blockListid
-        - type
-        - data
-        - createdAt
-    BlockListDto:
-      type: object
-      properties:
-        id:
-          type: number
-        ownerId:
-          type: number
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/BlockItemDto'
-      required:
-        - id
-        - ownerId
-        - items
-    AddBlockItemDto:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-            - KeyWord
-            - Website
-        data:
-          type: string
-      required:
-        - type
-        - data
-    UploadPhotoDto:
-      type: object
-      properties:
-        files:
-          type: array
-          items:
-            type: string
-            format: binary
-          description: Выберите несколько файлов
-        itemId:
-          type: string
-          description: Id предмета
-          example: 1
-      required:
-        - files
-        - itemId
     CreateContentDto:
       type: object
       properties:
@@ -687,6 +520,63 @@ components:
           format: date-time
           type: string
           example: '2024-01-20T10:30:00Z'
+    PhotoDto:
+      type: object
+      properties:
+        id:
+          type: number
+        url:
+          type: string
+        filename:
+          type: string
+      required:
+        - id
+        - url
+        - filename
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        email:
+          type: string
+          example: test@test.com
+        name:
+          type: string
+          example: John Doe
+        photo:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/PhotoDto'
+      required:
+        - id
+        - email
+        - photo
+    UpdateProfileDto:
+      type: object
+      properties: {}
+    UpdateUserDto:
+      type: object
+      properties: {}
+    AccountDto:
+      type: object
+      properties:
+        id:
+          type: number
+        ownerId:
+          type: number
+        isBlockingEnabled:
+          type: boolean
+      required:
+        - id
+        - ownerId
+        - isBlockingEnabled
+    PatchAccountDto:
+      type: object
+      properties:
+        isBlockingEnabled:
+          type: boolean
     SignUpBodyDto:
       type: object
       properties:

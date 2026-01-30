@@ -25,7 +25,6 @@ model User {
   items Item[]
   photo     Photo?    @relation("UserPhoto")
   account Account?
-  blockList BlockList?
 }
 
 model Item {
@@ -64,26 +63,4 @@ model Account{
   ownerId Int @unique
   owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   isBlockingEnabled Boolean
-}
-
-model BlockList {
-  id Int @id @default(autoincrement())
-  ownerId Int @unique
-  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-
-  items BlockItem[]
-}
-
-model BlockItem{
-  id Int @id @default(autoincrement())
-  blockListId Int 
-  owner BlockList @relation(fields: [blockListId], references: [id])
-  type BlockItemType
-  data String
-  createdAt DateTime @default(now())
-}
-
-enum BlockItemType{
-  Website
-  KeyWord
 }
