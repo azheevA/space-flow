@@ -25,6 +25,7 @@ services:
       - ./nestjs-prisma:/app
       - /app/node_modules
       - ./nestjs-prisma/uploads:/app/uploads
+      - ./nestjs-prisma/prisma/seed-assets:/app/prisma/seed-assets
 
   frontend:
     build:
