@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { randomBytes, pbkdf2Sync } from 'crypto';
+import * as argon2 from 'argon2';
+
 @Injectable()
 export class PasswordService {
-  getSalt() {
-    return randomBytes(16).toString('hex');
+  async getHash(password: string): Promise<string> {
+    return await argon2.hash(password);
   }
 
-  getHash(password: string, salt: string) {
-    return pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+  async compare(hash: string, plain: string): Promise<boolean> {
+    try {
+      return await argon2.verify(hash, plain);
+    } catch (e) {
+      return false;
+      console.error('Error comparing password hash:', e);
+    }
   }
 }

@@ -25,9 +25,14 @@ export class AuthService {
     if (user) {
       throw new BadRequestException({ type: 'email-exists' });
     }
-    const salt = this.passwordService.getSalt();
-    const hash = this.passwordService.getHash(password, salt);
-    const newUser = await this.userService.createUser(name, email, hash, salt);
+    const hash = await this.passwordService.getHash(password);
+    const newUser = await this.userService.createUser(
+      name,
+      email,
+      hash,
+      'no_salt_needed',
+    );
+
     const accessToken = await this.jwtService.signAsync({
       id: newUser.id,
       email: newUser.email,
@@ -40,11 +45,15 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException();
     }
-    const hash = this.passwordService.getHash(password, user.salt);
+    const isPasswordValid = await this.passwordService.compare(
+      user.hash,
+      password,
+    );
 
-    if (hash !== user.hash) {
+    if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
+
     const accessToken = await this.jwtService.signAsync({
       id: user.id,
       name: user.name,
@@ -64,39 +73,34 @@ export class AuthService {
     }
 
     const user = await this.userService.user({ id: userId });
-
     if (!user) {
       throw new UnauthorizedException();
     }
+    const isOldValid = await this.passwordService.compare(
+      user.hash,
+      oldPassword,
+    );
 
-    const oldHash = this.passwordService.getHash(oldPassword, user.salt);
-
-    if (oldHash !== user.hash) {
+    if (!isOldValid) {
       throw new BadRequestException('Old password is incorrect');
     }
-
     if (oldPassword === newPassword) {
       throw new BadRequestException('New password must be different');
     }
-
-    const newSalt = this.passwordService.getSalt();
-    const newHash = this.passwordService.getHash(newPassword, newSalt);
-
+    const newHash = await this.passwordService.getHash(newPassword);
     await this.userService.updateUser({
       where: { id: userId },
       data: {
-        salt: newSalt,
+        salt: 'no_salt_needed',
         hash: newHash,
       },
     });
-
     return { success: true };
   }
 
   async forgotPassword(email: string) {
     const user = await this.userService.findByEmail(email);
     if (!user) throw new NotFoundException('User not found');
-
     const code = Math.floor(100000 + Math.random() * 900000).toString();
     await this.prisma.user.update({
       where: { email },
@@ -128,14 +132,12 @@ export class AuthService {
     if (user.resetCode !== code) {
       throw new BadRequestException('Invalid code');
     }
-
-    const newSalt = this.passwordService.getSalt();
-    const newHash = this.passwordService.getHash(newPass, newSalt);
+    const newHash = await this.passwordService.getHash(newPass);
 
     await this.userService.updateUser({
       where: { id: user.id },
       data: {
-        salt: newSalt,
+        salt: 'no_salt_needed', // Заглушка
         hash: newHash,
         resetCode: null,
         resetCodeExp: null,

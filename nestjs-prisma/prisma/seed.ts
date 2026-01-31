@@ -9,7 +9,7 @@ const UPLOADS_DIR = path.join(process.cwd(), 'uploads');
 const SEED_ASSETS_DIR = path.join(process.cwd(), 'prisma', 'seed-assets');
 if (!fs.existsSync(SEED_ASSETS_DIR)) {
   console.error(
-    `❌ ОШИБКА: Папка ${SEED_ASSETS_DIR} не найдена! Создайте её и положите туда красивые картинки космоса.`,
+    `ОШИБКА: Папка ${SEED_ASSETS_DIR} не найдена! Создайте её и положите туда красивые картинки космоса.`,
   );
   process.exit(1);
 }
@@ -22,7 +22,6 @@ const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 const passwordService = new PasswordService();
 function simulateFileUpload(prefix: string = 'seed') {
-  // Получаем список файлов в папке ассетов
   const files = fs
     .readdirSync(SEED_ASSETS_DIR)
     .filter((file) => file.match(/\.(jpg|jpeg|png|webp)$/i));
@@ -41,7 +40,6 @@ function simulateFileUpload(prefix: string = 'seed') {
   const sourcePath = path.join(SEED_ASSETS_DIR, randomFile);
   const destPath = path.join(UPLOADS_DIR, uniqueFilename);
 
-  // Копируем файл
   fs.copyFileSync(sourcePath, destPath);
   return {
     url: `/static/${uniqueFilename}`,
@@ -51,7 +49,7 @@ function simulateFileUpload(prefix: string = 'seed') {
 }
 
 async function clearDatabase() {
-  console.log('🧹 Очистка базы данных и папки uploads...');
+  console.log('Очистка базы данных и папки uploads...');
   await prisma.photo.deleteMany();
   await prisma.content.deleteMany();
   await prisma.item.deleteMany();
@@ -60,8 +58,9 @@ async function clearDatabase() {
 }
 
 async function createUser(password: string) {
-  const salt = passwordService.getSalt();
-  const hash = passwordService.getHash(password, salt);
+  const hash = await passwordService.getHash(password);
+  const salt = 'argon2_internal_salt';
+
   const avatarData = simulateFileUpload('avatar');
 
   return await prisma.user.create({
@@ -92,11 +91,11 @@ function generatePhotosForItem() {
 }
 
 async function main() {
-  console.log('🌱 Начинаем сидинг (Local Assets Mode)...');
+  console.log('Начинаем сидинг ...');
 
   await clearDatabase();
 
-  console.log('👤 Создание пользователей...');
+  console.log('Создание пользователей...');
   const users: User[] = [];
   for (let i = 0; i < 5; i++) {
     const user = await createUser('password123');
@@ -104,7 +103,7 @@ async function main() {
   }
 
   console.log(
-    `🚀 Создание айтемов с контентом и фото для ${users.length} пользователей...`,
+    `Создание айтемов с контентом и фото для ${users.length} пользователей...`,
   );
 
   const itemsPromises: Prisma.Prisma__ItemClient<any>[] = [];
@@ -159,7 +158,7 @@ async function main() {
   }
   await prisma.$transaction(itemsPromises);
 
-  console.log('✨ Сид успешно завершен! Фотографии скопированы в uploads.');
+  console.log('Сид успешно завершен! Фотографии скопированы в uploads.');
 }
 
 main()
@@ -167,7 +166,7 @@ main()
     await prisma.$disconnect();
   })
   .catch(async (e) => {
-    console.error('❌ Ошибка сида:', e);
+    console.error('Ошибка сида:', e);
     await prisma.$disconnect();
     process.exit(1);
   });
