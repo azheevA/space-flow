@@ -1,102 +1,37 @@
-html,
-body {
-  cursor: none;
-}
-.neon-border {
-  --x: 50%;
-  --y: 50%;
+* {
+  cursor: none !important;
 }
 
-.neon-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1.5px;
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 2.3s ease;
-  background: radial-gradient(
-    160px circle at var(--x) var(--y),
-    rgba(var(--rgb), calc(var(--glow) + 0.2)),
-    rgba(var(--rgb), var(--glow)),
-    transparent 70%
-  );
-
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
-
-  pointer-events: none;
-}
-.neon-border.is-active::before {
-  opacity: 1;
+.cursor-outline {
+  width: 15px;
+  height: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition:
+    width 0.3s,
+    height 0.3s,
+    background-color 0.3s,
+    border-color 0.3s,
+    opacity 0.3s;
 }
 
-.cursor-fast {
+.cursor-dot,
+.cursor-outline {
   position: fixed;
   top: 0;
   left: 0;
-
-  width: 10px;
-  height: 10px;
-  border-radius: 9999px;
-
-  background: rgba(168, 85, 247, 1);
-  box-shadow: 0 0 8px rgba(168, 85, 247, 0.9);
-
   transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 9999;
   pointer-events: none;
-  z-index: 10000;
 }
-@keyframes cursor-breath {
-  0%,
-  100% {
-    opacity: 0.35;
-  }
-  50% {
-    opacity: 0.65;
-  }
+body.cursor-hover .cursor-outline {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(138, 43, 226, 0.15);
+  border-color: #8a2be2;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
 }
-
-:root {
-  --cx: 50vw;
-  --cy: 50vh;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  width: 150px;
-  height: 150px;
-
-  left: var(--cx);
-  top: var(--cy);
-  transform: translate(-50%, -50%);
-
-  pointer-events: none;
-  z-index: 0;
-
-  background: radial-gradient(
-    circle,
-    rgba(206, 32, 171, 0.35),
-    transparent 90%
-  );
-
-  filter: blur(32px);
-  animation: cursor-breath 5s ease-in-out infinite;
-}
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-* {
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease;
+body.cursor-hidden .cursor-dot,
+body.cursor-hidden .cursor-outline {
+  opacity: 0;
 }

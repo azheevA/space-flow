@@ -1,3 +1,41 @@
 @import "tailwindcss";
 
 @config "../tailwind.config.js";
+
+* {
+  cursor: none !important;
+}
+
+.cursor-outline {
+  width: 15px;
+  height: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition:
+    width 0.3s,
+    height 0.3s,
+    background-color 0.3s,
+    border-color 0.3s,
+    opacity 0.3s;
+}
+
+.cursor-dot,
+.cursor-outline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 9999;
+  pointer-events: none;
+}
+body.cursor-hover .cursor-outline {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(138, 43, 226, 0.15);
+  border-color: #8a2be2;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+}
+body.cursor-hidden .cursor-dot,
+body.cursor-hidden .cursor-outline {
+  opacity: 0;
+}
