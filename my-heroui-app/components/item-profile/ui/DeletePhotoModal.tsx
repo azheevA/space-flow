@@ -18,13 +18,8 @@ export function DeletePhotoModal({
 }: DeletePhotoModalProps) {
   if (!isOpen || !selectedPhoto) return null;
 
-  const getPhotoUrl = (photoUrl: string) => {
-    if (!photoUrl) return "";
-    if (photoUrl.startsWith("http://") || photoUrl.startsWith("https://"))
-      return photoUrl;
-    if (photoUrl.startsWith("/static/"))
-      return `http://localhost:3000${photoUrl}`;
-    return `http://localhost:3000/static/${photoUrl}`;
+  const getPhotoUrl = (url: string) => {
+    return url;
   };
 
   return (
@@ -54,14 +49,7 @@ export function DeletePhotoModal({
           </p>
         </div>
 
-        <div className="flex justify-end gap-3">
-          <button
-            onClick={onClose}
-            disabled={isPending}
-            className="px-4 py-2 text-gray-300 hover:text-white disabled:text-gray-500"
-          >
-            Отмена
-          </button>
+        <div className="flex justify-between gap-3">
           <button
             onClick={onDelete}
             disabled={isPending}
@@ -73,6 +61,13 @@ export function DeletePhotoModal({
               ""
             )}
             {isPending ? "Удаление..." : "Удалить фото"}
+          </button>
+          <button
+            onClick={onClose}
+            disabled={isPending}
+            className="px-4 py-2 text-gray-300 hover:text-white disabled:text-gray-500"
+          >
+            Отмена
           </button>
         </div>
       </div>

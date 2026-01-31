@@ -28,10 +28,12 @@ export default function ItemList() {
       <h1 className={clsx(title(), "mb-10", uniqueText({ color: "cyan" }))}>
         Каталог
       </h1>
-      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between w-full max-w-7xl px-4 mb-6">
-        <Button size="lg" variant="secondary">
-          <Link href="/items/create-item">Создать свою карточку</Link>
-        </Button>
+      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between w-7xl px-4 mb-6">
+        <Link href="/items/create-item">
+          <Button size="lg" variant="secondary" className="text-white">
+            Создать свою карточку
+          </Button>
+        </Link>
         <Select
           label="Сортировка"
           placeholder="Выберите порядок"

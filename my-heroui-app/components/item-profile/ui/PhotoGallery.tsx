@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { ImageIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import { ImageIcon, ChevronDownIcon, ChevronUpIcon, Trash } from "lucide-react";
 import { API_BASE_URL } from "@/config/utils/url";
 
 interface PhotoGalleryProps {
@@ -132,7 +132,7 @@ export function PhotoGallery({
                     }}
                     className="absolute top-2 right-2 bg-red-600/80 hover:bg-red-600 text-white p-1.5 rounded-lg opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
                   >
-                    🗑️
+                    <Trash />
                   </div>
                 </div>
               </div>
