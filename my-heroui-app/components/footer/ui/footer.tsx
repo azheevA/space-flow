@@ -7,8 +7,8 @@ export default function Footer() {
       <Link
         isExternal
         className="flex items-center gap-1 text-current"
-        href="https://heroui.com?utm_source=next-app-template"
-        title="heroui.com homepage"
+        href="https://ulan-ude.hh.ru/resume/54894c25ff0d2512130039ed1f45793857656d?hhtmFrom=resume_list"
+        title="Ghost Raven"
       >
         <span className="text-default-600">Powered by</span>
         <p className="text-primary">Ghost Raven</p>
