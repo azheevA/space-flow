@@ -45,7 +45,7 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api
 ```
 
 ```env в backend
-DATABASE_URL="postgresql://postgres:727272@localhost:5432/spaceflow1?schema=public"
+DATABASE_URL="postgresql://username:password@localhost:5432/db?schema=public"
 JWT_SECRET="ваш секрет"
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=ваш порт
